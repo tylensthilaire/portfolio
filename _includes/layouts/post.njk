@@ -2,10 +2,7 @@
 layout: layouts/base.njk
 templateClass: tmpl-post
 ---
-<h1>{{ title }}</h1>
-
 {{ content | safe }}
-
 <h2>More like this</h2>
 <ul>
   {%- if post.data.category == articles -%}
