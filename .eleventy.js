@@ -50,7 +50,8 @@ module.exports = function(eleventyConfig) {
             case "nav":
             case "post":
             case "posts":
-              return false;
+            case "journal":
+            return false;
           }
 
           return true;
