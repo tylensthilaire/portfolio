@@ -10,7 +10,7 @@
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
   </head>
   <body>
-    <main id="content" aria-labelledby="page-title" {% if templateClass %} class="{{ templateClass }}"{% endif %}>
+    <main id="content" {% if templateClass %} class="{{ templateClass }}"{% endif %}>
       {{ content | safe }}
     </main>
     <header>
