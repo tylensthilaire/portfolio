@@ -1,10 +1,11 @@
 ---
-layout: layouts/post.njk
-title: About Me
-templateClass: tmpl-post
+layout: layouts/generic.njk
+title: Bio
+templateClass: tmpl-generic
 eleventyNavigation:
-  key: About Me
+  key: Bio
   order: 3
 ---
 
+# Bio
 I am a person that writes stuff.
