@@ -1,6 +1,8 @@
 {
   "cSpell.ignoreWords": [
     "browsersync",
+    "itcss",
+    "mixins",
     "passthrough",
     "pathprefix",
     "syntaxhighlight"
