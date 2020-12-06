@@ -7,14 +7,15 @@
 // Global settings and design tokens, e.g. base font size, colour palettes.
 // ========================================================================
 
-@import "settings";
+@import "settings-core";
 
 // ========================================================================
 // TOOLS
 // Global mixins and functions, e.g. gradients, type scales.
 // ========================================================================
 
-@import "tools";
+@import "tools-system-fonts";
+@import "tools-layout-grid";
 
 // ========================================================================
 // GENERIC

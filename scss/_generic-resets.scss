@@ -6,9 +6,11 @@
 
 html {
   scroll-behavior: smooth; // Nicer default jump scrolling
+  min-height: 100%; // Ensure page fills entire viewport
   min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
   box-sizing: border-box; // Make box sizing intuitive
   font-size: 100%; // Make text sizes respect browser preferences
+  overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
 }
 
 * {
@@ -138,6 +140,11 @@ img, svg, video, canvas, audio, iframe, embed, object {
 // Maintain intrinsic aspect ratios when `max-width` is applied
 img, svg, video, canvas {
   height: auto;
+}
+
+// Offset `alt` text from surrounding copy.
+img {
+  font-style: italic;
 }
 
 // Set reasonable default width for audio
