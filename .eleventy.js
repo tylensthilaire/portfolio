@@ -67,8 +67,10 @@ module.exports = function(eleventyConfig) {
     return [...tagSet];
   });
 
+  // Copy the following directories to output directory
   eleventyConfig.addPassthroughCopy("img");
   eleventyConfig.addPassthroughCopy("css");
+  eleventyConfig.addPassthroughCopy("js");
 
   /* Markdown Overrides */
   let markdownLibrary = markdownIt({
