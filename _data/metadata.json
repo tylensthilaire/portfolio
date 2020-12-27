@@ -2,6 +2,11 @@
   "title": "Tylen St Hilaire ‧ User Experience Architect & Designer",
   "url": "https://tylensthilaire.com/",
   "description": "The work of Tylen St Hilaire, a UX architect & designer blending art, human factors and digital technology into meaningful experiences.",
+  "siteName": "Tylen St Hilaire",
+  "image": {
+    "thumb": "{{ '/img/site-thumb.png' | url }}",
+    "alt": "Preview of Tylen's website, reading \"Hello, I'm a UX Architect who thinks like a generalist and delivers like a specialist\""
+  },
   "feed": {
     "subtitle": "The work of Tylen St Hilaire, blending art, human factors and technology into meaningful experiences.",
     "filename": "feed.xml",
@@ -15,6 +20,12 @@
   "author": {
     "name": "Tylen St Hilaire",
     "email": "hello@tylensthilaire.com",
-    "url": "https://tylensthilaire.com/about-me/"
+    "url": "https://tylensthilaire.com/about-me/",
+    "twitter": "@tylensthilaire"
+  },
+  "social": {
+    "twitter": "@tylensthilaire",
+    "pinterest": "",
+    "pinterestClaim": "11991f9534dce071c6ead07af899ef17"
   }
 }
