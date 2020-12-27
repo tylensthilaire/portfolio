@@ -11,6 +11,7 @@
     <meta property="og:url" content="{{ page.url | url }}">
     <meta property="og:title" content="{{ title or metadata.title }}">
     <meta property="og:image" content="{{ thumb or metadata.image.thumb }}">
+    <meta property="og:image:alt" content="{{ thumbAlt or metadata.image.alt }}">
     <meta property="og:description" content="{{ description or metadata.description }}">
     <meta property="og:site_name" content="{{ metadata.siteName }}">
     <meta property="og:locale" content="en_GB">

@@ -4,8 +4,8 @@
   "description": "The work of Tylen St Hilaire, a UX architect & designer blending art, human factors and digital technology into meaningful experiences.",
   "siteName": "Tylen St Hilaire",
   "image": {
-    "thumb": "{{ '/js/main.js' | url }}",
-    "alt": ""
+    "thumb": "{{ '/img/site-thumb.png' | url }}",
+    "alt": "Preview of Tylen's website, reading \"Hello, I'm a UX Architect who thinks like a generalist and delivers like a specialist\""
   },
   "feed": {
     "subtitle": "The work of Tylen St Hilaire, blending art, human factors and technology into meaningful experiences.",
