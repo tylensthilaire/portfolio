@@ -6,6 +6,24 @@
     <title>{{ title or metadata.title }}</title>
     <meta name="description" content="{{ description or metadata.description }}">
     <link rel="canonical" href="{{ page.url or metadata.canonical | url }}">
+    <!-- OpenGraph -->
+    <meta property="og:type" content="{{ type or 'website' }}">
+    <meta property="og:url" content="{{ page.url | url }}">
+    <meta property="og:title" content="{{ title or metadata.title }}">
+    <meta property="og:image" content="{{ thumb or metadata.image.thumb }}">
+    <meta property="og:description" content="{{ description or metadata.description }}">
+    <meta property="og:site_name" content="{{ metadata.siteName }}">
+    <meta property="og:locale" content="en_GB">
+    <!-- Twitter cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ metadata.social.twitter }}">
+    <meta name="twitter:creator" content="{{ authorTwitter or metadata.author.twitter }}">
+    <meta name="twitter:title" content="{{ title or metadata.title }}">
+    <meta name="twitter:description" content="{{ description or metadata.description }}">
+    <meta name="twitter:image" content="{{ thumb or metadata.image.thumb }}">
+    <meta name="twitter:image:alt" content="{{ thumbAlt or metadata.image.alt }}">
+    <!-- Pinterest -->
+    <meta name="p:domain_verify" content="{{ metadata.social.pinterestClaim}}"/>
     <!-- Localised versions -->
     <link rel="alternate" href="{{ page.url or metadata.canonical | url }}" hreflang="x-default" />
     <!-- Feeds -->
