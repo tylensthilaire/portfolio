@@ -27,6 +27,18 @@
     <meta name="p:domain_verify" content="{{ metadata.social.pinterestClaim}}"/>
     <!-- Localised versions -->
     <link rel="alternate" href="{{ page.url or metadata.canonical | url }}" hreflang="x-default" />
+    <!-- Favicons et al -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="manifest" href="img/favicon/site.webmanifest">
+    <meta name="apple-mobile-web-app-title" content="Tylen St Hilaire">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="translucent-black">
+    <meta name="application-name" content="Tylen St Hilaire">
+    <meta name="msapplication-config" content="img/favicon/browserconfig.xml" />
+    <meta name="msapplication-TileColor" content="#c4662f">
+    <meta name="theme-color" content="#ffffff">
     <!-- Feeds -->
     <link rel="alternate" href="{{ metadata.feed.path | url }}" type="application/atom+xml" title="{{ metadata.title }}">
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
