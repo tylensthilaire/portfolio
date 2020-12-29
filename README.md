@@ -106,8 +106,8 @@ npx eleventy --serve
 **Semantic line breaks** keeps content version-control friendly.
 For more information see [Semantic Line Breaks](https://sembr.org).
 
-- Following the letter of the specification is not required.
-- Following the spirit is.
+- Following the letter of the specification is *not* required.
+- Following the spirit *is*.
 
 <details>
   <summary>Project structure</summary>
@@ -116,21 +116,21 @@ For more information see [Semantic Line Breaks](https://sembr.org).
 .
 ├─ _data/metadata.json      // Global data file
 ├─ _includes
-   ├─ layouts
-      ├─ base.njk           // Master template
-      ├─ home.njk           // Homepage template
-      └─ post.njk           // Post template
-   └─ postslist.njk         // Post lists component
+│  ├─ layouts
+│  │  ├─ base.njk           // Master template
+│  │  ├─ home.njk           // Homepage template
+│  │  └─ post.njk           // Post template
+│  └─ postslist.njk         // Post lists component
 ├─ .github/funding.yml
 ├─ .vscode/settings.json
 ├─ about                    // Bio page
 ├─ css                      // Electron JS app folder
 ├─ feed                     // Feed files
-   └─ ...
+│  └─ ...
 ├─ img                      // Image files
-   └─ ...
+│  └─ ...
 ├─ posts
-   └─ ...                   // Posts
+│  └─ ...                   // Posts
 ├─ .editorconfig
 ├─ .gitignore
 ├─ .nvmrc
@@ -141,7 +141,7 @@ For more information see [Semantic Line Breaks](https://sembr.org).
 ├─ netlify.toml
 ├─ package.json
 ├─ page-list.njk
-└─ README.md                // ☛ You are here
+├─ README.md                // ☛ You are here
 ├─ sitemap.xml.njk
 ├─ tags-list.njk
 └─ tags.njk
