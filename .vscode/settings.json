@@ -5,6 +5,22 @@
     "mixins",
     "passthrough",
     "pathprefix",
-    "syntaxhighlight"
-  ]
+    "syntaxhighlight",
+    "tylensthilaire",
+    "markdownlint",
+    "quickstart",
+    "frontmatter",
+    "postslist",
+    "editorconfig",
+    "nvmrc"
+  ],
+  "editor.formatOnSave": true,
+  "cSpell.language": "en-GB",
+  "markdownlint.config": {
+    "default": true,
+    "MD013": false,
+    "MD025": false,
+    "MD026": { "punctuation": ".,;:。，；：！？" },
+    "MD033": false
+  }
 }
