@@ -1,7 +1,8 @@
 {
   "name": "tylen-st-hilaire-portfolio-site",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Source code for tylensthilaire.com.",
+  "homepage": "https://tylensthilaire.com",
   "scripts": {
     "build": "eleventy",
     "watch": "eleventy --watch",
@@ -18,11 +19,10 @@
     "email": "tylen@tylensthilaire.com",
     "url": "https://tylensthilaire.com"
   },
-  "license": "MIT",
+  "license": "MIT OR CC BY-SA 4.0",
   "bugs": {
     "url": "https://github.com/tylensthilaire/portfolio/issues"
   },
-  "homepage": "https://tylensthilaire.com",
   "Dependencies": {},
   "devDependencies": {
     "@11ty/eleventy": "^0.11.1",
