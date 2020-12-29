@@ -158,13 +158,13 @@ Alternatively, contact an [author](#author) directly.
 
 <table role="presentation">
   <tr align="center">
-    <td><img width="4rem" src="img/readme/npm.png" alt="npm"></br>npm</td>
-    <td><img width="4rem" src="img/readme/11ty.png" alt="11ty"></br>11ty</td>
-    <td><img width="4rem" src="img/readme/netlify.png" alt="netlify"></br>Netlify</td>
-    <td><img width="4rem" src="img/readme/sketch.png" alt="sketch"></br>Sketch</td>
-    <td><img width="4rem" src="img/readme/markdown.png" alt="markdown"></br>Markdown</td>
-    <td><img width="4rem" src="img/readme/nunjucks.png" alt="nunjucks"></br>Nunjucks</td>
-    <td><img width="4rem" src="img/readme/sass.png" alt="sass"></br>Sass</td>
+    <td><img width="64px" src="img/readme/npm.png" alt="npm"></br>npm</td>
+    <td><img width="64px" src="img/readme/11ty.png" alt="11ty"></br>11ty</td>
+    <td><img width="64px" src="img/readme/netlify.png" alt="netlify"></br>Netlify</td>
+    <td><img width="64px" src="img/readme/sketch.png" alt="sketch"></br>Sketch</td>
+    <td><img width="64px" src="img/readme/markdown.png" alt="markdown"></br>Markdown</td>
+    <td><img width="64px" src="img/readme/nunjucks.png" alt="nunjucks"></br>Nunjucks</td>
+    <td><img width="64px" src="img/readme/sass.png" alt="sass"></br>Sass</td>
   </tr>
 </table>
 
@@ -178,8 +178,8 @@ Buy me a coffee, ko-fi, patreon badge / button etc
 
 <table role="presentation">
   <tr align="center">
-    <td><a href="https://twitter.com/"><img width="6rem" src="img/readme/tylensthilaire.jpg" alt="Portrait of Tylen St Hilaire"></br>@tylensthilaire</a></td>
-    <td><img width="6rem" src="img/readme/11ty.png" alt="Blank portrait"></br>You?</td>
+    <td><a href="https://twitter.com/"><img width="96px" src="img/readme/portrait-tylensthilaire.jpg" alt="Portrait of Tylen St Hilaire"></br>@tylensthilaire</a></td>
+    <td><img width="96px" src="img/readme/portrait-blank.jpg" alt="Blank portrait"></br>You?</td>
   </tr>
 </table>
 <!-- See also the list of [contributors](../../contributors) who helped this project. -->
