@@ -53,10 +53,9 @@
   </head>
   <body>
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
-      <header>
-        <h1 class="home">
-          <a href="{{ '/' | url }}">{{ metadata.title }}</a>
-        </h1>
+    <header>
+      <a href="{{ '/' | url }}">{{ metadata.title }}</a>
+
 
         {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
         <ul class="nav">
