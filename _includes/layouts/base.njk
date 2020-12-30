@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" style="--static:url(../img/src/static.gif);--portrait:url(../img/src/bg.jpg);">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -42,12 +42,16 @@
     <!-- Feeds -->
     <link rel="alternate" href="{{ metadata.feed.path | url }}" type="application/atom+xml" title="{{ metadata.title }}">
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
+    <!-- Preconnect hints -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <!-- Styles -->
     <link rel="preload" as="style" href="{{ '/css/critical.css' | url }}">
+    <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" media="print" onload="this.onload=null;this.removeAttribute('media');">
     <noscript>
       <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
     </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <!-- Scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
   </head>
@@ -55,7 +59,7 @@
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
       {{ content | safe }}
     </main>
-    <header>
+    <header class="masthead">
       <hr>
       <nav>
         <h2>Navigation menu</h2>
@@ -72,13 +76,18 @@
         </ul>
       </nav>
     </header>
-    <footer>
-      <hr>
-      <h2>P.S.</h2>
-      <p>User Experience, Visual Design, Content Strategy</p>
-      <p>Let's Talk
-        <a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a>
-      </p>
+    <footer class="footer">
+      <div class="tier-1up">
+        <hr class="visually-hidden">
+        <h2 class="visually-hidden">P.S.</h2>
+        <p class="footer--strapline">User Experience<span class="visually-hidden">,</span>
+          <span class="bullet-comma">Visual Design</span><span class="visually-hidden">,</span>
+          <span class="bullet-comma">Content Strategy</span></p>
+        <p class="footer--contact">
+          Let's Talk
+          <a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a>
+        </p>
+      </div>
     </footer>
     <!-- Current page: {{ page.url | url }} -->
   </body>

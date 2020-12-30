@@ -1,5 +1,5 @@
 :root {
-  --measure: 60ch; // Text width
+  --measure: 56ch; // Text width
 
 
   // Modular Typographic Scale
@@ -10,7 +10,7 @@
   --t-d3: calc(var(--t-d2) / var(--text-ratio));
   --t-d2: calc(var(--t-d1) / var(--text-ratio));
   --t-d1: calc(var(--t-00) / var(--text-ratio));
-  --t-00: 1rem; // 16
+  --t-00: 1; // 16
   --t-u1: calc(var(--t-00) * var(--text-ratio));
   --t-u2: calc(var(--t-u1) * var(--text-ratio));
   --t-u3: calc(var(--t-u2) * var(--text-ratio));
@@ -35,7 +35,7 @@
 
   // Baseline Scale
   // Scale units: 12, 24, 36, 48, 72, 96 
-  --baseline-050: calc(var(--b0) / 2);
+  --baseline-050: calc(var(--baseline-100) / 2);
   --baseline-100: calc(3 * var(--base-unit)); //24
   --baseline-150: calc(var(--baseline-100) * 1.5);
   --baseline-200: calc(var(--baseline-100) * 2);
