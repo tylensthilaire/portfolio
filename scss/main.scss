@@ -1,0 +1,53 @@
+// ITCSS Articles
+// https://www.creativebloq.com/web-design/manage-large-css-projects-itcss-101517528
+// https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+
+// ========================================================================
+// SETTINGS
+// Global settings and design tokens, e.g. base font size, colour palettes.
+// ========================================================================
+
+@import "settings-core";
+
+// ========================================================================
+// TOOLS
+// Global mixins and functions, e.g. gradients, type scales.
+// ========================================================================
+
+@import "tools-system-fonts";
+@import "tools-layout-grid";
+
+// ========================================================================
+// GENERIC
+// Generic styles, unrelated to brand/aesthetics e.g. resets, box sizing.
+// ========================================================================
+
+@import "generic-resets";
+
+// ========================================================================
+// ELEMENTS
+// Styling for HTML elements without classes.
+// ========================================================================
+
+@import "elements";
+
+// ========================================================================
+// OBJECTS
+// Classes and styling for layouts
+// ========================================================================
+
+@import "objects";
+
+// ========================================================================
+// COMPONENTS
+// BEM styling for UI patterns
+// ========================================================================
+
+@import "components";
+
+// ========================================================================
+// UTILITIES
+// Helper classes, hacks and overrides that trump everything else
+// ========================================================================
+
+@import "utilities";

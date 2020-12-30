@@ -1,0 +1,101 @@
+:root {
+  // Grid proportions
+  --grid-width: 320; // Total width in Sketch
+  --grid-column-width: 144; // Column Width in Sketch
+  --grid-columns: 2; // Number of columns in Sketch
+
+  // Grid logic, gutters outside (Sketch-like)
+  --grid-gutters: calc(var(--grid-columns));
+
+  // Grid logic, no gutters
+  // --grid-gutters: calc(var(--grid-columns) - 1);
+
+  // Container units
+  --gutter-unit: 1rem; // Gutter width in Sketch
+  // For gutter on inside
+  // --column-unit: calc((var(--container-width) - (var(--grid-gutters) * var(--gutter-unit))) / var(--grid-columns));
+  // For gutter on outside
+  --column-unit: calc((var(--container-width) - ((var(--grid-gutters) - 1) * var(--gutter-unit))) / var(--grid-columns));
+  
+  --column-and-gutter-unit: calc(var(--column-unit) + var(--gutter-unit));
+
+  // Container width
+  --container-width: calc(100vw - var(--gutter-unit));
+}
+
+@media (min-width: 38.75rem) {
+  :root {
+
+    // Columns and gutters fixed, margins grow
+    --container-width: 38rem;
+  }
+}
+
+@media (min-width: 40rem) {
+  :root {
+
+    // Columns grow, gutters & margins fixed
+    --grid-width: 640;
+    --grid-column-width: 128;
+    --grid-columns: 4;
+
+    --container-width: calc(100vw - 2rem);
+  }
+}
+
+@media (min-width: 60rem) {
+  :root {
+
+    --grid-width: 960;
+    --grid-column-width: 88;
+    --grid-columns: 8;
+  }
+}
+
+@media (min-width: 72rem) {
+  :root {
+
+    // Columns & gutters fixed, margins grow
+    --grid-width: 1120;
+    --grid-column-width: 64;
+    --grid-columns: 12;
+
+    --container-width: 70rem;
+  }
+}
+
+@media (min-width: 80rem) {
+  @supports (font-size: #{"max(100%, 1.25vw)"}) {
+    :root {
+      // Scale up the whole UI;
+      font-size:#{"max(100%, 100% - 1em + 1.25vw)"};
+    }
+  }
+}
+/*
+@media (min-width: 80rem) {
+  :root {
+    // Scale up the whole UI;
+    font-size: 1.25vw;
+  }
+}*/
+
+@function columns($i) {
+  @return calc(#{$i} * var(--column-unit));
+}
+
+@function gutters($i) {
+  @return calc(#{$i} * var(--gutter-unit));
+}
+
+@function column-spans($i) {
+  @return calc(#{$i} * var(--column-and-gutter-unit) - var(--gutter-unit));
+}
+
+@function gutter-spans($i) {
+  @return calc(#{$i} * var(--column-and-gutter-unit) - var(--column-unit));
+}
+
+@function mix-units($columns, $gutters: $columns) {
+  @return calc((#{$columns} * var(--column-unit)) + (#{$gutters} * var(--gutter-unit)));
+}
