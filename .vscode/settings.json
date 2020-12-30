@@ -1,18 +1,20 @@
 {
   "cSpell.ignoreWords": [
     "browsersync",
+    "buttonface",
+    "editorconfig",
+    "frontmatter",
     "itcss",
+    "markdownlint",
     "mixins",
+    "nvmrc",
     "passthrough",
     "pathprefix",
-    "syntaxhighlight",
-    "tylensthilaire",
-    "markdownlint",
-    "quickstart",
-    "frontmatter",
+    "plugins",
     "postslist",
-    "editorconfig",
-    "nvmrc"
+    "quickstart",
+    "syntaxhighlight",
+    "tylensthilaire"
   ],
   "editor.formatOnSave": true,
   "cSpell.language": "en-GB",

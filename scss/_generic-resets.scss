@@ -12,6 +12,10 @@ html {
   font-size: 100%; // Make text sizes respect browser preferences
   line-height: 1.5;
   overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: linear;
 }
 
 * {
@@ -22,6 +26,10 @@ html {
   font: inherit; // Reset font styles everywhere
   vertical-align: baseline;
   background-repeat: no-repeat; // Background images rarely repeat
+  transition-delay: inherit;
+  transition-duration: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
 //  }
 }
 
