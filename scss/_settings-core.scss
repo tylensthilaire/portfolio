@@ -3,25 +3,28 @@
 
 
   // Modular Typographic Scale
-  // Scale units: 14, 16, 18, 21, 24, 28, 32, 36, 42, 48, 55, 63 
-  --text-ratio: 1.2009369552; //3^(1/8) Triples every 8 steps.
-  --t-d5: calc(var(--td-4) / var(--text-ratio));
-  --t-d4: calc(var(--td-3) / var(--text-ratio));
-  --t-d3: calc(var(--td-2) / var(--text-ratio));
-  --t-d2: calc(var(--td-1) / var(--text-ratio));
-  --t-d1: calc(var(--t0) / var(--text-ratio));
+  // Scale units: 13, 16, 19, 23, 28, 33, 40, 48, 58, 70 
+  --text-ratio: 1.2009369552; //3^(1/6) Triples every 6 steps.
+  --t-d5: calc(var(--t-d4) / var(--text-ratio));
+  --t-d4: calc(var(--t-d3) / var(--text-ratio));
+  --t-d3: calc(var(--t-d2) / var(--text-ratio));
+  --t-d2: calc(var(--t-d1) / var(--text-ratio));
+  --t-d1: calc(var(--t-00) / var(--text-ratio));
   --t-00: 1rem; // 16
-  --t-u1: calc(var(--t0) * var(--text-ratio));
+  --t-u1: calc(var(--t-00) * var(--text-ratio));
   --t-u2: calc(var(--t-u1) * var(--text-ratio));
   --t-u3: calc(var(--t-u2) * var(--text-ratio));
   --t-u4: calc(var(--t-u3) * var(--text-ratio));
   --t-u5: calc(var(--t-u4) * var(--text-ratio));
+  --t-u6: calc(var(--t-u5) * var(--text-ratio));
+  --t-u7: calc(var(--t-u6) * var(--text-ratio));
+  --t-u8: calc(var(--t-u7) * var(--text-ratio));
 
   // Spacing Scale
   // Scale units: 1, 2, 4, 8, 16, 32, 48, 64, 80, 96
 
   // Base unit
-  --base-unit: 0.5rem // 8
+  --base-unit: 0.5rem; // 8
 
   --space-025: calc(var(--base-unit) / 4);
   --space-050: calc(var(--base-unit) / 2);
@@ -33,9 +36,9 @@
   // Baseline Scale
   // Scale units: 12, 24, 36, 48, 72, 96 
   --baseline-050: calc(var(--b0) / 2);
-  --baseline-100: calc(3 x var(--base-unit)); //24
-  --baseline-150: calc(var(--baseline) * 1.5);
-  --baseline-200: calc(var(--baseline) * 2);
-  --baseline-300: calc(var(--baseline) * 3);
-  --baseline-400: calc(var(--baseline) * 4);
+  --baseline-100: calc(3 * var(--base-unit)); //24
+  --baseline-150: calc(var(--baseline-100) * 1.5);
+  --baseline-200: calc(var(--baseline-100) * 2);
+  --baseline-300: calc(var(--baseline-100) * 3);
+  --baseline-400: calc(var(--baseline-100) * 4);
 }
