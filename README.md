@@ -156,17 +156,15 @@ Alternatively, contact an [author](#author) directly.
 
 ## Technologies
 
-<table role="presentation">
-  <tr align="center">
-    <td><img width="64px" src="img/readme/npm.png" alt="npm"></br>npm</td>
-    <td><img width="64px" src="img/readme/11ty.png" alt="11ty"></br>11ty</td>
-    <td><img width="64px" src="img/readme/netlify.png" alt="netlify"></br>Netlify</td>
-    <td><img width="64px" src="img/readme/sketch.png" alt="sketch"></br>Sketch</td>
-    <td><img width="64px" src="img/readme/markdown.png" alt="markdown"></br>Markdown</td>
-    <td><img width="64px" src="img/readme/nunjucks.png" alt="nunjucks"></br>Nunjucks</td>
-    <td><img width="64px" src="img/readme/sass.png" alt="sass"></br>Sass</td>
-  </tr>
-</table>
+This website is created using the following technologies 
+
+<code><img width="32px" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/npm/npm-original-wordmark.svg" alt="npm"></code>
+<code><img width="32px" src="img/readme/11ty.png" alt="sass"></code>
+<code><img width="32px" src="img/readme/netlify.png" alt="netlify"></code>
+<code><img width="32px" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sketch/sketch-original.svg" alt="sketch"></code>
+<code><img width="32px" src="img/readme/markdown.png" alt="markdown"></code>
+<code><img width="32px" src="img/readme/nunjucks.png" alt="nunjucks"></code>
+<code><img width="32px" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg" alt="sass"></code>
 
 <!--
 ## Support
