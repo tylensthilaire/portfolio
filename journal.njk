@@ -1,0 +1,12 @@
+---
+layout: layouts/catalogue.njk
+permalink: /journal/
+eleventyNavigation:
+  key: Journal
+  order: 2
+---
+
+<h1>Journal</h1>
+
+{% set postslist = collections.journal %}
+{% include "postslist.njk" %}
