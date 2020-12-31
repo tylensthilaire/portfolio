@@ -7,6 +7,6 @@ eleventyNavigation:
   key: Journal
   order: 2
 h1: Journal
-entity: foo
 ---
-<!-- {% set postslist = collections.journal %} {% include "postslist.njk" %} -->
+{% set postslist = collections.journal %}
+{% include "postslist.njk" %}
