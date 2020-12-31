@@ -1,4 +1,4 @@
-.visually-hidden {
+.u-visually-hidden {
   position: absolute;
   white-space: nowrap;
   width: 1px;
@@ -11,6 +11,13 @@
   margin: -1px;
 }
 
-.flow > * + * {
+.u-flow > * + * {
   margin-top: var(--flow-space, 1em);
+}
+
+.u-ornament-bullet {
+
+  &::before {
+    content: '• ';
+  }
 }

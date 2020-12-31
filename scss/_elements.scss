@@ -1,0 +1,98 @@
+// =============================================================================
+// CONTENTS
+// No category
+// Sectioning content
+// Flow content
+// Heading content
+// Phrasing content
+// Embedded content
+// Form content
+// =============================================================================
+
+// No category -----------------------------------------------------------------
+
+html {
+  background-color: rgba(255,255,255,1);
+
+  &::before {
+    content: '';
+    position: fixed;
+    background-color: rgba(255,255,255,1);
+    background-image: var(--static), var(--portrait);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: auto, cover;
+    background-repeat: repeat, no-repeat;
+    height: 100%;
+    width: 100%;
+    z-index: -9;
+  }
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+// Sectioning content ----------------------------------------------------------
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Flow content ----------------------------------------------------------------
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: rgba(51,51,51,1);
+  opacity: 10%;
+  display: inline-block;
+  transition-delay: inherit;
+  transition-duration: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
+
+  &:link {
+    opacity: 100%;
+    border-bottom: 0px solid;
+  }
+  &:hover{
+    color:rgba(196,102,47,1);
+    text-decoration: underline;
+  }
+  &:active{
+    color:rgba(196,102,47,1);
+    padding-bottom: 2px;
+    border-bottom: 1px solid;
+    transform: scale(0.9);
+  }
+
+}
+
+// Heading content -------------------------------------------------------------
+
+
+// Phrasing content ------------------------------------------------------------
+
+em {
+  font-style: italic;
+}
+
+// Embedded content ------------------------------------------------------------
+
+
+// Form content ----------------------------------------------------------------
+
