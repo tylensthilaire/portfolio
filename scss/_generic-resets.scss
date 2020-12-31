@@ -10,7 +10,12 @@ html {
   min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
   box-sizing: border-box; // Make box sizing intuitive
   font-size: 100%; // Make text sizes respect browser preferences
+  line-height: 1.5;
   overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-property: all;
+  transition-timing-function: linear;
 }
 
 * {
@@ -19,10 +24,12 @@ html {
 //  &::after,{
   box-sizing: inherit; // Make box sizing easier to work with in 3rd party plugins
   font: inherit; // Reset font styles everywhere
-  font-size: 1em;
   vertical-align: baseline;
-  line-height: 1.5;
   background-repeat: no-repeat; // Background images rarely repeat
+  transition-delay: inherit;
+  transition-duration: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
 //  }
 }
 
