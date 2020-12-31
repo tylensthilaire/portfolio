@@ -10,11 +10,11 @@ html {
   min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
   box-sizing: border-box; // Make box sizing intuitive
   font-size: 100%; // Make text sizes respect browser preferences
-  line-height: 1.5;
+  line-height: 1.5; // Good default line height
   overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
   transition-delay: 0s;
   transition-duration: 0.2s;
-  transition-property: transform, opacity;
+  transition-property: transform, opacity; // Animate cheap properties by default
   transition-timing-function: linear;
 }
 
@@ -30,6 +30,9 @@ html {
   transition-duration: inherit;
   transition-property: inherit;
   transition-timing-function: inherit;
+  margin: 0; // Reset box sizes everywhere
+  padding: 0;
+  border: 0;
 //  }
 }
 
@@ -41,11 +44,11 @@ html {
 //  border: 0;
 // }
 
-// Reset box sizes everywhere
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
+// Un-reset box sizes for form elements
+input, button, textarea, select {
+  margin: initial;
+  padding: initial;
+  border: initial;
 }
 
 // Fix form elements after box resets
@@ -165,4 +168,9 @@ ul, ol {
 // Make tables look like tables
 table, th, td {
   border: solid 0.0625em grey;
+}
+
+// Prevent unreadable measures
+p {
+  max-width: var(--measure-b);
 }
