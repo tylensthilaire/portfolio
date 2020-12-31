@@ -21,3 +21,11 @@
     content: '• ';
   }
 }
+
+// Some plugin is generating heading links with this class
+.direct-link {
+  font-size: calc(var(--t-00) * 1rem);
+  vertical-align: middle;
+  position: absolute;
+  padding-top: 1.75em;
+}
