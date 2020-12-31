@@ -14,7 +14,7 @@ html {
   overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
   transition-delay: 0s;
   transition-duration: 0.2s;
-  transition-property: all;
+  transition-property: transform, opacity;
   transition-timing-function: linear;
 }
 
