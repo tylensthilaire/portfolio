@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Current page: {{ page.url | url }} -->
 <html lang="en" dir="ltr" style="--static:url(../img/src/static.gif);--portrait:url(../img/src/bg.jpg);">
   <head>
     <meta charset="utf-8">
@@ -59,7 +60,7 @@
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
       {{ content | safe }}
     </main>
-    <header class="masthead">
+    <header class="c-masthead">
       <hr>
       <nav>
         <h2>Navigation menu</h2>
@@ -76,19 +77,18 @@
         </ul>
       </nav>
     </header>
-    <footer class="footer">
-      <div class="tier-1up">
-        <hr class="visually-hidden">
-        <h2 class="visually-hidden">P.S.</h2>
-        <p class="footer--strapline">User Experience<span class="visually-hidden">,</span>
-          <span class="bullet-comma">Visual Design</span><span class="visually-hidden">,</span>
-          <span class="bullet-comma">Content Strategy</span></p>
-        <p class="footer--contact">
+    <footer class="c-footer">
+      <div class="o-col12">
+        <hr class="u-visually-hidden">
+        <h2 class="u-visually-hidden">P.S.</h2>
+        <p class="c-footer__strapline">User Experience<span class="u-visually-hidden">,</span>
+          <span class="u-bullet-comma">Visual Design</span><span class="u-visually-hidden">,</span>
+          <span class="u-bullet-comma">Content Strategy</span></p>
+        <p>
           Let's Talk
           <a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a>
         </p>
       </div>
     </footer>
-    <!-- Current page: {{ page.url | url }} -->
   </body>
 </html>
