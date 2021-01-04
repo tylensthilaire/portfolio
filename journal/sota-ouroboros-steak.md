@@ -6,7 +6,7 @@ tags: ["sota"]
 layout: layouts/post.njk
 ---
 
-![Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.](../img/ouroboros-steak-1.jpg)
+![Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.](/img/ouroboros-steak-1.jpg)
 
 [<cite>Ouroboros Steak</cite>](http://www.gracemknight.com/ouro-steak)  
 Andrew Pelling, Orkan Telhan & Grace Knight,  
@@ -26,7 +26,7 @@ something the creators argue is not true of existing animal-cell options.
 
 Ouroboros Steaks are grown instead on a serum derived from expired blood donations that would otherwise be wasted.
 
-![Ouroboros Steak cultures suspended in vials of growth serum.](../img/ouroboros-steak-4.jpg)
+![Ouroboros Steak cultures suspended in vials of growth serum.](/img/ouroboros-steak-4.jpg)
 
 While the lab-grown meat industry promises sustainable, cruelty-free meat,
 it relies on foetal bovine serum (FBS) to grow their cultures.
@@ -43,7 +43,7 @@ they are a symbol of new beginnings,
 asking,
 ‘What would be the sacrifices we need to make to be able to keep consuming meat?’
 
-![Ouroboros Steaks on display. Four steaks are cast in resin and plated up in front of a table for one, opposite a mirror.](../img/ouroboros-steak-2.jpg)
+![Ouroboros Steaks on display. Four steaks are cast in resin and plated up in front of a table for one, opposite a mirror.](/img/ouroboros-steak-2.jpg)
 
 Though no different than biting one’s cheek,
 the installation doubles down on the inherent ick of consuming human flesh.

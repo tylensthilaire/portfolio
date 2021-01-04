@@ -20,7 +20,7 @@ Soon, they’ll better decipher misspelled words,
 identify relevant passages and recognise sub-topics.
 It’s an exciting peek into how natural language processing helps humans and computers speak the same language.
 Best of all,
-it may remove a serious constraint of writing for the web./
+it may remove a serious constraint of writing for the web.
 
 Because robots and humans parse information differently,
 we compromise when we write for both.
@@ -40,7 +40,7 @@ This should benefit around 7% of searches once rolled out,
 increasing as users acclimatise to making more natural searches.
 
 <figure>
-  <img src="../img/google-passage-indexing.png" alt="Search result mock-up comparing a result for a whole page with the more information-rich one for a specific passage.">
+  <img src="/img/google-passage-indexing.png" alt="Search result mock-up comparing a result for a whole page with the more information-rich one for a specific passage.">
   <figcaption>
     <p>By understanding individual passages, Google can tell when a specific passage (After) is more relevant than a broader page on the same topic (Before).</p>
   </figcaption>

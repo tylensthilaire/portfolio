@@ -6,7 +6,7 @@ tags: ["sota"]
 layout: layouts/post.njk
 ---
 
-![A typical scene from The Garden of Earthly Delights, where animals and people inhabit three low-resolution landscapes: a paradise, a savannah and a hellscape](../img/garden-of-earthly-delights.gif)
+![A typical scene from The Garden of Earthly Delights, where animals and people inhabit three low-resolution landscapes: a paradise, a savannah and a hellscape](/img/garden-of-earthly-delights.gif)
 
 [<cite>The Garden of Earthly Delights</cite>](http://scrnprnt.ca/EarthlyDelightsPresskit.html)  
 SCRNPRNT  
