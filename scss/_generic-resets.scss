@@ -1,0 +1,171 @@
+// Adapted from:
+// http://meyerweb.com/eric/tools/css/reset/ 
+// https://github.com/mike-engel/a11y-css-reset
+// https://github.com/jensimmons/cssremedy
+// https://github.com/hankchizljaw/modern-css-reset
+
+html {
+  scroll-behavior: smooth; // Nicer default jump scrolling
+  min-height: 100%; // Ensure page fills entire viewport
+  min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
+  box-sizing: border-box; // Make box sizing intuitive
+  font-size: 100%; // Make text sizes respect browser preferences
+  line-height: 1.5; // Good default line height
+  overflow-y: scroll; // Force scrollbars to prevent width jumps when pages aren't enough for scrollbars.
+  transition-delay: 0s;
+  transition-duration: 0.2s;
+  transition-property: transform, opacity; // Animate cheap properties by default
+  transition-timing-function: linear;
+}
+
+* {
+//  &,
+//  &::before,
+//  &::after,{
+  box-sizing: inherit; // Make box sizing easier to work with in 3rd party plugins
+  font: inherit; // Reset font styles everywhere
+  vertical-align: baseline;
+  background-repeat: no-repeat; // Background images rarely repeat
+  transition-delay: inherit;
+  transition-duration: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
+  margin: 0; // Reset box sizes everywhere
+  padding: 0;
+  border: 0;
+//  }
+}
+
+// Reset box sizes everywhere except form elements
+// Only works in Safari
+// :not(input, button, textarea, select) {
+//  margin: 0;
+//  padding: 0;
+//  border: 0;
+// }
+
+// Un-reset box sizes for form elements
+input, button, textarea, select {
+  margin: initial;
+  padding: initial;
+  border: initial;
+}
+
+// Fix form elements after box resets
+input, button, textarea, select {
+  border: solid 0.0625em buttonface;
+  border-image: initial;
+}
+
+// Fix button after box resets
+button {
+  padding: 0 0.5em;
+}
+
+body {
+  min-height: 100vh; // Ensure body always fills viewport
+  min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
+  text-rendering: optimizeLegibility; // Better text styling
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: break-word
+}
+
+// Remove browser quote marks as they're usually in the copy
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+// Collapse table borders
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// Remove list styles on elements with a list role
+// https://www.scottohara.me/blog/2019/01/12/lists-and-safari.html
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+// Set ink-skipping to work for i13n
+a:not([class]) {
+  text-decoration-skip-ink: all; // changed from auto to all
+}
+
+// Negate motion for people that prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-delay: -0.1ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: -0.01ms !important;
+    transition-duration: 0.01ms !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Focus ring for keyboard only
+*:focus:not(:focus-visible),
+*::before:focus:not(:focus-visible),
+*::after:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Prevent overflow by default on preformatted text
+pre { white-space: pre-wrap; }
+
+// Solid, thin horizontal rules
+// Remove Firefox `color: gray`
+// Remove default `1px` height, and common `overflow: hidden`
+hr {
+  border-style: solid; // Reset border style
+  border-width: 0.0625em 0 0;
+  color: inherit; // Reset colour on Firefox
+  height: 0; // Remove default height
+  overflow: visible; // Remove overflow hidden
+}
+
+// Make multimedia easier to work with
+img, video, canvas, audio, iframe, embed, object {
+  display: block;
+  max-width: 100%;
+}
+
+// Remove strange space-below when inline
+img, svg, video, canvas, audio, iframe, embed, object {
+  vertical-align: middle;
+}
+
+// Maintain intrinsic aspect ratios when `max-width` is applied
+img, svg, video, canvas {
+  height: auto;
+}
+
+// Offset `alt` text from surrounding copy.
+img {
+  font-style: italic;
+}
+
+// Set reasonable default width for audio
+audio { width: 100%; }
+
+// Make tables look like tables
+table, th, td {
+  border: solid 0.0625em grey;
+}
+
+// Prevent unreadable measures
+p {
+  max-width: var(--measure-b);
+}
