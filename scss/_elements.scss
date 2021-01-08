@@ -1,0 +1,153 @@
+// =============================================================================
+// CONTENTS
+// No category
+// Sectioning content
+// Flow content
+// Heading content
+// Phrasing content
+// Embedded content
+// Form content
+// =============================================================================
+
+// No category -----------------------------------------------------------------
+
+html {
+  background-color: rgba(255,255,255,1);
+
+  &::before {
+    content: '';
+    position: fixed;
+    background-color: rgba(255,255,255,1);
+    background-image: var(--static), var(--portrait);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: auto, cover;
+    background-repeat: repeat, no-repeat;
+    height: 100%;
+    width: 100%;
+    z-index: -9;
+  }
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+// Sectioning content ----------------------------------------------------------
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+// Flow content ----------------------------------------------------------------
+
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: var(--baseline-150);
+}
+
+@media (min-width:40rem) {
+  main {
+    padding-top: var(--baseline-200);
+  }
+}
+
+@media (min-width:60rem) {
+  main {
+    padding-top: var(--baseline-300);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: rgba(51,51,51,1);
+  opacity: 10%;
+  display: inline-block;
+  transition-delay: inherit;
+  transition-duration: inherit;
+  transition-property: inherit;
+  transition-timing-function: inherit;
+
+  &:link {
+    opacity: 100%;
+    border-bottom: 0px solid;
+  }
+  &:hover{
+    color:rgba(196,102,47,1);
+    text-decoration: underline;
+  }
+  &:active{
+    color:rgba(196,102,47,1);
+    transform: scale(0.9);
+  }
+
+}
+
+ol, ul {
+  font-family: $font-family-body;
+  color: rgba(51,51,51,1);
+  max-width: var(--measure-b);
+}
+
+p {
+  font-family: $font-family-body;
+  font-size: calc(var(--t-00) * 1em);
+  color: rgba(51,51,51,1);
+}
+
+// Heading content -------------------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-display;
+  color: rgba(51,51,51,1);
+}
+
+h1 {
+  font-size: calc(var(--t-u7) * 1em);
+  line-height: var(--baseline-250);
+}
+
+h2 {
+  font-size: calc(var(--t-u4) * 1em);
+}
+
+h3 {
+  font-size: calc(var(--t-u3) * 1em);
+}
+
+h4 {
+  font-size: calc(var(--t-u2) * 1em);
+}
+
+h5 {
+  font-size: calc(var(--t-u1) * 1em);
+}
+
+// Phrasing content ------------------------------------------------------------
+
+em {
+  font-style: italic;
+}
+
+sup {
+  font-size: calc(var(--t-d3) * 1em);
+  vertical-align: top;
+  font-weight: 600;
+  margin-left: var(--space-025);
+}
+
+// Embedded content ------------------------------------------------------------
+
+
+// Form content ----------------------------------------------------------------
+
