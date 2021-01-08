@@ -21,3 +21,41 @@
     content: '• ';
   }
 }
+
+.u-color-primary {
+  color:rgba(196,102,47,1);
+}
+
+// Some plugin is generating heading links with this class
+.direct-link {
+  font-size: calc(var(--t-00) * 1rem);
+  line-height: 1;
+  position: relative;
+  top: .125em;
+  right: .375em;
+}
+
+.postlist {
+  margin-top: var(--baseline-100);
+}
+
+.footnotes-sep {
+  display: none;
+}
+
+.footnotes {
+  font-size: calc(var(--t-d1) * 1em);
+}
+
+.footnotes-list {
+  align-self: flex-start;
+}
+
+.footnote-item {
+  max-width: var(--measure-b);
+  margin-bottom: .5em;
+
+  > p {
+    font-weight: 400 !important;
+  }
+}

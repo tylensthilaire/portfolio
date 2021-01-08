@@ -5,7 +5,6 @@
 
 .c-hero {
   font-size: calc(var(--t-u1) * 1rem);
-  padding-top: var(--baseline-200);
 }
 
 .c-hero__headline {
@@ -32,7 +31,7 @@
   font-family: $font-family-body;
   line-height: var(--baseline-100);
   font-size: calc(var(--t-d1) * 1em);
-  max-width: var(--measure);
+  max-width: var(--measure-h);
 }
 
 @media (min-width: 40rem) {
@@ -54,6 +53,7 @@
   border-bottom: 2px solid rgba(196,102,47,1);
   letter-spacing: 2px;
   width: fit-content;
+  line-height: var(--baseline-00);
 
   &::before {
     content: '❧';
@@ -92,4 +92,24 @@
 
 .c-footer__strapline + .footer__contact {
   margin-top: var(--baseline-050);
+}
+
+.c-article {
+
+  p:first-of-type {
+    --flow-space: var(--baseline-150);
+    font-weight: 700;
+  }
+}
+
+@media (min-width: 24rem) {
+  .c-article {
+    font-size: calc(var(--t-u1) * 1rem);
+    
+
+    h1 {
+      font-size: calc(var(--t-u8) * 1em);
+      line-height: var(--baseline-400);
+    }
+  }
 }
