@@ -45,6 +45,7 @@
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
     <!-- Preconnect hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://googletagmanager.com">
     <!-- Styles -->
     <link rel="preload" as="style" href="{{ '/css/critical.css' | url }}">
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
@@ -53,8 +54,14 @@
       <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
     </noscript>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
-    <!-- Scripts -->
+    <!-- Local scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
+    <!-- Analytics scripts -->
+    <script defer="defer" src="{{ '/js/gtm.js | url' }}"></script>
+    <!-- contains formerly-inline snippet -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id={{ metadata.analytics.gtm }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
   </head>
   <body>
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
