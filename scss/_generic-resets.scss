@@ -160,11 +160,6 @@ img {
 // Set reasonable default width for audio
 audio { width: 100%; }
 
-// Undo hanging counters in lists
-ul, ol {
-  list-style-position: inside;
-}
-
 // Make tables look like tables
 table, th, td {
   border: solid 0.0625em grey;
