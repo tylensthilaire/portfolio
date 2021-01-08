@@ -45,16 +45,21 @@
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
     <!-- Preconnect hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://googletagmanager.com">
     <!-- Styles -->
     <link rel="preload" as="style" href="{{ '/css/critical.css' | url }}">
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" media="print" onload="this.onload=null;this.removeAttribute('media');">
-    <noscript>
-      <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
-    </noscript>
+    <noscript><link rel="stylesheet" href="{{ '/css/main.css' | url }}"></noscript>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
-    <!-- Scripts -->
+    <!-- Local scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
+    <!-- Analytics scripts -->
+    <script defer="defer" src="{{ '/js/gtm.js' | url }}"></script>
+    <!-- contains formerly-inline snippet -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJWWTG7" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
   </head>
   <body>
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
@@ -84,8 +89,8 @@
         <p class="c-footer__strapline">User Experience<span class="u-visually-hidden">,</span>
           <span class="u-bullet-comma">Visual Design</span><span class="u-visually-hidden">,</span>
           <span class="u-bullet-comma">Content Strategy</span></p>
-        <p>
-          Let's Talk
+        <p class="footer__contact">
+          <span class="u-color-primary">Let's talk:</span>
           <a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a>
         </p>
       </div>

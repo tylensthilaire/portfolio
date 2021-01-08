@@ -2,19 +2,9 @@
 layout: layouts/base.njk
 templateClass: tmpl-post
 ---
-{{ content | safe }}
-<h2>More like this</h2>
-<ul>
-  {%- if post.data.category == articles -%}
-    {%- set nextPost = collections.articles | getNextCollectionItem(page) %}
-    {%- if nextPost %}<li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-    {%- set previousPost = collections.articles | getPreviousCollectionItem(page) %}
-    {%- if previousPost %}<li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-  {% endif %}
-  {%- if post.data.category == journal -%}
-    {%- set nextPost = collections.journal | getNextCollectionItem(page) %}
-    {%- if nextPost %}<li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-    {%- set previousPost = collections.journal | getPreviousCollectionItem(page) %}
-    {%- if previousPost %}<li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-  {% endif %}
-</ul>
+<div class="o-col12 u-flow c-article">
+  {{ content | safe }}
+</div>
+
+<!-- Temporarily removed 'More like this' -->
+<!-- <h2>More like this</h2> <ul> {%- if post.data.category == articles -%} {%- set nextPost = collections.articles | getNextCollectionItem(page) %} {%- if nextPost %} <li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a> </li> {% endif %} {%- set previousPost = collections.articles | getPreviousCollectionItem(page) %} {%- if previousPost %} <li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a> </li> {% endif %} {% endif %} {%- if post.data.category == journal -%} {%- set nextPost = collections.journal | getNextCollectionItem(page) %} {%- if nextPost %} <li>Next: <a href="{{ nextPost.url | url }}">{{ nextPost.data.title }}</a> </li> {% endif %} {%- set previousPost = collections.journal | getPreviousCollectionItem(page) %} {%- if previousPost %} <li>Previous: <a href="{{ previousPost.url | url }}">{{ previousPost.data.title }}</a> </li> {% endif %} {% endif %} </ul> -->
