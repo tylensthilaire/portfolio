@@ -7,7 +7,7 @@
 html {
   scroll-behavior: smooth; // Nicer default jump scrolling
   min-height: 100%; // Ensure page fills entire viewport
-  min-height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
+  height: -webkit-fill-available; // Prevent iOS tab bar appearing over UI
   box-sizing: border-box; // Make box sizing intuitive
   font-size: 100%; // Make text sizes respect browser preferences
   line-height: 1.5; // Good default line height
