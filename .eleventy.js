@@ -97,8 +97,7 @@ module.exports = function(eleventyConfig) {
         });
       },
     },
-    ui: false,
-    ghostMode: false
+    ghostMode: false // Problematic w/ Responsively browser
   });
 
   return {
