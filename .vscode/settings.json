@@ -11,7 +11,7 @@
     "passthrough",
     "pathprefix",
     "plugins",
-    "postslist",
+    "postlist",
     "quickstart",
     "syntaxhighlight",
     "tylensthilaire"
@@ -24,5 +24,6 @@
     "MD025": false,
     "MD026": { "punctuation": ".,;:。，；：！？" },
     "MD033": false
-  }
+  },
+  "cSpell.words": ["Sass"]
 }
