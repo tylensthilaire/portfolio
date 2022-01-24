@@ -35,7 +35,9 @@ html {
   transition-duration: inherit;
   transition-property: inherit;
   transition-timing-function: inherit;
-  margin: 0; // Reset box sizes everywhere
+
+  // Reset box sizes everywhere
+  margin: 0;
   padding: 0;
   border: 0;
 //  }
@@ -47,7 +49,7 @@ html {
 //  margin: 0;
 //  padding: 0;
 //  border: 0;
-// }
+//}
 
 // Un-reset box sizes for form elements
 input, button, textarea, select {
@@ -60,11 +62,13 @@ input, button, textarea, select {
 input, button, textarea, select {
   border: solid 0.0625em buttonface;
   border-image: initial;
+  min-width: 3rem;
+  min-height: 3rem;
 }
 
 // Fix button after box resets
 button {
-  padding: 0 0.5em;
+  padding: 0 1.5rem;
 }
 
 body {
@@ -150,6 +154,16 @@ img, video, canvas, audio, iframe, embed, object {
 // Remove strange space-below when inline
 img, svg, video, canvas, audio, iframe, embed, object {
   vertical-align: middle;
+}
+
+// Remove strange space-below when inline
+ button, input, select {
+  vertical-align: baseline;
+}
+
+// Remove strange space-below when inline
+textarea {
+  vertical-align: top;
 }
 
 // Maintain intrinsic aspect ratios when `max-width` is applied
