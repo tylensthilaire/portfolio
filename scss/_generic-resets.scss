@@ -16,6 +16,11 @@ html {
   transition-duration: 0.2s;
   transition-property: transform, opacity; // Animate cheap properties by default
   transition-timing-function: linear;
+
+  // Prevent text size inflation (e.g. landscape mobile safari)
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none; 
+  text-size-adjust: none;
 }
 
 * {
