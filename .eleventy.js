@@ -1,5 +1,7 @@
 const { DateTime } = require("luxon");
+const sass = require("sass");
 const fs = require("fs");
+const path = require("path");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginNavigation = require("@11ty/eleventy-navigation");
@@ -12,7 +14,19 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
   eleventyConfig.addPlugin(pluginNavigation);
 
-  eleventyConfig.setDataDeepMerge(true);
+  // Compile SCSS to CSS before each build
+  eleventyConfig.on("eleventy.before", () => {
+    const outputDir = path.join(__dirname, "_site", "css");
+    fs.mkdirSync(outputDir, { recursive: true });
+    for (const file of ["main", "critical"]) {
+      const result = sass.compile(path.join(__dirname, "scss", `${file}.scss`), {
+        style: "compressed"
+      });
+      fs.writeFileSync(path.join(outputDir, `${file}.css`), result.css);
+    }
+  });
+
+  eleventyConfig.addWatchTarget("scss/");
 
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
 
@@ -64,13 +78,11 @@ module.exports = function(eleventyConfig) {
       }
     });
 
-    // returning an array in addCollection works in Eleventy 0.5.3
     return [...tagSet];
   });
 
   // Copy the following directories to output directory
   eleventyConfig.addPassthroughCopy("img");
-  eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("js");
 
   /* Markdown Overrides */
@@ -78,27 +90,13 @@ module.exports = function(eleventyConfig) {
     html: true,
     linkify: true
   }).use(markdownItAnchor, {
-    permalink: true,
-    permalinkClass: "direct-link",
-    permalinkSymbol: "#"
+    permalink: markdownItAnchor.permalink.ariaHidden({
+      placement: "after",
+      class: "direct-link",
+      symbol: "#"
+    })
   }).use(markdownItFootnote);
   eleventyConfig.setLibrary("md", markdownLibrary);
-
-  // Browsersync Overrides
-  eleventyConfig.setBrowserSyncConfig({
-    callbacks: {
-      ready: function(err, browserSync) {
-        const content_404 = fs.readFileSync('_site/404.html');
-
-        browserSync.addMiddleware("*", (req, res) => {
-          // Provides the 404 content without redirect.
-          res.write(content_404);
-          res.end();
-        });
-      },
-    },
-    ghostMode: false // Problematic w/ Responsively browser
-  });
 
   return {
     templateFormats: [
