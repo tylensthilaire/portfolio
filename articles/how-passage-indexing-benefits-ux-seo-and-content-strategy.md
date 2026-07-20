@@ -13,11 +13,14 @@ imageWidth: 1000
 imageHeight: 590
 ---
 
-## TLDR
+<details class="c-tldr">
+<summary>TLDR</summary>
 
 - Google will start ranking individual passages from pages.
 - Pages with a relevant passage may rank for a query, even if the page as a whole isn’t the most relevant.
 - Content professionals can focus on writing and organising information for users, not crawlers.
+
+</details>
 
 Google recently published a story about [using AI to make search results more powerful](https://blog.google/products/search/search-on/).
 Soon, they’ll better decipher misspelled words,

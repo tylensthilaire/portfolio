@@ -9,11 +9,14 @@ layout: layouts/post.njk
 header: default
 ---
 
-## TLDR
+<details class="c-tldr">
+<summary>TLDR</summary>
 
 - Removing old and low-quality content ensures users only find relevant information.
 - High-quality content improves brand positioning and SEO.
 - Find it. Triage it. Delete it.
+
+</details>
 
 Plants benefit from pruning every once in a while.
 Correct pruning improves health, appearance and encourages growth.
