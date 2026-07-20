@@ -2,21 +2,28 @@
 title: Ouroboros Steak
 description: A DIY meal kit for cannibals; steaks grown from your own cells.
 date: 2020-11-20
+kicker: State of the art
 tags: ["sota"]
 layout: layouts/post.njk
+header: split
+image: /img/ouroboros-steak-1.jpg
+imageAlt: Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.
+imagePosition: right
+theme: dark
+imageFit: fullbleed
+credit:
+  artist: Andrew Pelling, Orkan Telhan & Grace Knight
+  work: Ouroboros Steak
+  workUrl: http://www.gracemknight.com/ouro-steak
+  year: 2019
+  medium: Installation
 ---
-
-![Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.](/img/ouroboros-steak-1.jpg)
-
-[<cite>Ouroboros Steak</cite>](http://www.gracemknight.com/ouro-steak)  
-Andrew Pelling, Orkan Telhan & Grace Knight,  
-2019, Installation
 
 In a radical truncation of farm-to-table,
 <cite>Ouroboros Steak</cite> is the only truly cruelty free ‘lab-grown’ meat.
 Created in a form akin to a child’s science kit,
 the steak can be grown by _anyone_, at home,
-using cells from a swab of their own cheek.
+using cells from a swab of their own cheek.^[The cheek swab yields human epithelial cells; the mushroom-derived scaffold and serum do the rest. No slaughterhouse, no bioreactor the size of a room.]
 
 The resulting amuse-bouche-sized steaks[^1],
 as [displayed at The Design Museum](https://designmuseum.org/exhibitions/beazley-designs-of-the-year/product-2020/ouroboros-steak),

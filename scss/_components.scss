@@ -1,6 +1,29 @@
-// Masthead removed until needed
+// Masthead wordmark — a left-aligned logo that links home, filling what was
+// empty padding above the article. Hidden by default (the home page carries the
+// name in its hero); shown on article pages.
 .c-masthead {
   display: none;
+}
+
+// It sits after <main> in the DOM (main content first for assistive tech), so
+// `order: -1` hoists it above <main> visually in the flex-column body (its
+// siblings default to order 0).
+body:has(.o-post) .c-masthead {
+  display: block;
+  order: -1;
+  width: var(--container-width);
+  padding-top: var(--baseline-150);
+}
+
+// The wordmark reuses the hero eyebrow styles (class applied in the markup).
+// The generic link reset zeroes bottom borders, so restore the eyebrow
+// underline with enough specificity to win over `a:link`.
+.c-masthead .c-masthead__logo {
+  border-bottom: 2px solid rgba(196,102,47,1);
+
+  &:hover {
+    text-decoration: none; // keep just the eyebrow underline, no hover underline
+  }
 }
 
 .c-hero {
@@ -95,6 +118,18 @@
 }
 
 .c-article {
+  // Default the article to the body font (bare elements like <figure> would
+  // otherwise fall back to the UA serif, since only p/li/headings set a family
+  // — which made `ch`-based widths resolve inconsistently on figures/images).
+  font-family: $font-family-body;
+  padding-top: var(--baseline-150); // ~36px above the body section
+  padding-bottom: var(--baseline-150); // ~36px below, above the closing keyline
+  border-bottom: 1px solid rgba(51,51,51,0.15); // keyline closing the body
+
+  // Body reading measure, calibrated to ~75 *rendered* characters. The `ch`
+  // unit is the advance of "0", which in system-ui is ~33% wider than the
+  // average prose glyph, so 75ch renders ~103 chars; 56ch lands near 75.
+  --measure-b: 56ch;
 
   p:first-of-type {
     --flow-space: var(--baseline-150);
@@ -102,14 +137,544 @@
   }
 }
 
+// Looser leading for body copy only — headings keep their own tighter leading.
+.c-article p,
+.c-article li {
+  line-height: 1.666;
+}
+
+// Expandable "key points" summary — a native <details> (collapsed on load)
+// styled as a set-apart panel. The summary reads as an eyebrow label with a
+// "+" that rotates 45° into an "×" when open.
+.c-tldr {
+  --flow-space: var(--baseline-150);
+  max-width: var(--measure-b);
+  border-left: 3px solid rgba(196,102,47,1);
+  background: rgba(196,102,47,0.05);
+  padding: var(--baseline-050) var(--space-400);
+  interpolate-size: allow-keywords; // lets the reveal animate to/from `auto`
+  transition: padding-bottom 0.2s ease;
+}
+
+.c-tldr[open] {
+  padding-bottom: var(--baseline-100); // doubled when open
+}
+
+// Animate the reveal: content grows from 0 to its auto height and stays visible
+// through the collapse (allow-discrete). Progressive enhancement — where
+// `::details-content` / `interpolate-size` are unsupported it toggles instantly.
+.c-tldr::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition: block-size 0.2s ease, content-visibility 0.2s allow-discrete;
+}
+
+.c-tldr[open]::details-content {
+  block-size: auto;
+}
+
+.c-tldr > summary {
+  list-style: none; // drop the default disclosure triangle
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: var(--baseline-100);
+  color: rgba(168,77,30,1);
+  transition: margin-bottom 0.2s ease;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::after {
+    content: '+';
+    font-size: calc(var(--t-u3) * 1em);
+    font-weight: 400;
+    line-height: 0;
+    color: rgba(196,102,47,1);
+    transition-property: transform;
+  }
+}
+
+.c-tldr[open] > summary {
+  margin-bottom: var(--baseline-100);
+}
+
+.c-tldr[open] > summary::after {
+  transform: rotate(45deg); // "+" becomes "×"
+}
+
+.c-tldr ul {
+  margin: 0;
+  padding-left: var(--space-300);
+}
+
+.c-tldr li::marker {
+  color: rgba(196,102,47,1);
+}
+
+.c-tldr li + li {
+  margin-top: var(--space-200);
+}
+
+// Tufte-style sidenotes (markdown inline-footnote syntax `text^[the note]`, see
+// the sidenote plugin in .eleventy.js). A visually-hidden checkbox toggles the
+// note: hidden by default, it expands inline on narrow screens and floats into
+// the right margin beside its reference on desktop. Marked with an asterisk
+// (uncounted), separate from the numbered footer footnotes.
+.c-sidenote__toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0; // visually hidden, still keyboard-focusable
+}
+
+.c-sidenote__marker {
+  cursor: pointer;
+  color: rgba(196,102,47,1);
+  // Enlarge the click/tap target around the small marker without shifting
+  // surrounding text (padding grows the hit area, negative margin cancels it).
+  padding: 0.4em;
+  margin: -0.4em;
+
+  &::before {
+    content: '*';
+    font-size: calc(var(--t-u1) * 1em);
+    font-weight: 700;
+    vertical-align: sub;
+    line-height: 0;
+  }
+}
+
+.c-sidenote__toggle:focus-visible + .c-sidenote__marker {
+  outline: 2px solid rgba(196,102,47,1);
+  outline-offset: 2px;
+}
+
+.c-sidenote__note {
+  display: none; // revealed on toggle
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+
+  &::before {
+    content: '*';
+    margin-right: 0.5ch;
+    color: rgba(196,102,47,1);
+    font-weight: 700;
+  }
+}
+
+// Narrow screens: expand inline as an indented block beneath the line.
+.c-sidenote__toggle:checked ~ .c-sidenote__note {
+  display: block;
+  max-width: var(--measure-b);
+  margin: var(--baseline-050) 0;
+  padding-left: var(--space-300);
+  border-left: 2px solid rgba(196,102,47,1);
+}
+
+// Desktop: float into the right margin beside the reference. `clear: right`
+// makes notes stack below the artwork credit (also a right-float) and below one
+// another rather than colliding. The extra column of negative margin pushes the
+// note clear of the break-out images, which extend one column past the text.
+@media (min-width: 72rem) {
+  .c-sidenote__toggle:checked ~ .c-sidenote__note {
+    float: right;
+    clear: right;
+    width: 15rem;
+    max-width: none;
+    margin: 0 calc(-17rem - var(--column-and-gutter-unit)) var(--baseline-050) 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+// Footnote references: a bold terracotta number with no square brackets
+// (dropped in .eleventy.js), matching the sidenote asterisk marker. Opts out of
+// the prose-link gradient underline since it reads as a superscript marker,
+// not a body link. The grouped :hover keeps the
+// same look on hover, out-specifying the prose hover rule.
+// One step larger than the default <sup> (t-d3 -> t-d2) and sitting just above
+// the line's middle rather than raised as a superscript (a small baseline-
+// relative raise); line-height: 0 keeps the larger glyph from opening up the
+// leading.
+.footnote-ref {
+  font-size: calc(var(--t-d2) * 1em);
+  vertical-align: 0.2em;
+  line-height: 0;
+}
+
+.footnote-ref a,
+.footnote-ref a:hover {
+  color: rgba(196,102,47,1);
+  font-weight: 900;
+  background-image: none;
+  padding-bottom: 0;
+}
+
+// Drop cap on the opening paragraph, sunk two lines so its baseline meets the
+// baseline of the second line (initial-letter). Degrades to a plain enlarged
+// first letter where initial-letter is unsupported (e.g. Firefox).
+.c-article > p:first-of-type::first-letter {
+  -webkit-initial-letter: 2;
+  initial-letter: 2;
+  font-family: $font-family-display;
+  font-weight: 700;
+  color: rgba(196,102,47,1);
+  margin-right: 0.375rem;
+}
+
+// End mark: close the final paragraph with the site's floral ornament,
+// preceded by a space (mirrors the ❧ used on the hero eyebrow).
+.c-article > p:last-of-type::after {
+  content: ' ❧';
+  color: rgba(196,102,47,1);
+}
+
+// "State of the Art" artwork label (partials/artwork-credit.njk) — a minimalist
+// gallery card. Stacks inline at the top of the body on small screens; floats
+// into the roomy right margin on desktop (see the >=72rem block below).
+.c-credit {
+  display: block;
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(51,51,51,1);
+  background: rgba(255,255,255,1);
+  border: 1px solid rgba(51,51,51,0.12);
+  padding: var(--space-200) var(--space-300);
+  box-shadow: 0.375rem 0.375rem 0 rgba(51,51,51,0.08);
+}
+
+.c-credit__artist,
+.c-credit__work-line,
+.c-credit__medium {
+  display: block;
+}
+
+.c-credit__artist {
+  font-weight: 700;
+}
+
+.c-credit__work {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.c-credit__year {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.c-credit__medium {
+  font-weight: 400;
+  color: rgba(102,102,102,1);
+}
+
 @media (min-width: 24rem) {
   .c-article {
-    font-size: calc(var(--t-u1) * 1rem);
-    
+    font-size: calc(var(--t-00) * 1rem);
+
 
     h1 {
       font-size: calc(var(--t-u8) * 1em);
       line-height: var(--baseline-400);
     }
+  }
+}
+
+// Offset the reading column one grid column to the right for an asymmetric,
+// editorial measure. Applied only at the widest layout, where the fixed
+// container leaves slack; the header stays flush to the container's left edge.
+@media (min-width: 72rem) {
+  .c-article {
+    position: relative; // positioning context for the artwork credit
+    padding-left: var(--column-and-gutter-unit);
+  }
+
+  // Inline images ignore the body's one-column offset and sit flush to the
+  // container's left edge, extending one column past the text measure on each
+  // side (two columns wider than the text overall). Width is 100% of the
+  // parent (which carries the reading measure) plus two columns — using `100%`
+  // rather than `var(--measure-b)` avoids `ch` re-resolving on the <img>'s own
+  // font, which made figure images come out too narrow. Figures are pinned to
+  // the measure so they carry the same reference as a paragraph.
+  .c-article figure {
+    max-width: var(--measure-b);
+  }
+
+  .c-article img {
+    max-width: none;
+    width: calc(100% + 2 * var(--column-and-gutter-unit));
+    margin-left: calc(-1 * var(--column-and-gutter-unit));
+  }
+
+  // The artwork credit lives in the whitespace to the right of the reading
+  // column, opposite the body's leftward offset. It floats right (rather than
+  // absolute) so it shares one margin column with the sidenotes: notes clear
+  // right and stack *below* it instead of colliding. The margin-top replaces the
+  // old absolute offset, keeping its top aligned with the first paragraph (the
+  // paragraph's flow margin-top).
+  .c-credit {
+    float: right;
+    clear: right;
+    width: calc(15rem + var(--column-and-gutter-unit));
+    margin: var(--baseline-150) 0 var(--baseline-100) 0;
+  }
+}
+
+// Article header ---------------------------------------------------------------
+// One component (partials/article-header.njk), two layouts via a modifier:
+// `--default` (stacked; an optional image bleeds full-width above the text) and
+// `--split` (50:50 content/image — reversible, light/dark, constrained/bleed).
+// The post <main> is stretched to the viewport (objects layer) so the header can
+// bleed edge-to-edge; the body still sits within .o-col12's measure.
+
+// Shared text elements ---------------------------------------------------------
+.c-article-header__kicker {
+  font-family: $font-family-body;
+  font-weight: 700;
+  font-size: calc(var(--t-d2) * 1em);
+  line-height: var(--baseline-100);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  // Darker terracotta on small labels to clear WCAG AA (~5.4:1 on white);
+  // the large headline keeps the brand terracotta, the dark panel its tint.
+  color: rgba(168,77,30,1);
+}
+
+.c-article-header__headline {
+  font-family: $font-family-display;
+  color: rgba(51,51,51,1);
+  font-size: calc(var(--t-u4) * 1em);
+  line-height: var(--baseline-200);
+  max-width: var(--measure-h);
+}
+
+@media (min-width: 40rem) {
+  .c-article-header__headline {
+    font-size: calc(var(--t-u6) * 1em);
+    line-height: var(--baseline-250);
+  }
+}
+
+.c-article-header__standfirst {
+  font-family: $font-family-body;
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--t-u1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+  max-width: var(--measure-h);
+}
+
+.c-article-header__byline {
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+}
+
+.c-article-header__by {
+  font-weight: 700;
+  color: rgba(168,77,30,1);
+}
+
+.c-article-header__sep {
+  margin: 0 0.5ch;
+  color: rgba(169,169,169,1);
+}
+
+.c-article-header__kicker + .c-article-header__headline {
+  margin-top: var(--baseline-100);
+}
+
+.c-article-header__headline + .c-article-header__standfirst {
+  margin-top: var(--baseline-100);
+}
+
+// Left-aligned text stack, shared by both variants.
+.c-article-header__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  > * + * {
+    margin-top: var(--baseline-050);
+  }
+}
+
+.c-article-header__rule {
+  width: var(--baseline-200);
+  height: 2px;
+  margin-top: var(--baseline-150);
+  border: 0;
+  background: rgba(196,102,47,1);
+}
+
+// Media, shared; positioned per variant below.
+.c-article-header__media {
+  margin: 0;
+}
+
+.c-article-header__image {
+  width: 100%;
+  object-fit: cover;
+}
+
+// Default variant — stacked, image full-bleed above the headline ---------------
+.c-article-header--default {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c-article-header--default .c-article-header__media {
+  order: -1; // above the text
+  align-self: stretch; // full-bleed
+  margin-bottom: var(--baseline-150);
+}
+
+.c-article-header--default .c-article-header__image {
+  // capped so the headline still shows below the fold
+  max-height: calc(100vh - var(--touch-target) - var(--nav-height));
+}
+
+// Split variant — 50:50 content/image ------------------------------------------
+.c-article-header--split {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 60vh;
+  }
+}
+
+// The text becomes a centred content panel (it carries no o-col12 in split).
+.c-article-header--split .c-article-header__text {
+  justify-content: center;
+  padding: var(--baseline-200) var(--space-400);
+  background: rgba(255,255,255,1);
+}
+
+.c-article-header--split .c-article-header__byline {
+  margin-top: var(--baseline-100);
+}
+
+// content-then-media in the DOM; media sits on top when stacked (mobile).
+.c-article-header--split .c-article-header__media {
+  order: -1;
+  aspect-ratio: 3 / 2;
+}
+
+.c-article-header--split .c-article-header__image {
+  height: 100%;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split .c-article-header__media {
+    aspect-ratio: auto;
+  }
+
+  // Reversible placement on desktop; DOM order stays text-then-media.
+  .c-article-header--image-right .c-article-header__media { order: 1; }
+  .c-article-header--image-left .c-article-header__media { order: -1; }
+}
+
+// imageFit: constrained — letterbox within the half.
+.c-article-header--constrained .c-article-header__media {
+  padding: var(--baseline-150);
+}
+
+.c-article-header--constrained .c-article-header__image {
+  object-fit: contain;
+}
+
+// imageFit: fullbleed — cover the half edge-to-edge.
+.c-article-header--fullbleed .c-article-header__media {
+  padding: 0;
+}
+
+// theme: light letterbox background behind constrained media.
+.c-article-header--light.c-article-header--constrained .c-article-header__media {
+  background: rgba(244,244,244,1);
+}
+
+// theme: dark — flip the panel; keep the accent legible with a lighter tint.
+.c-article-header--dark .c-article-header__text {
+  background: rgba(51,51,51,1);
+}
+
+.c-article-header--dark .c-article-header__headline,
+.c-article-header--dark .c-article-header__standfirst,
+.c-article-header--dark .c-article-header__byline {
+  color: rgba(240,240,240,1);
+}
+
+.c-article-header--dark .c-article-header__kicker,
+.c-article-header--dark .c-article-header__by {
+  color: rgba(230,152,102,1);
+}
+
+.c-article-header--dark .c-article-header__sep {
+  color: rgba(140,140,140,1);
+}
+
+.c-article-header--dark.c-article-header--constrained .c-article-header__media {
+  background: rgba(51,51,51,1);
+}
+
+// Graceful fallback when a split post omits its image: one centred column.
+.c-article-header--split.c-article-header--no-image {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split.c-article-header--no-image {
+    min-height: 0;
+  }
+}
+
+.c-article-header--split.c-article-header--no-image .c-article-header__text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Dark panels lose their background when printed; force header text to ink.
+@media print {
+  .c-article-header--split .c-article-header__text {
+    background: transparent !important;
+  }
+
+  .c-article-header--dark .c-article-header__headline,
+  .c-article-header--dark .c-article-header__standfirst,
+  .c-article-header--dark .c-article-header__byline,
+  .c-article-header--dark .c-article-header__sep {
+    color: rgba(51,51,51,1);
+  }
+
+  .c-article-header--dark .c-article-header__kicker,
+  .c-article-header--dark .c-article-header__by {
+    color: rgba(168,77,30,1);
+  }
+
+  .c-article-header__media {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

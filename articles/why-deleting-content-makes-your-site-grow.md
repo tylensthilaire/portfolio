@@ -3,17 +3,20 @@ title: Why pruning content makes your site grow faster, and how to do it
 description: What you don’t say is as important as what you do. Why pruning content works and three steps to grab low hanging fruit.
 date: 2020-11-21
 readingTime: 5:30
+kicker: Content strategy
 tags: ["SEO", "UX", "Content strategy"]
 layout: layouts/post.njk
+header: default
 ---
 
-# Why pruning content makes your site grow faster
-
-## TLDR
+<details class="c-tldr">
+<summary>TLDR</summary>
 
 - Removing old and low-quality content ensures users only find relevant information.
 - High-quality content improves brand positioning and SEO.
 - Find it. Triage it. Delete it.
+
+</details>
 
 Plants benefit from pruning every once in a while.
 Correct pruning improves health, appearance and encourages growth.

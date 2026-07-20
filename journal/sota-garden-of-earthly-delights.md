@@ -2,15 +2,22 @@
 title: The Garden of Earthly Delights
 description: An online chatroom for the animals of Age of Empires II, with a contemptuous twist.
 date: 2020-09-10
+kicker: State of the art
 tags: ["sota"]
 layout: layouts/post.njk
+header: split
+image: /img/garden-of-earthly-delights.gif
+imageAlt: "A typical scene from The Garden of Earthly Delights, where animals and people inhabit three low-resolution landscapes: a paradise, a savannah and a hellscape."
+imagePosition: right
+theme: light
+imageFit: constrained
+credit:
+  artist: SCRNPRNT
+  work: The Garden of Earthly Delights
+  workUrl: http://scrnprnt.ca/EarthlyDelightsPresskit.html
+  year: 2020
+  medium: Video Game
 ---
-
-![A typical scene from The Garden of Earthly Delights, where animals and people inhabit three low-resolution landscapes: a paradise, a savannah and a hellscape](/img/garden-of-earthly-delights.gif)
-
-[<cite>The Garden of Earthly Delights</cite>](http://scrnprnt.ca/EarthlyDelightsPresskit.html)  
-SCRNPRNT  
-2020, Video Game
 
 It's hard to know quite what SCRNPRNT's <cite>The Garden of Earthly Delights</cite> is.
 Ostensibly a chatroom,

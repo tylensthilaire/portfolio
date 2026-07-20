@@ -57,22 +57,10 @@
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
       {{ content | safe }}
     </main>
+    {#- Masthead sits after <main> in the DOM (main content first for assistive
+        tech); the flex body reorders it to the top visually — see .c-masthead. #}
     <header class="c-masthead">
-      <hr>
-      <nav>
-        <h2>Navigation menu</h2>
-        {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
-        <ul class="nav">
-          <li>
-            <a href="{{ '/' | url }}">Home</a>
-          </li>
-          {%- for entry in collections.all | eleventyNavigation %}
-            <li class="nav-item{% if entry.url == page.url %} nav-item-active{% endif %}" {% if entry.url == page.url %} aria-current="page" {% endif %}>
-              <a href="{{ entry.url | url }}">{{ entry.title }}</a>
-            </li>
-          {%- endfor %}
-        </ul>
-      </nav>
+      <a class="c-masthead__logo c-hero__eyebrow" href="{{ '/' | url }}">Tylen St Hilaire</a>
     </header>
     <footer class="c-footer">
       <div class="o-col12">

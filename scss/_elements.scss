@@ -29,6 +29,12 @@ html {
   }
 }
 
+// Article pages sit on clean paper — drop the fixed static/portrait texture on
+// post pages (which also removes any need to patch child backgrounds to white).
+html:has(.o-post)::before {
+  display: none;
+}
+
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -91,6 +97,45 @@ a {
     transform: scale(0.9);
   }
 
+}
+
+// Prose links (any <a> in a <p> or <li>). Override the global inline-block so
+// long links wrap across lines, and stay visible once visited (`opacity` — the
+// global fades them). The underline is drawn with two background-gradient layers
+// rather than text-decoration, so the second line can *animate* in on hover
+// (text-decoration-style is discrete and can't be transitioned): a resting 54%
+// grey line, plus a terracotta line that wipes across on hover to form a double
+// underline. Trade-off vs text-decoration: the gradient lines don't skip
+// descenders.
+:is(p, li) a {
+  display: inline;
+  opacity: 100%;
+  color: rgba(51,51,51,1);
+  text-decoration: none;
+  // 3px of bottom padding extends the background paint area below the text so
+  // the hover line has somewhere to sit *below* the resting line (inline
+  // vertical padding doesn't affect layout, only the paint box).
+  padding-bottom: 3px;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.54) 0 0),
+    linear-gradient(rgba(196,102,47,1) 0 0);
+  background-repeat: no-repeat;
+  // Resting grey line sits at the content bottom (its original spot); the hover
+  // line drops into the padding just below it to read as a double underline.
+  background-position: 0 calc(100% - 3px), 0 100%;
+  background-size: 100% 1px, 0 1px;
+  transition-property: background-size, color;
+}
+
+:is(p, li) a:hover {
+  color: rgba(196,102,47,1);
+  // Suppress the base `a:hover` text-decoration underline (which out-specifies
+  // the resting prose rule), so only the gradient double-underline shows.
+  text-decoration: none;
+  background-image:
+    linear-gradient(rgba(196,102,47,1) 0 0),
+    linear-gradient(rgba(196,102,47,1) 0 0);
+  background-size: 100% 1px, 100% 1px;
 }
 
 ol, ul {

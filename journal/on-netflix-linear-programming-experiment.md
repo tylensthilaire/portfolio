@@ -5,8 +5,6 @@ date: 2020-09-15
 layout: layouts/post.njk
 ---
 
-# On Netflix’s linear programming experiment
-
 _‘Direct’_, the company’s new linear channel,
 available to French subscribers via the web player,
 isn’t Netflix’s first attempt to solve its lean-back experience problem.

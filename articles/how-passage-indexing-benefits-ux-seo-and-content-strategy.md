@@ -3,17 +3,24 @@ title: How Google’s passage indexing benefits SEO, UX and content strategy
 description: Google’s recent updates free writers and designers to focus on users instead of bots.
 date: 2020-09-10
 readingTime: 2:00
+kicker: Search
 tags: ["SEO", "Content Strategy", "UX"]
 layout: layouts/post.njk
+header: default
+image: /img/google-passage-indexing.png
+imageAlt: Diagram illustrating how Google indexes and ranks individual passages within a longer web page.
+imageWidth: 1000
+imageHeight: 590
 ---
 
-# How Google’s passage indexing benefits SEO, UX and content strategy
-
-## TLDR
+<details class="c-tldr">
+<summary>TLDR</summary>
 
 - Google will start ranking individual passages from pages.
 - Pages with a relevant passage may rank for a query, even if the page as a whole isn’t the most relevant.
 - Content professionals can focus on writing and organising information for users, not crawlers.
+
+</details>
 
 Google recently published a story about [using AI to make search results more powerful](https://blog.google/products/search/search-on/).
 Soon, they’ll better decipher misspelled words,
