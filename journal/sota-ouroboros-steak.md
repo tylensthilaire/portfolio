@@ -9,7 +9,7 @@ header: split
 image: /img/ouroboros-steak-1.jpg
 imageAlt: Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.
 imagePosition: right
-theme: light
+theme: dark
 imageFit: fullbleed
 ---
 

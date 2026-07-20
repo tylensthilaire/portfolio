@@ -95,6 +95,10 @@
 }
 
 .c-article {
+  // Body reading measure, calibrated to ~75 *rendered* characters. The `ch`
+  // unit is the advance of "0", which in system-ui is ~33% wider than the
+  // average prose glyph, so 75ch renders ~103 chars; 56ch lands near 75.
+  --measure-b: 56ch;
 
   p:first-of-type {
     --flow-space: var(--baseline-150);
@@ -102,15 +106,49 @@
   }
 }
 
+// Looser leading for body copy only — headings keep their own tighter leading.
+.c-article p,
+.c-article li {
+  line-height: 1.666;
+}
+
+// Drop cap on the opening paragraph, sunk two lines so its baseline meets the
+// baseline of the second line (initial-letter). Degrades to a plain enlarged
+// first letter where initial-letter is unsupported (e.g. Firefox).
+.c-article > p:first-of-type::first-letter {
+  -webkit-initial-letter: 2;
+  initial-letter: 2;
+  font-family: $font-family-display;
+  font-weight: 700;
+  color: rgba(196,102,47,1);
+  margin-right: 0.375rem;
+}
+
+// End mark: close the final paragraph with the site's floral ornament,
+// preceded by a space (mirrors the ❧ used on the hero eyebrow).
+.c-article > p:last-of-type::after {
+  content: ' ❧';
+  color: rgba(196,102,47,1);
+}
+
 @media (min-width: 24rem) {
   .c-article {
-    font-size: calc(var(--t-u1) * 1rem);
+    font-size: calc(var(--t-00) * 1rem);
 
 
     h1 {
       font-size: calc(var(--t-u8) * 1em);
       line-height: var(--baseline-400);
     }
+  }
+}
+
+// Offset the reading column one grid column to the right for an asymmetric,
+// editorial measure. Applied only at the widest layout, where the fixed
+// container leaves slack; the header stays flush to the container's left edge.
+@media (min-width: 72rem) {
+  .c-article {
+    padding-left: var(--column-and-gutter-unit);
   }
 }
 
