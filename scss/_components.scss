@@ -200,6 +200,103 @@
   margin-top: var(--space-200);
 }
 
+// Tufte-style sidenotes (markdown inline-footnote syntax `text^[the note]`, see
+// the sidenote plugin in .eleventy.js). A visually-hidden checkbox toggles the
+// note: hidden by default, it expands inline on narrow screens and floats into
+// the right margin beside its reference on desktop. Marked with an asterisk
+// (uncounted), separate from the numbered footer footnotes.
+.c-sidenote__toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0; // visually hidden, still keyboard-focusable
+}
+
+.c-sidenote__marker {
+  cursor: pointer;
+  color: rgba(196,102,47,1);
+  // Enlarge the click/tap target around the small marker without shifting
+  // surrounding text (padding grows the hit area, negative margin cancels it).
+  padding: 0.4em;
+  margin: -0.4em;
+
+  &::before {
+    content: '*';
+    font-size: calc(var(--t-u1) * 1em);
+    font-weight: 700;
+    vertical-align: sub;
+    line-height: 0;
+  }
+}
+
+.c-sidenote__toggle:focus-visible + .c-sidenote__marker {
+  outline: 2px solid rgba(196,102,47,1);
+  outline-offset: 2px;
+}
+
+.c-sidenote__note {
+  display: none; // revealed on toggle
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+
+  &::before {
+    content: '*';
+    margin-right: 0.5ch;
+    color: rgba(196,102,47,1);
+    font-weight: 700;
+  }
+}
+
+// Narrow screens: expand inline as an indented block beneath the line.
+.c-sidenote__toggle:checked ~ .c-sidenote__note {
+  display: block;
+  max-width: var(--measure-b);
+  margin: var(--baseline-050) 0;
+  padding-left: var(--space-300);
+  border-left: 2px solid rgba(196,102,47,1);
+}
+
+// Desktop: float into the right margin beside the reference. `clear: right`
+// makes notes stack below the artwork credit (also a right-float) and below one
+// another rather than colliding. The extra column of negative margin pushes the
+// note clear of the break-out images, which extend one column past the text.
+@media (min-width: 72rem) {
+  .c-sidenote__toggle:checked ~ .c-sidenote__note {
+    float: right;
+    clear: right;
+    width: 15rem;
+    max-width: none;
+    margin: 0 calc(-17rem - var(--column-and-gutter-unit)) var(--baseline-050) 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+// Footnote references: a bold terracotta number with no square brackets
+// (dropped in .eleventy.js), matching the sidenote asterisk marker. Opts out of
+// the prose-link gradient underline since it reads as a superscript marker,
+// not a body link. The grouped :hover keeps the
+// same look on hover, out-specifying the prose hover rule.
+// One step larger than the default <sup> (t-d3 -> t-d2) and sitting just above
+// the line's middle rather than raised as a superscript (a small baseline-
+// relative raise); line-height: 0 keeps the larger glyph from opening up the
+// leading.
+.footnote-ref {
+  font-size: calc(var(--t-d2) * 1em);
+  vertical-align: 0.2em;
+  line-height: 0;
+}
+
+.footnote-ref a,
+.footnote-ref a:hover {
+  color: rgba(196,102,47,1);
+  font-weight: 900;
+  background-image: none;
+  padding-bottom: 0;
+}
+
 // Drop cap on the opening paragraph, sunk two lines so its baseline meets the
 // baseline of the second line (initial-letter). Degrades to a plain enlarged
 // first letter where initial-letter is unsupported (e.g. Firefox).
@@ -298,14 +395,16 @@
   }
 
   // The artwork credit lives in the whitespace to the right of the reading
-  // column, opposite the body's leftward offset. Its top aligns with the first
-  // paragraph (the body's padding-top plus that paragraph's flow margin-top).
+  // column, opposite the body's leftward offset. It floats right (rather than
+  // absolute) so it shares one margin column with the sidenotes: notes clear
+  // right and stack *below* it instead of colliding. The margin-top replaces the
+  // old absolute offset, keeping its top aligned with the first paragraph (the
+  // paragraph's flow margin-top).
   .c-credit {
-    position: absolute;
-    top: calc(var(--baseline-150) + var(--baseline-150));
-    right: 0;
+    float: right;
+    clear: right;
     width: calc(15rem + var(--column-and-gutter-unit));
-    margin: 0;
+    margin: var(--baseline-150) 0 var(--baseline-100) 0;
   }
 }
 

@@ -9,6 +9,43 @@ const markdownIt = require("markdown-it");
 const markdownItAnchor = require("markdown-it-anchor");
 const markdownItFootnote = require("markdown-it-footnote");
 
+// Tufte sidenotes: repurpose markdown inline-footnote syntax `text^[the note]`
+// into an inline, click-toggled margin note (asterisk marker, uncounted).
+// Registered before `footnote_inline` so it claims `^[...]` first; reference
+// footnotes `[^1]` are untouched and still collect in the footer.
+function sidenotePlugin(md) {
+  let uid = 0;
+
+  md.inline.ruler.before("footnote_inline", "sidenote", (state, silent) => {
+    const max = state.posMax;
+    const start = state.pos;
+    if (state.src.charCodeAt(start) !== 0x5E /* ^ */) return false;
+    if (start + 1 >= max || state.src.charCodeAt(start + 1) !== 0x5B /* [ */) return false;
+    const labelStart = start + 2;
+    const labelEnd = state.md.helpers.parseLinkLabel(state, start + 1);
+    if (labelEnd < 0) return false;
+    if (!silent) {
+      state.pos = labelStart;
+      state.posMax = labelEnd;
+      state.push("sidenote_open", "span", 1);
+      state.md.inline.tokenize(state);
+      state.push("sidenote_close", "span", -1);
+    }
+    state.pos = labelEnd + 1;
+    state.posMax = max;
+    return true;
+  });
+
+  md.renderer.rules.sidenote_open = () => {
+    const id = `sn-${++uid}`;
+    return `<span class="c-sidenote">` +
+      `<input type="checkbox" id="${id}" class="c-sidenote__toggle">` +
+      `<label class="c-sidenote__marker" for="${id}" role="button" aria-label="Toggle sidenote"></label>` +
+      `<small class="c-sidenote__note">`;
+  };
+  md.renderer.rules.sidenote_close = () => "</small></span>";
+}
+
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginSyntaxHighlight);
@@ -95,7 +132,16 @@ module.exports = function(eleventyConfig) {
       class: "direct-link",
       symbol: "#"
     })
-  }).use(markdownItFootnote);
+  }).use(markdownItFootnote).use(sidenotePlugin);
+
+  // Footnote references without square brackets — just the number (styled bold
+  // terracotta in CSS to match the sidenote marker).
+  markdownLibrary.renderer.rules.footnote_caption = (tokens, idx) => {
+    let n = Number(tokens[idx].meta.id + 1).toString();
+    if (tokens[idx].meta.subId > 0) n += ":" + tokens[idx].meta.subId;
+    return n;
+  };
+
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   return {

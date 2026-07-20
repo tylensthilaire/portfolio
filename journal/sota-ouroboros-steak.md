@@ -23,7 +23,7 @@ In a radical truncation of farm-to-table,
 <cite>Ouroboros Steak</cite> is the only truly cruelty free ‘lab-grown’ meat.
 Created in a form akin to a child’s science kit,
 the steak can be grown by _anyone_, at home,
-using cells from a swab of their own cheek.
+using cells from a swab of their own cheek.^[The cheek swab yields human epithelial cells; the mushroom-derived scaffold and serum do the rest. No slaughterhouse, no bioreactor the size of a room.]
 
 The resulting amuse-bouche-sized steaks[^1],
 as [displayed at The Design Museum](https://designmuseum.org/exhibitions/beazley-designs-of-the-year/product-2020/ouroboros-steak),
