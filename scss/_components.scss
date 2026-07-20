@@ -95,6 +95,11 @@
 }
 
 .c-article {
+  // Default the article to the body font (bare elements like <figure> would
+  // otherwise fall back to the UA serif, since only p/li/headings set a family
+  // — which made `ch`-based widths resolve inconsistently on figures/images).
+  font-family: $font-family-body;
+
   // Body reading measure, calibrated to ~75 *rendered* characters. The `ch`
   // unit is the advance of "0", which in system-ui is ~33% wider than the
   // average prose glyph, so 75ch renders ~103 chars; 56ch lands near 75.
@@ -149,6 +154,23 @@
 @media (min-width: 72rem) {
   .c-article {
     padding-left: var(--column-and-gutter-unit);
+  }
+
+  // Inline images ignore the body's one-column offset and sit flush to the
+  // container's left edge, extending one column past the text measure on each
+  // side (two columns wider than the text overall). Width is 100% of the
+  // parent (which carries the reading measure) plus two columns — using `100%`
+  // rather than `var(--measure-b)` avoids `ch` re-resolving on the <img>'s own
+  // font, which made figure images come out too narrow. Figures are pinned to
+  // the measure so they carry the same reference as a paragraph.
+  .c-article figure {
+    max-width: var(--measure-b);
+  }
+
+  .c-article img {
+    max-width: none;
+    width: calc(100% + 2 * var(--column-and-gutter-unit));
+    margin-left: calc(-1 * var(--column-and-gutter-unit));
   }
 }
 
