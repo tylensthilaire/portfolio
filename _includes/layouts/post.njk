@@ -1,7 +1,9 @@
 ---
 layout: layouts/base.njk
-templateClass: tmpl-post
+templateClass: o-post
 ---
+{% include "partials/article-header.njk" %}
+
 <div class="o-col12 u-flow c-article">
   {{ content | safe }}
 </div>

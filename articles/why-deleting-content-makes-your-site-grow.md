@@ -3,11 +3,11 @@ title: Why pruning content makes your site grow faster, and how to do it
 description: What you don’t say is as important as what you do. Why pruning content works and three steps to grab low hanging fruit.
 date: 2020-11-21
 readingTime: 5:30
+kicker: Content strategy
 tags: ["SEO", "UX", "Content strategy"]
 layout: layouts/post.njk
+header: default
 ---
-
-# Why pruning content makes your site grow faster
 
 ## TLDR
 

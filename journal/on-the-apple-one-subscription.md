@@ -5,8 +5,6 @@ date: 2020-09-15
 layout: layouts/post.njk
 ---
 
-# On the ‘Apple One’ subscription
-
 Alongside the new Apple Watches and iPads, today’s ‘Time Flies’ Apple event launched the much rumoured _‘Apple One’_ bundle, connecting Apple’s services offering into a single subscription.
 
 I, as an occasional luddite, have rejected the SaaS model almost wholly. I believe that we should be able to buy and own any software – apps, media, data, et al – and not constantly be charged for the privilege of using it. Unless some actual service with ongoing costs is provided, as with Dropbox or iTunes Match, buying software should be as similar to buying a consumable physical good as possible[^1].

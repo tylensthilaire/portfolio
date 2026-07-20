@@ -10,3 +10,9 @@
     padding-right: 0;
   }
 }
+
+// Stretch the post <main> to the full viewport width so a split header can
+// bleed edge-to-edge. The body inside still sits within .o-col12's measure.
+.o-post {
+  align-self: stretch;
+}

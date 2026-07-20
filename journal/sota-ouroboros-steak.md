@@ -2,11 +2,16 @@
 title: Ouroboros Steak
 description: A DIY meal kit for cannibals; steaks grown from your own cells.
 date: 2020-11-20
+kicker: State of the art
 tags: ["sota"]
 layout: layouts/post.njk
+header: split
+image: /img/ouroboros-steak-1.jpg
+imageAlt: Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.
+imagePosition: right
+theme: light
+imageFit: fullbleed
 ---
-
-![Four steaks preserved in tea-light size resin cylinders placed artfully in the centre of a plate, with knife and fork to the side, as if ready to be eaten.](/img/ouroboros-steak-1.jpg)
 
 [<cite>Ouroboros Steak</cite>](http://www.gracemknight.com/ouro-steak)  
 Andrew Pelling, Orkan Telhan & Grace Knight,  

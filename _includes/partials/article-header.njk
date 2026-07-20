@@ -1,0 +1,48 @@
+{#-
+  =============================================================================
+  article-header.njk — editorial article/journal header
+  =============================================================================
+  One component, two layouts chosen by the `header` field:
+  - `default` — stacked; an optional image sits full-bleed above the headline.
+  - `split`   — 50:50 content/image, reversible, light/dark, constrained/bleed.
+
+  Include from a post layout; the body still comes from `{{ content | safe }}`.
+  Front-matter schema is documented in articles/README.md and journal/README.md.
+  `headline` and `standfirst` override the SEO `title`/`description`; `image`
+  (+ `imageAlt`, optional `imageWidth`/`imageHeight`) serves both variants.
+-#}
+{%- set variant = header or "default" -%}
+{%- set headline = headline or title -%}
+{%- set kicker = kicker or (category == "journal" and "Journal" or "Article") -%}
+{%- set standfirst = standfirst or description -%}
+{%- set author = author or metadata.author.name -%}
+{%- set headerDate = date or page.date -%}
+
+<header class="c-article-header c-article-header--{{ variant }}
+  {%- if variant == "split" %} c-article-header--image-{{ imagePosition or "right" }} c-article-header--{{ theme or "light" }} c-article-header--{{ imageFit or "constrained" }}{% endif %}
+  {%- if not image %} c-article-header--no-image{% endif %}">
+  <div class="c-article-header__text{% if variant != "split" %} o-col12{% endif %}">
+    {%- if kicker %}<p class="c-article-header__kicker">{{ kicker }}</p>{% endif -%}
+    <h1 class="c-article-header__headline">{{ headline }}</h1>
+    {%- if standfirst %}<p class="c-article-header__standfirst">{{ standfirst }}</p>{% endif -%}
+    <p class="c-article-header__byline">
+      <span class="c-article-header__by">By</span> {{ author }}
+      <span class="c-article-header__sep" aria-hidden="true">·</span>
+      <time class="c-article-header__date" datetime="{{ headerDate | htmlDateString }}">{{ headerDate | readableDate }}</time>
+      {%- if readingTime %}
+      <span class="c-article-header__sep" aria-hidden="true">·</span>
+      <span class="c-article-header__reading">{{ readingTime }} min read</span>
+      {% endif -%}
+    </p>
+    {%- if variant != "split" %}<hr class="c-article-header__rule">{% endif -%}
+  </div>
+  {%- if image %}
+  {#- The image is meaningful content: always supply `imageAlt`. Pass intrinsic
+      `imageWidth`/`imageHeight` to reserve space and avoid layout shift. -#}
+  <figure class="c-article-header__media">
+    <img class="c-article-header__image" src="{{ image | url }}" alt="{{ imageAlt }}"
+      {%- if imageWidth %} width="{{ imageWidth }}"{% endif %}
+      {%- if imageHeight %} height="{{ imageHeight }}"{% endif %} decoding="async">
+  </figure>
+  {% endif -%}
+</header>

@@ -105,11 +105,259 @@
 @media (min-width: 24rem) {
   .c-article {
     font-size: calc(var(--t-u1) * 1rem);
-    
+
 
     h1 {
       font-size: calc(var(--t-u8) * 1em);
       line-height: var(--baseline-400);
     }
+  }
+}
+
+// Article header ---------------------------------------------------------------
+// One component (partials/article-header.njk), two layouts via a modifier:
+// `--default` (stacked; an optional image bleeds full-width above the text) and
+// `--split` (50:50 content/image — reversible, light/dark, constrained/bleed).
+// The post <main> is stretched to the viewport (objects layer) so the header can
+// bleed edge-to-edge; the body still sits within .o-col12's measure.
+
+// Shared text elements ---------------------------------------------------------
+.c-article-header__kicker {
+  font-family: $font-family-body;
+  font-weight: 700;
+  font-size: calc(var(--t-d2) * 1em);
+  line-height: var(--baseline-100);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  // Darker terracotta on small labels to clear WCAG AA (~5.4:1 on white);
+  // the large headline keeps the brand terracotta, the dark panel its tint.
+  color: rgba(168,77,30,1);
+}
+
+.c-article-header__headline {
+  font-family: $font-family-display;
+  color: rgba(51,51,51,1);
+  font-size: calc(var(--t-u4) * 1em);
+  line-height: var(--baseline-200);
+  max-width: var(--measure-h);
+}
+
+@media (min-width: 40rem) {
+  .c-article-header__headline {
+    font-size: calc(var(--t-u6) * 1em);
+    line-height: var(--baseline-250);
+  }
+}
+
+.c-article-header__standfirst {
+  font-family: $font-family-body;
+  font-weight: 400;
+  font-style: italic;
+  font-size: calc(var(--t-u1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+  max-width: var(--measure-h);
+}
+
+.c-article-header__byline {
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+}
+
+.c-article-header__by {
+  font-weight: 700;
+  color: rgba(168,77,30,1);
+}
+
+.c-article-header__sep {
+  margin: 0 0.5ch;
+  color: rgba(169,169,169,1);
+}
+
+.c-article-header__kicker + .c-article-header__headline {
+  margin-top: var(--baseline-100);
+}
+
+.c-article-header__headline + .c-article-header__standfirst {
+  margin-top: var(--baseline-100);
+}
+
+// Left-aligned text stack, shared by both variants.
+.c-article-header__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+
+  > * + * {
+    margin-top: var(--baseline-050);
+  }
+}
+
+.c-article-header__rule {
+  width: var(--baseline-200);
+  height: 2px;
+  margin-top: var(--baseline-150);
+  border: 0;
+  background: rgba(196,102,47,1);
+}
+
+// Media, shared; positioned per variant below.
+.c-article-header__media {
+  margin: 0;
+}
+
+.c-article-header__image {
+  width: 100%;
+  object-fit: cover;
+}
+
+// Default variant — stacked, image full-bleed above the headline ---------------
+.c-article-header--default {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.c-article-header--default .c-article-header__media {
+  order: -1; // above the text
+  align-self: stretch; // full-bleed
+  margin-bottom: var(--baseline-150);
+}
+
+.c-article-header--default .c-article-header__image {
+  // capped so the headline still shows below the fold
+  max-height: calc(100vh - var(--touch-target) - var(--nav-height));
+}
+
+// Split variant — 50:50 content/image ------------------------------------------
+.c-article-header--split {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 60vh;
+  }
+}
+
+// The text becomes a centred content panel (it carries no o-col12 in split).
+.c-article-header--split .c-article-header__text {
+  justify-content: center;
+  padding: var(--baseline-200) var(--space-400);
+  background: rgba(255,255,255,1);
+}
+
+.c-article-header--split .c-article-header__byline {
+  margin-top: var(--baseline-100);
+}
+
+// content-then-media in the DOM; media sits on top when stacked (mobile).
+.c-article-header--split .c-article-header__media {
+  order: -1;
+  aspect-ratio: 3 / 2;
+}
+
+.c-article-header--split .c-article-header__image {
+  height: 100%;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split .c-article-header__media {
+    aspect-ratio: auto;
+  }
+
+  // Reversible placement on desktop; DOM order stays text-then-media.
+  .c-article-header--image-right .c-article-header__media { order: 1; }
+  .c-article-header--image-left .c-article-header__media { order: -1; }
+}
+
+// imageFit: constrained — letterbox within the half.
+.c-article-header--constrained .c-article-header__media {
+  padding: var(--baseline-150);
+}
+
+.c-article-header--constrained .c-article-header__image {
+  object-fit: contain;
+}
+
+// imageFit: fullbleed — cover the half edge-to-edge.
+.c-article-header--fullbleed .c-article-header__media {
+  padding: 0;
+}
+
+// theme: light letterbox background behind constrained media.
+.c-article-header--light.c-article-header--constrained .c-article-header__media {
+  background: rgba(244,244,244,1);
+}
+
+// theme: dark — flip the panel; keep the accent legible with a lighter tint.
+.c-article-header--dark .c-article-header__text {
+  background: rgba(51,51,51,1);
+}
+
+.c-article-header--dark .c-article-header__headline,
+.c-article-header--dark .c-article-header__standfirst,
+.c-article-header--dark .c-article-header__byline {
+  color: rgba(240,240,240,1);
+}
+
+.c-article-header--dark .c-article-header__kicker,
+.c-article-header--dark .c-article-header__by {
+  color: rgba(230,152,102,1);
+}
+
+.c-article-header--dark .c-article-header__sep {
+  color: rgba(140,140,140,1);
+}
+
+.c-article-header--dark.c-article-header--constrained .c-article-header__media {
+  background: rgba(51,51,51,1);
+}
+
+// Graceful fallback when a split post omits its image: one centred column.
+.c-article-header--split.c-article-header--no-image {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 60rem) {
+  .c-article-header--split.c-article-header--no-image {
+    min-height: 0;
+  }
+}
+
+.c-article-header--split.c-article-header--no-image .c-article-header__text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Dark panels lose their background when printed; force header text to ink.
+@media print {
+  .c-article-header--split .c-article-header__text {
+    background: transparent !important;
+  }
+
+  .c-article-header--dark .c-article-header__headline,
+  .c-article-header--dark .c-article-header__standfirst,
+  .c-article-header--dark .c-article-header__byline,
+  .c-article-header--dark .c-article-header__sep {
+    color: rgba(51,51,51,1);
+  }
+
+  .c-article-header--dark .c-article-header__kicker,
+  .c-article-header--dark .c-article-header__by {
+    color: rgba(168,77,30,1);
+  }
+
+  .c-article-header__media {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }

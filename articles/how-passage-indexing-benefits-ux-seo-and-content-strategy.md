@@ -3,11 +3,15 @@ title: How Google’s passage indexing benefits SEO, UX and content strategy
 description: Google’s recent updates free writers and designers to focus on users instead of bots.
 date: 2020-09-10
 readingTime: 2:00
+kicker: Search
 tags: ["SEO", "Content Strategy", "UX"]
 layout: layouts/post.njk
+header: default
+image: /img/google-passage-indexing.png
+imageAlt: Diagram illustrating how Google indexes and ranks individual passages within a longer web page.
+imageWidth: 1000
+imageHeight: 590
 ---
-
-# How Google’s passage indexing benefits SEO, UX and content strategy
 
 ## TLDR
 
