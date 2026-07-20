@@ -6,6 +6,7 @@ templateClass: o-post
   {% include "partials/article-header.njk" %}
 
   <div class="o-col12 u-flow c-article">
+    {% include "partials/artwork-credit.njk" %}
     {{ content | safe }}
   </div>
 </article>

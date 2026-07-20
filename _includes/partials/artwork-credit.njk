@@ -1,0 +1,31 @@
+{#-
+  =============================================================================
+  artwork-credit.njk — "State of the Art" artwork label
+  =============================================================================
+  Renders a minimalist gallery-style credit when a `credit` object is present
+  in front matter. Sits in the right margin on desktop; stacks inline on mobile.
+
+  Front-matter schema:
+
+    credit:
+      artist:  string            # bold, first line
+      work:    string            # bold italic, second line
+      workUrl: string (optional) # links the work title
+      year:    string | number   # regular, follows the work after a comma
+      medium:  string            # regular, third line
+  =============================================================================
+-#}
+{%- if credit %}
+<aside class="c-credit" aria-label="Artwork credit">
+  <span class="c-credit__artist">{{ credit.artist }}</span>
+  <span class="c-credit__work-line">
+    {%- if credit.workUrl -%}
+    <a class="c-credit__work" href="{{ credit.workUrl }}">{{ credit.work }}</a>
+    {%- else -%}
+    <span class="c-credit__work">{{ credit.work }}</span>
+    {%- endif -%}
+    {%- if credit.year %}<span class="c-credit__year">, {{ credit.year }}</span>{% endif -%}
+  </span>
+  {%- if credit.medium %}<span class="c-credit__medium">{{ credit.medium }}</span>{% endif -%}
+</aside>
+{% endif -%}

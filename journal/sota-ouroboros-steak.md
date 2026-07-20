@@ -11,11 +11,13 @@ imageAlt: Four steaks preserved in tea-light size resin cylinders placed artfull
 imagePosition: right
 theme: dark
 imageFit: fullbleed
+credit:
+  artist: Andrew Pelling, Orkan Telhan & Grace Knight
+  work: Ouroboros Steak
+  workUrl: http://www.gracemknight.com/ouro-steak
+  year: 2019
+  medium: Installation
 ---
-
-[<cite>Ouroboros Steak</cite>](http://www.gracemknight.com/ouro-steak)  
-Andrew Pelling, Orkan Telhan & Grace Knight,  
-2019, Installation
 
 In a radical truncation of farm-to-table,
 <cite>Ouroboros Steak</cite> is the only truly cruelty free ‘lab-grown’ meat.

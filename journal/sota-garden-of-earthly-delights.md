@@ -11,11 +11,13 @@ imageAlt: "A typical scene from The Garden of Earthly Delights, where animals an
 imagePosition: right
 theme: light
 imageFit: constrained
+credit:
+  artist: SCRNPRNT
+  work: The Garden of Earthly Delights
+  workUrl: http://scrnprnt.ca/EarthlyDelightsPresskit.html
+  year: 2020
+  medium: Video Game
 ---
-
-[<cite>The Garden of Earthly Delights</cite>](http://scrnprnt.ca/EarthlyDelightsPresskit.html)  
-SCRNPRNT  
-2020, Video Game
 
 It's hard to know quite what SCRNPRNT's <cite>The Garden of Earthly Delights</cite> is.
 Ostensibly a chatroom,

@@ -37,3 +37,18 @@ fields still renders a clean default header.
 panel); `fullbleed` lets it cover its half edge-to-edge. On the dark theme the
 terracotta accent switches to a lighter tint so it stays legible. A `split`
 post that omits `image` degrades to a single, centred, full-width panel.
+
+## Artwork credit
+
+A `credit` object renders a minimalist gallery label (used by the *State of the
+Art* series) — in the right margin on desktop, stacked at the top of the body
+on mobile:
+
+```yaml
+credit:
+  artist:  Andrew Pelling, Orkan Telhan & Grace Knight  # bold, first line
+  work:    Ouroboros Steak                               # bold italic, second line
+  workUrl: https://example.com/work                      # optional; links the work
+  year:    2019                                          # regular, follows the work
+  medium:  Installation                                  # regular, third line
+```

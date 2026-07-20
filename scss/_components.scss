@@ -139,6 +139,46 @@
   color: rgba(196,102,47,1);
 }
 
+// "State of the Art" artwork label (partials/artwork-credit.njk) — a minimalist
+// gallery card. Stacks inline at the top of the body on small screens; floats
+// into the roomy right margin on desktop (see the >=72rem block below).
+.c-credit {
+  display: block;
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(51,51,51,1);
+  background: rgba(255,255,255,1);
+  border: 1px solid rgba(51,51,51,0.12);
+  padding: var(--space-200) var(--space-300);
+  box-shadow: 0.375rem 0.375rem 0 rgba(51,51,51,0.08);
+}
+
+.c-credit__artist,
+.c-credit__work-line,
+.c-credit__medium {
+  display: block;
+}
+
+.c-credit__artist {
+  font-weight: 700;
+}
+
+.c-credit__work {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.c-credit__year {
+  font-weight: 400;
+  font-style: normal;
+}
+
+.c-credit__medium {
+  font-weight: 400;
+  color: rgba(102,102,102,1);
+}
+
 @media (min-width: 24rem) {
   .c-article {
     font-size: calc(var(--t-00) * 1rem);
@@ -156,6 +196,7 @@
 // container leaves slack; the header stays flush to the container's left edge.
 @media (min-width: 72rem) {
   .c-article {
+    position: relative; // positioning context for the artwork credit
     padding-left: var(--column-and-gutter-unit);
   }
 
@@ -174,6 +215,17 @@
     max-width: none;
     width: calc(100% + 2 * var(--column-and-gutter-unit));
     margin-left: calc(-1 * var(--column-and-gutter-unit));
+  }
+
+  // The artwork credit lives in the whitespace to the right of the reading
+  // column, opposite the body's leftward offset. Its top aligns with the first
+  // paragraph (the body's padding-top plus that paragraph's flow margin-top).
+  .c-credit {
+    position: absolute;
+    top: calc(var(--baseline-150) + var(--baseline-150));
+    right: 0;
+    width: calc(15rem + var(--column-and-gutter-unit));
+    margin: 0;
   }
 }
 
