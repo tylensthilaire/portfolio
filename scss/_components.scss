@@ -1,6 +1,29 @@
-// Masthead removed until needed
+// Masthead wordmark — a left-aligned logo that links home, filling what was
+// empty padding above the article. Hidden by default (the home page carries the
+// name in its hero); shown on article pages.
 .c-masthead {
   display: none;
+}
+
+// It sits after <main> in the DOM (main content first for assistive tech), so
+// `order: -1` hoists it above <main> visually in the flex-column body (its
+// siblings default to order 0).
+body:has(.o-post) .c-masthead {
+  display: block;
+  order: -1;
+  width: var(--container-width);
+  padding-top: var(--baseline-150);
+}
+
+// The wordmark reuses the hero eyebrow styles (class applied in the markup).
+// The generic link reset zeroes bottom borders, so restore the eyebrow
+// underline with enough specificity to win over `a:link`.
+.c-masthead .c-masthead__logo {
+  border-bottom: 2px solid rgba(196,102,47,1);
+
+  &:hover {
+    text-decoration: none; // keep just the eyebrow underline, no hover underline
+  }
 }
 
 .c-hero {
