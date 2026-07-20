@@ -99,6 +99,9 @@
   // otherwise fall back to the UA serif, since only p/li/headings set a family
   // — which made `ch`-based widths resolve inconsistently on figures/images).
   font-family: $font-family-body;
+  padding-top: var(--baseline-150); // ~36px above the body section
+  padding-bottom: var(--baseline-150); // ~36px below, above the closing keyline
+  border-bottom: 1px solid rgba(51,51,51,0.15); // keyline closing the body
 
   // Body reading measure, calibrated to ~75 *rendered* characters. The `ch`
   // unit is the advance of "0", which in system-ui is ~33% wider than the
