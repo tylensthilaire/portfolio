@@ -55,7 +55,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.on("eleventy.before", () => {
     const outputDir = path.join(__dirname, "_site", "css");
     fs.mkdirSync(outputDir, { recursive: true });
-    for (const file of ["main", "critical"]) {
+    for (const file of ["main", "critical", "resume-print"]) {
       const result = sass.compile(path.join(__dirname, "scss", `${file}.scss`), {
         style: "compressed"
       });

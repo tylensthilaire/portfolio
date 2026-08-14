@@ -1,0 +1,182 @@
+// Print styles for /resume/ only.
+//
+//   A4                 210 × 297mm
+//   margins            12mm top/bottom, 16mm left/right   (@page below)
+//   text block         178 × 273mm
+//   base type          9.5pt                              (html below)
+//   measure            56ch, about 75 characters
+//
+// Do not use the layout grid here (_tools-layout-grid.scss): its units resolve
+// against the text block rather than the sheet, and against the four-column
+// tier, so it half-works. A page grid must be anchored to the paper.
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 16mm;
+  }
+
+  html {
+    // Set base font size in print-relevant units
+    font-size: 9.5pt;
+    background: rgba(255,255,255,1);
+  }
+
+  html::before {
+    display: none; // no page texture on paper
+  }
+
+  // Remove website chrome
+  .c-masthead,
+  .c-footer,
+  .c-resume__print,
+  .c-resume__end-mark {
+    display: none;
+  }
+
+  // Override the flex layout.
+  body,
+  main {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  .c-resume {
+    width: 100%;
+    max-width: none; // Override max-width as `@page` sets fixed dimensions
+    padding: 0 0 0 2ch; // Room for the ❧ to hang
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  // Tighter rhythm throughout.
+  .c-resume__headline {
+    font-size: calc(var(--t-u3) * 1rem); // 16.5pt
+    line-height: 1.2;
+    margin-top: var(--space-100);
+  }
+
+  .c-resume__role {
+    margin-top: var(--space-050);
+  }
+
+  .c-resume__statement {
+    font-size: calc(var(--t-00) * 1rem); // 9.5pt
+    line-height: 1.5;
+    margin-top: var(--baseline-100);
+    padding-top: var(--baseline-050);
+  }
+
+  .c-resume__section {
+    margin-top: var(--space-200);
+  }
+
+  .c-resume__section-title {
+    padding-bottom: var(--space-025);
+  }
+
+  .c-resume__entry {
+    margin-top: var(--space-200);
+  }
+
+  .c-resume__title {
+    font-size: calc(var(--t-u1) * 1rem); // 11.4pt
+    line-height: 1.2;
+  }
+
+  .c-resume__meta {
+    line-height: 1.4;
+    margin-top: var(--space-050);
+  }
+
+  // Left-hand rail -----------------------------------------------------------------
+  //   rail 48mm | gutter 8mm | points 122mm
+  //
+  // Use float layouts for word-processor-like reflow across pages
+  .c-resume__title,
+  .c-resume__meta {
+    float: left;
+    clear: left;
+    width: 48mm;
+  }
+
+  .c-resume__text,
+  .c-resume__bullets {
+    margin-left: 56mm;
+  }
+
+  // Override stacked rhythm to keep points level with the rail
+  .c-resume__meta + .c-resume__text,
+  .c-resume__meta + .c-resume__bullets {
+    margin-top: 0;
+  }
+
+  .c-resume__entry::after {
+    content: '';
+    display: block;
+    clear: both; // the next entry starts below the rail
+  }
+
+  // Override styles inlining title, meta and text back into blocks for two column layout
+  .c-resume__entry:not(:has(.c-resume__bullets)) {
+    max-width: none; // Override measure to allow use of full page width
+
+    .c-resume__title,
+    .c-resume__meta,
+    .c-resume__text {
+      display: block;
+    }
+
+    .c-resume__title + .c-resume__meta::before,
+    .c-resume__period::after {
+      content: none;
+    }
+  }
+
+  // Matching the screen rule's selector exactly as a rule less specific than the
+  // block above would add separators in front of every description.
+  .c-resume__entry:not(:has(.c-resume__bullets)):has(.c-resume__title) {
+    .c-resume__meta + .c-resume__text::before {
+      content: none;
+    }
+  }
+
+  .c-resume__text,
+  .c-resume__bullets li {
+    line-height: 1.4;
+  }
+
+  .c-resume__bullets li {
+    margin-bottom: var(--space-025);
+  }
+
+  // Pagination ---------------------------------------------------------------------
+  // Keep a heading with what it introduces.
+  .c-resume__section-title,
+  .c-resume__title,
+  .c-resume__meta {
+    break-after: avoid;
+  }
+
+  // Short rows (skills, languages, education) read as a unit.
+  .c-resume__entry:not(:has(.c-resume__bullets)) {
+    break-inside: avoid;
+  }
+
+  // Long points may run over a page turn; holding them whole left half-empty
+  // sheets. Orphans/widows keep at least two lines either side.
+  .c-resume__bullets li,
+  .c-resume__text,
+  .c-resume__statement {
+    orphans: 2;
+    widows: 2;
+  }
+
+  // Remove redundant link affordances for print
+  .c-resume a {
+    color: rgba(51,51,51,1);
+    background-image: none;
+    padding-bottom: 0;
+  }
+}

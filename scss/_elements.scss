@@ -29,9 +29,8 @@ html {
   }
 }
 
-// Article pages sit on clean paper — drop the fixed static/portrait texture on
-// post pages (which also removes any need to patch child backgrounds to white).
-html:has(.o-post)::before {
+// Override the static texture and portrait with white on post and resume pages
+html:has(:is(.o-post, .o-resume))::before {
   display: none;
 }
 

@@ -642,6 +642,253 @@ body:has(.o-post) .c-masthead {
   margin-right: auto;
 }
 
+
+
+
+// Résumé -----------------------------------------------------------------------
+
+.c-resume {
+  font-family: $font-family-body;
+  color: rgba(51,51,51,1);
+  max-width: 42rem;
+  padding-bottom: var(--baseline-200);
+
+}
+
+// Resume Identity --------------------------------------------------------------
+// Wordmark (name) is the <h1> so needs style overrides
+.c-resume__wordmark {
+  font-family: $font-family-body;
+  font-size: calc(var(--t-00) * 1rem);
+  line-height: var(--baseline-100);
+}
+
+// Wordmark is a link so needs to override link styles
+.c-resume__wordmark .c-hero__eyebrow {
+  border-bottom: 2px solid rgba(196,102,47,1);
+
+  &:hover {
+    text-decoration: none; // keep just the eyebrow underline
+  }
+}
+
+.c-resume__headline {
+  font-family: $font-family-display;
+  font-size: calc(var(--t-u4) * 1em);
+  line-height: var(--baseline-200);
+  max-width: 26ch;
+  margin-top: var(--baseline-100);
+
+  em {
+    color: rgba(196,102,47,1);
+  }
+}
+
+.c-resume__role {
+  font-size: calc(var(--t-00) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+  margin-top: var(--baseline-050);
+}
+
+// Resume Contact Details -------------------------------------------------------
+.c-resume__contact {
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+}
+
+.c-resume__contact-field {
+  display: none;
+}
+
+.c-resume__contact-value {
+  display: inline;
+
+  // Add spacer between contact info
+  &:not(:first-of-type)::before {
+    content: '·';
+    margin: 0 0.5ch;
+    color: rgba(169,169,169,1);
+  }
+}
+
+.c-resume__contact-value a {
+  white-space: nowrap; // never break an address or number mid-way
+}
+
+.c-resume__print {
+  font-weight: 700;
+  font-size: calc(var(--t-d2) * 1em);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(168,77,30,1);
+  background: transparent;
+  border: 1px solid rgba(51,51,51,0.15);
+  cursor: pointer;
+  min-width: 0; // undo the generic reset's 3rem floor; the height stays a target
+  padding: 0 var(--space-300);
+  margin-top: var(--baseline-100);
+
+  &:hover {
+    color: rgba(255,255,255,1);
+    background: rgba(196,102,47,1);
+    border-color: rgba(196,102,47,1);
+  }
+}
+
+// Resume Statement -------------------------------------------------------------
+.c-resume__statement {
+  font-family: $font-family-display;
+  font-size: calc(var(--t-u1) * 1em);
+  font-style: italic;
+  line-height: 1.666;
+  max-width: var(--measure-b);
+  margin-top: var(--baseline-150);
+  padding-top: var(--baseline-100);
+  border-top: 1px solid rgba(51,51,51,0.15);
+
+  &::first-letter {
+    @include drop-cap;
+    font-style: normal;
+  }
+}
+
+// Resume sections --------------------------------------------------------------
+.c-resume__section {
+  // Override <section> rule to drop flex
+  display: block;
+  margin-top: var(--baseline-200);
+}
+
+.c-resume__section-title {
+  font-family: $font-family-body;
+  font-weight: 700;
+  font-size: calc(var(--t-d2) * 1em);
+  line-height: var(--baseline-100);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  // Darker terracotta on small labels to clear WCAG AA (~5.4:1 on white).
+  color: rgba(168,77,30,1);
+  padding-bottom: var(--space-050);
+  border-bottom: 1px solid rgba(51,51,51,0.15);
+}
+
+// Resume Entries ---------------------------------------------------------------
+.c-resume__entry {
+  margin-top: var(--baseline-100);
+}
+
+.c-resume__title {
+  font-family: $font-family-display;
+  font-size: calc(var(--t-u2) * 1em);
+  line-height: 1.3;
+}
+
+.c-resume__meta {
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: var(--baseline-100);
+  color: rgba(102,102,102,1);
+}
+
+.c-resume__org {
+  font-weight: 600;
+  color: rgba(51,51,51,1);
+}
+
+.c-resume__org-note,
+.c-resume__sep {
+  color: rgba(169,169,169,1);
+}
+
+.c-resume__sep {
+  margin: 0 0.5ch;
+}
+
+.c-resume__period {
+  font-variant-numeric: tabular-nums;
+}
+
+.c-resume__text {
+  font-size: calc(var(--t-00) * 1em);
+  line-height: 1.6;
+  max-width: var(--measure-b);
+}
+
+.c-resume__meta + .c-resume__text,
+.c-resume__meta + .c-resume__bullets {
+  margin-top: var(--space-100);
+}
+
+.c-resume__bullets {
+  list-style: none;
+  max-width: var(--measure-b);
+}
+
+.c-resume__bullets li {
+  font-size: calc(var(--t-00) * 1em);
+  line-height: 1.6;
+  position: relative;
+  padding-left: 1.5em;
+  margin-bottom: var(--space-050);
+
+  &::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: rgba(196,102,47,1);
+  }
+}
+
+// Entries without bullets have inline headings and meta
+.c-resume__entry:not(:has(.c-resume__bullets)) {
+  max-width: var(--measure-b);
+  margin-top: var(--space-200);
+
+  .c-resume__title,
+  .c-resume__meta,
+  .c-resume__text {
+    display: inline;
+  }
+
+  .c-resume__title + .c-resume__meta::before {
+    content: '—';
+    margin: 0 0.5ch;
+    color: rgba(169,169,169,1);
+  }
+}
+
+// Add separator between inline headings and meta
+.c-resume__entry:not(:has(.c-resume__bullets)):has(.c-resume__title) {
+  .c-resume__meta + .c-resume__text::before {
+    content: '·';
+    margin: 0 0.5ch;
+    color: rgba(169,169,169,1);
+  }
+}
+
+// Entries without titles display meta and text inline
+.c-resume__entry:not(:has(.c-resume__title)) {
+  .c-resume__text {
+    display: inline;
+  }
+
+  .c-resume__period {
+    font-weight: 700;
+    color: rgba(51,51,51,1);
+
+    &::after {
+      content: ':';
+    }
+  }
+}
+
+.c-resume__end-mark {
+  font-size: calc(var(--t-u1) * 1em);
+  color: rgba(196,102,47,1);
+  margin-top: var(--baseline-150);
+}
+
 // Dark panels lose their background when printed; force header text to ink.
 @media print {
   .c-article-header--split .c-article-header__text {

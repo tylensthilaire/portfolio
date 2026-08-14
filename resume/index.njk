@@ -1,0 +1,71 @@
+---
+layout: layouts/base.njk
+templateClass: o-resume
+title: Resume — Tylen St Hilaire
+description: The résumé of Tylen St Hilaire, Head of Experience Design at CreateFuture — a design leader building AI-native product practices.
+---
+{#- Content lives in _data/resume.js; sections render here in the order they are
+    written there.
+
+    One column, on screen and on paper alike: header, statement, then sections of
+    entries. Each entry leads with its title, followed by a meta line naming the
+    organisation and period, then its points. Entries with no title of their own
+    (skills, languages) read as a label and its text on one line — see
+    `.c-resume__entry:not(:has(...))` in the components layer. -#}
+
+<div class="o-col12 c-resume">
+
+  <header class="c-resume__identity">
+    <h1 class="c-resume__wordmark"><a class="c-hero__eyebrow" href="{{ '/' | url }}">{{ resume.name }}</a></h1>
+    <p class="c-resume__headline">{{ resume.headline | safe }}</p>
+    <p class="c-resume__role">{{ resume.role }}</p>
+  </header>
+
+  {#- A description list: the field names are content, even though both layouts
+      currently run the values together as one line. -#}
+  <dl class="c-resume__contact">
+    {%- for item in resume.contact %}
+    <dt class="c-resume__contact-field">{{ item.field }}</dt>
+    <dd class="c-resume__contact-value">
+      {%- if item.href %}<a href="{{ item.href }}">{{ item.label }}</a>{% else %}{{ item.label }}{% endif -%}
+    </dd>
+    {%- endfor %}
+  </dl>
+
+  {#- Authored hidden and revealed by js/main.js, so it never shows to anyone
+      who can't act on it. The page carries its own A4 @page rules. -#}
+  <button class="c-resume__print" type="button" data-print hidden>Print / Save as PDF</button>
+
+  <p class="c-resume__statement">{{ resume.statement }}</p>
+
+  {%- for data in resume.sections %}
+  <section class="c-resume__section">
+    <h2 class="c-resume__section-title">{{ data.title | safe }}</h2>
+
+    {%- for entry in data.entries %}
+    <div class="c-resume__entry">
+      {%- if entry.title %}
+      <h3 class="c-resume__title">{{ entry.title | safe }}</h3>
+      {%- endif %}
+      <p class="c-resume__meta">
+        {%- if entry.org %}<span class="c-resume__org">{{ entry.org }}</span>{% if entry.orgNote %} <span class="c-resume__org-note">({{ entry.orgNote }})</span>{% endif %}<span class="c-resume__sep" aria-hidden="true">·</span>{% endif -%}
+        <span class="c-resume__period">{{ entry.rail | safe }}</span>
+      </p>
+      {%- if entry.text %}
+      <p class="c-resume__text">{{ entry.text | safe }}</p>
+      {%- endif %}
+      {%- if entry.bullets %}
+      <ul class="c-resume__bullets">
+        {%- for bullet in entry.bullets %}
+        <li>{{ bullet | safe }}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+    </div>
+    {%- endfor %}
+  </section>
+  {%- endfor %}
+
+  <p class="c-resume__end-mark" aria-hidden="true">❧</p>
+
+</div>

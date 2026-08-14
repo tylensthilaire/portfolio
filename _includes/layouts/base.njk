@@ -43,6 +43,10 @@
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" media="print" onload="this.onload=null;this.removeAttribute('media');">
     <noscript><link rel="stylesheet" href="{{ '/css/main.css' | url }}"></noscript>
+    {%- if templateClass == "o-resume" %}
+    {#- Loaded here only, so its @page rules style the printed résumé alone. #}
+    <link rel="stylesheet" href="{{ '/css/resume-print.css' | url }}" media="print">
+    {%- endif %}
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <!-- Local scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
@@ -73,7 +77,7 @@
           <span class="u-color-primary">Let's talk:</span>
           <a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a>
           &emsp;<span class="u-color-primary">About me:</span>
-          <a href="/img/TylenStHilaire-Resume.pdf">Resume</a>
+          <a href="{{ '/resume/' | url }}">Resume</a>
           &emsp;<span class="u-color-primary">My work:</span>
           <a href="/img/TylenStHilaire-Portfolio.pdf">Case Studies</a>
         </p>
