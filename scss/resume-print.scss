@@ -118,14 +118,42 @@
     clear: both; // the next entry starts below the rail
   }
 
-  // Override styles inlining title, meta and text back into blocks for two column layout
+  // Uses grid to allow the meta to visually appear before the title. Safe from
+  // awkward page breaks due to short content
   .c-resume__entry:not(:has(.c-resume__bullets)) {
+    display: grid;
+    grid-template-columns: 48mm minmax(0, 1fr);
+    column-gap: 8mm;
+    align-items: baseline; // small rail label sits on the title's baseline
     max-width: none; // Override measure to allow use of full page width
 
     .c-resume__title,
     .c-resume__meta,
     .c-resume__text {
       display: block;
+      float: none;
+      width: auto;
+      margin-left: 0;
+    }
+
+    .c-resume__meta {
+      grid-column: 1;
+      grid-row: 1;
+      margin-top: 0;
+    }
+
+    .c-resume__title {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .c-resume__text {
+      grid-column: 2;
+    }
+
+    // Override to remove unnecessary clearfix
+    &::after {
+      content: none;
     }
 
     .c-resume__title + .c-resume__meta::before,
