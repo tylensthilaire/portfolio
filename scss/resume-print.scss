@@ -1,19 +1,30 @@
 // Print styles for /resume/ only.
 //
-//   A4                 210 × 297mm
-//   margins            12mm top/bottom, 16mm left/right   (@page below)
-//   text block         178 × 273mm
-//   base type          9.5pt                              (html below)
-//   measure            56ch, about 75 characters
+//   --page-width / --page-height    210 × 297mm   (A4)
+//   --page-margin-x / -y            12mm          (@page reads these directly)
+//   --text-block-w / -h             186 × 273mm   (computed, not asserted)
+//   base type                       9.5pt         (html below)
+//   measure                         56ch, about 75 characters
 //
 // Do not use the layout grid here (_tools-layout-grid.scss): its units resolve
 // against the text block rather than the sheet, and against the four-column
 // tier, so it half-works. A page grid must be anchored to the paper.
 
 @media print {
+  :root {
+    --page-width: 210mm;
+    --page-height: 297mm;
+    --page-margin-x: 12mm;
+    --page-margin-y: 12mm;
+    --text-block-w: calc(var(--page-width) - 2 * var(--page-margin-x));
+    --text-block-h: calc(var(--page-height) - 2 * var(--page-margin-y));
+  }
+
+  // Vertical margins on @page, horizontal on <main> as it looks nicer in
+  // DevTools' print emulation without breaking the actual print layout
   @page {
     size: A4;
-    margin: 12mm 16mm;
+    margin: var(--page-margin-y) 0;
   }
 
   html {
@@ -35,11 +46,16 @@
   }
 
   // Override the flex layout.
-  body,
-  main {
+  body {
     display: block;
     padding: 0;
     margin: 0;
+  }
+
+  main {
+    display: block;
+    margin: 0;
+    padding: 0 var(--page-margin-x);
   }
 
   .c-resume {
