@@ -1,6 +1,8 @@
 module.exports = {
   name: "Tylen St Hilaire",
-  headline: "Design leader building <em>AI-native product practices</em>",
+  // The hyphen in AI‑native is U+2011 (non-breaking): at display size the
+  // phrase must not split across lines.
+  headline: "Design leader building <em>AI‑native product practices</em>",
   role: "Head of Experience Design, CreateFuture",
 
   contact: [

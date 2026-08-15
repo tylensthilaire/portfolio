@@ -90,6 +90,21 @@
     margin-top: var(--space-050);
   }
 
+  // Masthead -----------------------------------------------------------------------
+  .c-resume__headline {
+    max-width: none;
+    font-size: 34pt;
+    line-height: 0.95;
+    margin: var(--space-200) 0 0;
+    text-wrap: balance; // even line lengths rather than a long-long-short rag
+  }
+
+  .c-resume__statement {
+    margin-top: var(--space-200);
+    padding-top: 0;
+    border-top: 0;
+  }
+
   // Left-hand rail -----------------------------------------------------------------
   //   rail 48mm | gutter 8mm | points 122mm
   //
