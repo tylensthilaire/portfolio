@@ -149,6 +149,12 @@ p {
   color: rgba(51,51,51,1);
 }
 
+// Stop paragraphs and list items ending on a lone word
+p,
+li {
+  text-wrap: pretty;
+}
+
 // Heading content -------------------------------------------------------------
 
 h1, h2, h3, h4, h5, h6 {

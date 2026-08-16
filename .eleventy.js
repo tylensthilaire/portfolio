@@ -89,6 +89,33 @@ module.exports = function(eleventyConfig) {
     return Math.min.apply(null, numbers);
   });
 
+  // `text-wrap: pretty` does not run on a block containing a float, and
+  // `initial-letter` is one, so drop-capped paragraphs need this instead
+  const widont = inner =>
+    // Only acts where the paragraph ends in plain text, never inside markup
+    inner.replace(/(\S)[ \t\r\n]+([^\s<>]+)([ \t\r\n]*)$/, "$1&nbsp;$2$3");
+
+  eleventyConfig.addTransform("widont", function (content) {
+    if (!(this.page && this.page.outputPath || "").endsWith(".html")) {
+      return content;
+    }
+
+    // The résumé statement
+    content = content.replace(
+      /(<p class="c-resume__statement">)([\s\S]*?)(<\/p>)/,
+      (_, open, inner, close) => open + widont(inner) + close
+    );
+
+    // An article's opening paragraph. Match the class as a whole token or this
+    // hits c-article-header
+    content = content.replace(
+      /(class="(?:[^"]*\s)?c-article(?:\s[^"]*)?"[^>]*>[\s\S]*?<p\b[^>]*>)([\s\S]*?)(<\/p>)/,
+      (_, open, inner, close) => open + widont(inner) + close
+    );
+
+    return content;
+  });
+
   eleventyConfig.addCollection("tagList", function(collection) {
     let tagSet = new Set();
     collection.getAll().forEach(function(item) {
