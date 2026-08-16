@@ -217,6 +217,13 @@
   // Short rows (skills, languages, education) read as a unit.
   .c-resume__entry:not(:has(.c-resume__bullets)) {
     break-inside: avoid;
+
+    // Release `break-after: avoid` here, or consecutive avoids chain into one
+    // run that cannot split
+    .c-resume__meta,
+    .c-resume__title {
+      break-after: auto;
+    }
   }
 
   // Long points may run over a page turn; holding them whole left half-empty
