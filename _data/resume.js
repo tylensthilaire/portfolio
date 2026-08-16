@@ -2,7 +2,7 @@ module.exports = {
   name: "Tylen St Hilaire",
   // The hyphen in AI‑native is U+2011 (non-breaking): at display size the
   // phrase must not split across lines.
-  headline: "Design leader building <em>AI‑native product practices</em>",
+  headline: "Design leader building <em>AI‑native product teams</em>",
 
   contact: [
     { field: "Email", label: "tylen@tylensthilaire.com", href: "mailto:tylen@tylensthilaire.com" },
@@ -12,16 +12,15 @@ module.exports = {
   ],
 
   statement:
-    "I build the AI-native design practices most organisations are still only " +
-    "talking about. In three years I've taken a 20-plus-person team from " +
-    "AI-cautious to AI-native — designers who now work with AI on every project, " +
-    "and some who ship production code themselves. I've designed with AI as a " +
-    "material since 2017, when it meant computer vision, machine-learning " +
-    "classification and NLP rather than large language models, and the lesson has " +
-    "held the whole way: the hard part was never the technology, it's the people. " +
-    "So I lead from the intersection of psychology, technology and creativity — " +
-    "teams that treat AI critically, not credulously, and reinvest the time it " +
-    "saves in the craft rather than banking it as cost.",
+    "I build the AI-native teams most organisations are still dreaming of. " +
+    "In three years I've taken a 20+ person team from " +
+    "AI-cautious to AI-native: working with AI on every project, " +
+    "shipping AI products. I've designed with AI as a " +
+    "material since it meant computer vision, machine learning and NLP. " +
+    "I've found success comes not from technology alone, but from solving human problems " +
+    "a view tested in-house and across 3 consultancies. " +
+    "That's why I blend art, psychology and technology " +
+    "to make more moments matter.",
 
   sections: [
     {
@@ -30,15 +29,17 @@ module.exports = {
         {
           rail: "Jan 2023 – Present",
           org: "CreateFuture",
-          orgNote: "formerly xDesign",
-          title: "Head of Experience Design",
+          orgNote: "née xDesign",
+          title: "Head of Product Experience",
           bullets: [
-            "Lead a 20+ person experience design practice across strategy, interaction design, research and content; co-lead the Imagine proposition within the senior leadership team",
-            "Took the practice from AI-cautious to AI-native — authored the three-horizon roadmap, three learning pathways (AI Making, AI Framing, AI Orchestrating) and hands-on Dojos; today all designers work with AI-native methods and some ship deployable code on live client work (e.g. OAG)",
-            "Reset delivery economics: 2–4× faster on routine design tasks, with the time reinvested in deeper research, more iteration and polish on the moments that matter — not banked as cost",
-            "Built AI-native propositions and engagements — from Dechert (hallucination-free AI retrieval for a global law firm) to LLM prototypes across government (a national vaccination-record admin platform), maritime (V.Group's ShipSure 3) and financial services (a model-performance platform for NatWest)",
-            "Director oversight of a global medical device company's touchless neonatal monitor (machine learning on an infrared camera): steered it from algorithm-first to prototype-first across concept, clinical discovery in an NHS NICU, and business-case development",
-            "Directed a human-AI hybrid research method — AI for transcript processing and validation, human judgment for synthesis — with clear boundaries on where each belongs"
+            "Leading a <strong>20+ person practice</strong> across strategy, design, and research; co-leading the innovation proposition",
+            "Helped make CreateFuture one of Europe's first Preferred Services Providers for Anthropic, and an OpenAI Select Partner",
+            "Built an AI-native practice: starting with a three-horizon AI impact roadmap, three development pathways (Making, Framing, and Orchestrating), hands-on, guided training sessions and a safe playground to explore and inspire; all practitioners work AI-natively, some even ship live features",
+            "Reset delivery economics: 2–4× faster on routine design tasks, with time saved reinvested in deeper research, broader experimentation, and more iteration to polish signature moments",
+            "Developing ongoing client partnerships as the key contact from scoping and proposal to delivery, generating revenue in excess of £4M per year",
+            "Designed and shipped AI products in legal and financial services: retrieval built to a zero-hallucination bar for a global law firm, and a model-performance platform giving a Big Four bank the evidence its regulators ask for — regulation as a creative brief, not a constraint",
+            "Steered an AI healthcare project: a touchless neonatal monitor for a global medical device manufacturer, from algorithm-first to prototype-first through clinical discovery in an NHS NICU",
+            "Defined an ethical human-AI research approach; creating clear boundaries for AI trustworthy and responsible AI use, and where in the loop humans and AI belong",
           ]
         },
         {
@@ -46,9 +47,10 @@ module.exports = {
           org: "Valtech",
           title: "Product Capability Lead",
           bullets: [
-            "Owned Valtech's product practice end to end: recruited permanent product managers, established a community of practice, and built the product proposition and training programme",
-            "Guided digital transformation programmes for blue-chip clients, embedding user-centred design through experimentation and Lean delivery",
-            "Led the OZEV (Office for Zero Emission Vehicles) research programme — 3 studies, 50+ participants across 8 audience groups — translating policy into actionable, user-centred recommendations"
+            "Started Valtech's UK product practice: established a community of practice, leading the sale of their first product management roles",
+            "Owned client relationships on strategic accounts (Taylor Wimpey, Schroeders, Shawbrook Bank) from brief to launch: scoping and framing new work, writing proposals, and aligning complex stakeholders",
+            "Guided digital transformation programmes for 8 blue-chip clients across Government, consumer technology and financial services; embedding user-centred design as culture above process",
+            "Led a programme defining sections of the Public Charge Point Regulations 2023: regulation as a design brief, translating policy into user-centred requirements for EV charging infrastructure"
           ]
         },
         {
@@ -56,29 +58,36 @@ module.exports = {
           org: "intu Digital",
           title: "Senior CX Designer",
           bullets: [
-            "Pioneered AI-powered retail in intu's innovation lab, partnering with Syte.ai (~2018, one of their earliest partners) to bring visual search to a 4M-product catalogue — 2× conversions, 12% larger baskets, 135% more page views",
+            "Pioneered AI-powered retail in intu's innovation lab, bringing one of the first visual search experiences to a 4M-product catalogue; 2× conversions, 12% larger baskets, 135% more page views",
             "Designed an ML product-categorisation system that unified inconsistent retailer feeds into one taxonomy, freeing 2 FTEs through a human-in-the-loop review workflow",
             "Prototyped and tested an NLP support chatbot, validated through Wizard of Oz testing with real users before any build"
           ]
         },
         {
-          rail: "Sep 2014 – Dec 2016",
-          org: "The MTM Agency",
-          title: "Designer (UX Specialist)",
+          rail: "Sep 2012 – Dec 2016",
+          org: "Various",
+          title: "Earlier Roles",
           bullets: [
-            "First UX specialist; established user-centred design practices across the agency"
+            "First UX specialist at the MTM Agency; established user-centred practices at a scale-up",
+            "Supported nonprofits such as The Brunswick Centre and The Oswin Project with design services, including design for Northumria University's 'OxChain' research project",
           ]
         }
       ]
     },
 
     {
-      title: "Speaking &amp; Writing",
+      title: "Thought Leadership",
       entries: [
         {
+          rail: "2026",
+          org: "UXPA",
+          title: "<em>ISO 9241: Ergonomics of Human System Interaction</em>",
+          text: "Member of a working group shaping the next version of the international standards for interaction principles, human-centred design and usability."
+        },
+        {
           rail: "2023",
-          org: "Published whitepaper",
-          title: "<em>Designing inclusive services for all members of society</em>",
+          org: "Whitepaper",
+          title: "<em>Designing inclusive services for all</em>",
           text: "Universal Design, the curb-cut effect, and the commercial case for inclusion under Consumer Duty."
         },
         {
@@ -89,9 +98,9 @@ module.exports = {
         },
         {
           rail: "2019",
-          org: "Valtech Design Systems Conference",
-          title: "Design-system strategy and governance",
-          text: "Hosted session on how design systems earn their keep, and who gets to change them."
+          org: "Valtech Global Design Systems Conference",
+          title: "<em>Design system strategy and governance</em>",
+          text: "Hosted workshop about what a design system should decide for you, and what it should leave open."
         }
       ]
     },
@@ -104,28 +113,42 @@ module.exports = {
           text: "Product &amp; service design, inclusive design, information architecture, qualitative &amp; quantitative research, prototyping in code, Figma"
         },
         {
+          rail: "Product",
+          text: "Product strategy &amp; roadmapping, opportunity framing, discovery &amp; experimentation, outcome measurement, business-case development"
+        },
+        {
           rail: "AI &amp; Technology",
           text: "LLM integration, agentic systems &amp; MCP, prompt engineering, RAG, computer vision, ML/NLP applications, design-system-as-code"
         },
         {
           rail: "Leadership &amp; Ways of Working",
-          text: "Practice building, capability &amp; proposition development, coaching &amp; mentoring, Lean UX, workshop facilitation"
+          text: "Practice building, capability &amp; proposition development, coaching &amp; mentoring, Design Thinking, Lean UX & Agile, workshop facilitation"
         }
       ]
     },
 
     {
-      title: "Education",
+      title: "Education & Certificates",
       entries: [
+        {
+          rail: "2026",
+          org: "Anthropic",
+          title: "<em>Claude Code in Action</em>"
+        },
+        {
+          rail: "2025",
+          org: "UK Government",
+          title: "<em>SC and NPPV3 security clearance</em>"
+        },
+        {
+          rail: "2021",
+          org: "Google",
+          title: "<em>Various analytics and digital marketing certificates</em>"
+        },
         {
           rail: "2014",
           org: "Northumbria University",
-          title: "BA (Hons) First Class, Interactive Media Design"
-        },
-        {
-          rail: "2011",
-          org: "Leeds College of Art",
-          title: "Foundation Diploma, Art &amp; Design"
+          title: "<em>BA (Hons) First Class, Interactive Media Design</em>"
         }
       ]
     },
