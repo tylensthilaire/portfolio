@@ -921,19 +921,41 @@ body:has(.o-post) .c-masthead {
   }
 }
 
-// Entries without titles display meta and text inline
-.c-resume__entry:not(:has(.c-resume__title)) {
-  .c-resume__text {
-    display: inline;
-  }
+.c-resume__terms {
+  margin: 0;
+  max-width: var(--measure-b);
+}
 
-  .c-resume__period {
-    font-weight: 700;
-    color: rgba(51,51,51,1);
+.c-resume__term-group {
+  margin-top: var(--space-200);
+  line-height: 1.9; // room for the chips to clear each other when they wrap
+}
 
-    &::after {
-      content: ':';
-    }
+.c-resume__term {
+  display: block;
+  margin-bottom: var(--space-025);
+  font-family: $font-family-body;
+  font-size: calc(var(--t-d1) * 1em);
+  font-weight: 700;
+  color: rgba(51,51,51,1);
+}
+
+.c-resume__def {
+  display: inline-block;
+  margin: 0 0 3px 0; // the UA stylesheet gives dd a 40px inline start
+  padding: 0 0.9ch;
+  background: rgba(196,102,47,0.05);
+  border: 1px solid rgba(196,102,47,0.05);
+  border-radius: 1em;
+  font-family: $font-family-body;
+  font-size: calc(var(--t-00) * 1em);
+  line-height: 1.6;
+  color: rgba(51,51,51,1);
+  white-space: nowrap;
+
+  small {
+    font-size: calc(var(--t-d1) * 1em);
+    color: rgba(102,102,102,1);
   }
 }
 

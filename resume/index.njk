@@ -4,14 +4,8 @@ templateClass: o-resume
 title: Resume — Tylen St Hilaire
 description: The résumé of Tylen St Hilaire, Head of Experience Design at CreateFuture — a design leader building AI-native product practices.
 ---
-{#- Content lives in _data/resume.js; sections render here in the order they are
-    written there.
-
-    One column, on screen and on paper alike: header, statement, then sections of
-    entries. Each entry leads with its title, followed by a meta line naming the
-    organisation and period, then its points. Entries with no title of their own
-    (skills, languages) read as a label and its text on one line — see
-    `.c-resume__entry:not(:has(...))` in the components layer. -#}
+{#- Content lives in _data/resume.js. A section contains either entries or, where
+    its content is term-and-value pairs, a description list -#}
 
 <div class="o-col12 c-resume">
 
@@ -82,6 +76,21 @@ description: The résumé of Tylen St Hilaire, Head of Experience Design at Crea
   <section class="c-resume__section">
     <h2 class="c-resume__section-title">{{ data.title | safe }}</h2>
 
+    {%- if data.entries[0].items %}
+    {#- Renders a description list where entries carry `items`, and the markup
+        below where they carry `bullets` -#}
+    <dl class="c-resume__terms">
+      {%- for entry in data.entries %}
+      <div class="c-resume__term-group">
+        <dt class="c-resume__term">{{ entry.term | safe }}</dt>
+        {%- for item in entry.items %}
+        <dd class="c-resume__def">{{ item | safe }}</dd>
+        {%- endfor %}
+      </div>
+      {%- endfor %}
+    </dl>
+    {%- else %}
+
     {%- for entry in data.entries %}
     <div class="c-resume__entry">
       {%- if entry.title %}
@@ -103,6 +112,7 @@ description: The résumé of Tylen St Hilaire, Head of Experience Design at Crea
       {%- endif %}
     </div>
     {%- endfor %}
+    {%- endif %}
   </section>
   {%- endfor %}
 

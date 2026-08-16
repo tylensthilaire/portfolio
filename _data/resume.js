@@ -1,4 +1,5 @@
 
+
 module.exports = {
   name: "Tylen St Hilaire",
   // The hyphen in AI‑native is U+2011 (non-breaking): at display size the
@@ -110,20 +111,56 @@ module.exports = {
       title: "Skills",
       entries: [
         {
-          rail: "Design &amp; Research",
-          text: "Product &amp; service design, inclusive design, information architecture, qualitative &amp; quantitative research, prototyping in code, Figma"
+          term: "Design &amp; Research",
+          items: [
+            "Product &amp; Service design",
+            "Qualitative &amp; Quantitative research",
+            "Inclusive design",
+            "Information architecture",
+            "Prototyping in code",
+            "Figma"
+          ]
         },
         {
-          rail: "Product",
-          text: "Product strategy &amp; roadmapping, opportunity framing, discovery &amp; experimentation, outcome measurement, business-case development"
+          term: "Product",
+          items: [
+            "Product strategy &amp; Roadmapping",
+            "Opportunity framing",
+            "Discovery &amp; Experimentation",
+            "Outcome measurement",
+            "Business-case development"
+          ]
         },
         {
-          rail: "AI &amp; Technology",
-          text: "LLM integration, agentic systems &amp; MCP, prompt engineering, RAG, computer vision, ML/NLP applications, design-system-as-code"
+          term: "AI &amp; Technology",
+          items: [
+            "LLM integration",
+            "Agentic systems &amp; MCP",
+            "Prompt engineering",
+            "RAG",
+            "computer vision",
+            "ML/NLP applications",
+            "Design-system-as-code"
+          ]
         },
         {
-          rail: "Leadership &amp; Ways of Working",
-          text: "Practice building, capability &amp; proposition development, coaching &amp; mentoring, Design Thinking, Lean UX & Agile, workshop facilitation"
+          term: "Leadership &amp; Ways of Working",
+          items: [
+            "Practice building",
+            "Capability &amp; Proposition development",
+            "Coaching &amp; Mentoring",
+            "Design Thinking",
+            "Lean UX &amp; Agile",
+            "Workshop facilitation"
+          ]
+        },
+        {
+          term: "Languages",
+          items: [
+            "English <small>(native)</small>",
+            "German <small>(limited working proficiency)</small>",
+            "Spanish <small>(elementary)</small>"
+          ]
         }
       ]
     },
@@ -151,14 +188,6 @@ module.exports = {
           org: "Northumbria University",
           title: "<em>BA (Hons) First Class, Interactive Media Design</em>"
         }
-      ]
-    },
-
-    {
-      title: "Languages",
-      entries: [
-        { rail: "Spanish", text: "Elementary" },
-        { rail: "German", text: "Limited working proficiency" }
       ]
     }
   ]

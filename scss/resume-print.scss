@@ -93,7 +93,7 @@
   }
 
   .c-resume__entry {
-    margin-top: var(--space-200);
+    margin-top: var(--space-100);
   }
 
   .c-resume__title {
@@ -143,7 +143,23 @@
     border-top: 0;
   }
 
-  // Set on the entry, not the text, which is inline where there is no title
+  .c-resume__terms {
+    max-width: var(--measure-points);
+  }
+
+  .c-resume__term-group {
+    line-height: 1.6;
+    break-inside: avoid;
+    margin-top: var(--space-100);
+  }
+
+  .c-resume__def {
+    line-height: 1.35;
+    padding: 0 0.9ch;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   .c-resume__entry:not(:has(.c-resume__bullets)) {
     max-width: var(--measure-points);
     break-inside: avoid;
@@ -213,6 +229,21 @@
     .c-resume__bullets,
     .c-resume__text {
       max-width: var(--measure-b);
+    }
+
+    .c-resume__terms {
+      max-width: none;
+    }
+
+    .c-resume__term-group {
+      position: relative;
+      padding-left: 56mm;
+    }
+
+    .c-resume__term {
+      position: absolute;
+      left: 0;
+      width: 48mm;
     }
 
     // Override stacked rhythm to keep points level with the rail
