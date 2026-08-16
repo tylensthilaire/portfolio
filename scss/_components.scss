@@ -684,13 +684,6 @@ body:has(.o-post) .c-masthead {
   }
 }
 
-.c-resume__role {
-  font-size: calc(var(--t-00) * 1em);
-  line-height: var(--baseline-100);
-  color: rgba(102,102,102,1);
-  margin-top: var(--baseline-050);
-}
-
 // Resume Contact Details -------------------------------------------------------
 .c-resume__contact {
   font-size: calc(var(--t-d1) * 1em);
