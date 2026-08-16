@@ -111,7 +111,15 @@
     text-wrap: balance; // even line lengths rather than a long-long-short rag
   }
 
+  .c-resume__contact {
+    margin-top: var(--space-200);
+  }
+
+  // Override measure so a full-width line stays readable
   .c-resume__statement {
+    font-size: calc(var(--t-u1) * 1rem); // 11.4pt
+    line-height: 1.45;
+    max-width: 68ch;
     margin-top: var(--space-200);
     padding-top: 0;
     border-top: 0;
@@ -163,15 +171,18 @@
       margin-left: 0;
     }
 
+    // Span both rows so a wrapping rail label cannot push the description down
     .c-resume__meta {
       grid-column: 1;
-      grid-row: 1;
+      grid-row: 1 / span 2;
       margin-top: 0;
     }
 
+    // Drop to body size so reference lines do not compete with role titles
     .c-resume__title {
       grid-column: 2;
       grid-row: 1;
+      font-size: calc(var(--t-00) * 1rem); // 9.5pt
     }
 
     .c-resume__text {
