@@ -315,16 +315,8 @@ body:has(.o-post) .c-masthead {
   padding-bottom: 0;
 }
 
-// Drop cap on the opening paragraph, sunk two lines so its baseline meets the
-// baseline of the second line (initial-letter). Degrades to a plain enlarged
-// first letter where initial-letter is unsupported (e.g. Firefox).
 .c-article > p:first-of-type::first-letter {
-  -webkit-initial-letter: 2;
-  initial-letter: 2;
-  font-family: $font-family-display;
-  font-weight: 700;
-  color: rgba(196,102,47,1);
-  margin-right: 0.375rem;
+  @include drop-cap;
 }
 
 // End mark: close the final paragraph with the site's floral ornament,
