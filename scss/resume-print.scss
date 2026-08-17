@@ -4,7 +4,8 @@
 //   --page-margin-x / -y            12mm          (@page reads these directly)
 //   --text-block-w / -h             186 × 273mm   (computed, not asserted)
 //   base type                       9.5pt         (html below)
-//   measure                         56ch, about 75 characters
+//   measure (reading)               56ch, about 75 characters
+//   measure (single-column points)  150mm, about 92 characters
 //
 // Do not use the layout grid here (_tools-layout-grid.scss): its units resolve
 // against the text block rather than the sheet, and against the four-column
@@ -18,6 +19,9 @@
     --page-margin-y: 12mm;
     --text-block-w: calc(var(--page-width) - 2 * var(--page-margin-x));
     --text-block-h: calc(var(--page-height) - 2 * var(--page-margin-y));
+
+    // Reading measure for the single column
+    --measure-points: 150mm;
   }
 
   // Vertical margins on @page, horizontal on <main> as it looks nicer in
@@ -40,7 +44,7 @@
   // Remove website chrome
   .c-masthead,
   .c-footer,
-  .c-resume__print,
+  .c-print,
   .c-resume__end-mark {
     display: none;
   }
@@ -102,7 +106,20 @@
     margin-top: var(--space-050);
   }
 
+  // Share a line so the meta qualifies the title
+  .c-resume__title,
+  .c-resume__meta {
+    display: inline;
+  }
+
+  .c-resume__title + .c-resume__meta::before {
+    content: '·';
+    margin: 0 0.5ch;
+    color: rgba(169,169,169,1);
+  }
+
   // Masthead -----------------------------------------------------------------------
+
   .c-resume__headline {
     max-width: none;
     font-size: 34pt;
@@ -110,6 +127,7 @@
     margin: var(--space-200) 0 0;
     text-wrap: balance; // even line lengths rather than a long-long-short rag
   }
+
 
   .c-resume__contact {
     margin-top: var(--space-200);
@@ -125,47 +143,14 @@
     border-top: 0;
   }
 
-  // Left-hand rail -----------------------------------------------------------------
-  //   rail 48mm | gutter 8mm | points 122mm
-  //
-  // Use float layouts for word-processor-like reflow across pages
-  .c-resume__title,
-  .c-resume__meta {
-    float: left;
-    clear: left;
-    width: 48mm;
-  }
-
-  .c-resume__text,
-  .c-resume__bullets {
-    margin-left: 56mm;
-  }
-
-  // Override stacked rhythm to keep points level with the rail
-  .c-resume__meta + .c-resume__text,
-  .c-resume__meta + .c-resume__bullets {
-    margin-top: 0;
-  }
-
-  .c-resume__entry::after {
-    content: '';
-    display: block;
-    clear: both; // the next entry starts below the rail
-  }
-
-  // Uses grid to allow the meta to visually appear before the title. Safe from
-  // awkward page breaks due to short content
+  // Set on the entry, not the text, which is inline where there is no title
   .c-resume__entry:not(:has(.c-resume__bullets)) {
-    display: grid;
-    grid-template-columns: 48mm minmax(0, 1fr);
-    column-gap: 8mm;
-    align-items: baseline; // small rail label sits on the title's baseline
-    max-width: none; // Override measure to allow use of full page width
+    max-width: var(--measure-points);
+    break-inside: avoid;
 
     .c-resume__title,
     .c-resume__meta,
     .c-resume__text {
-      display: block;
       float: none;
       width: auto;
       margin-left: 0;
@@ -180,29 +165,30 @@
 
     // Drop to body size so reference lines do not compete with role titles
     .c-resume__title {
-      grid-column: 2;
-      grid-row: 1;
       font-size: calc(var(--t-00) * 1rem); // 9.5pt
     }
 
-    .c-resume__text {
-      grid-column: 2;
+    // Stated at this depth to out-specify the em dash in _components.scss
+    .c-resume__title + .c-resume__meta::before {
+      content: '·';
     }
 
-    // Override to remove unnecessary clearfix
-    &::after {
-      content: none;
-    }
-
-    .c-resume__title + .c-resume__meta::before,
-    .c-resume__period::after {
-      content: none;
+    // Release `break-after: avoid` here, or consecutive avoids chain into one
+    // run that cannot split
+    .c-resume__meta,
+    .c-resume__title {
+      break-after: auto;
     }
   }
 
-  // Matching the screen rule's selector exactly as a rule less specific than the
-  // block above would add separators in front of every description.
+  // The description goes on its own line beneath the title and meta.
   .c-resume__entry:not(:has(.c-resume__bullets)):has(.c-resume__title) {
+    .c-resume__text {
+      display: block;
+      margin-top: var(--space-050);
+    }
+
+    // Override the one-line separator
     .c-resume__meta + .c-resume__text::before {
       content: none;
     }
@@ -217,24 +203,25 @@
     margin-bottom: var(--space-025);
   }
 
+  // Override measure; the screen's is too narrow for the full text block
+  .c-resume__bullets,
+  .c-resume__text {
+    max-width: var(--measure-points);
+  }
+
   // Pagination ---------------------------------------------------------------------
   // Keep a heading with what it introduces.
+  //
+  // `break-after` does not apply to inline boxes, so state it on the points
   .c-resume__section-title,
   .c-resume__title,
   .c-resume__meta {
     break-after: avoid;
   }
 
-  // Short rows (skills, languages, education) read as a unit.
-  .c-resume__entry:not(:has(.c-resume__bullets)) {
-    break-inside: avoid;
-
-    // Release `break-after: avoid` here, or consecutive avoids chain into one
-    // run that cannot split
-    .c-resume__meta,
-    .c-resume__title {
-      break-after: auto;
-    }
+  .c-resume__bullets,
+  .c-resume__entry > .c-resume__text {
+    break-before: avoid;
   }
 
   // Long points may run over a page turn; holding them whole left half-empty
