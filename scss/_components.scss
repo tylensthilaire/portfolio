@@ -126,11 +126,6 @@ body:has(.o-post) .c-masthead {
   padding-bottom: var(--baseline-150); // ~36px below, above the closing keyline
   border-bottom: 1px solid rgba(51,51,51,0.15); // keyline closing the body
 
-  // Body reading measure, calibrated to ~75 *rendered* characters. The `ch`
-  // unit is the advance of "0", which in system-ui is ~33% wider than the
-  // average prose glyph, so 75ch renders ~103 chars; 56ch lands near 75.
-  --measure-b: 56ch;
-
   p:first-of-type {
     --flow-space: var(--baseline-150);
     font-weight: 700;
