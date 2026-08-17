@@ -32,8 +32,49 @@ description: The résumé of Tylen St Hilaire, Head of Experience Design at Crea
   </dl>
 
   {#- Authored hidden and revealed by js/main.js, so it never shows to anyone
-      who can't act on it. The page carries its own A4 @page rules. -#}
-  <button class="c-resume__print" type="button" data-print hidden>Print / Save as PDF</button>
+      who cannot act on it — without JS, ⌘P still yields the single-column
+      layout, which is the safe one. Each option prints directly; the layout it
+      chooses is written to the URL so a given version can be linked to. -#}
+  <div class="c-print" data-print hidden>
+    <button class="c-print__toggle" type="button" aria-expanded="false" aria-controls="print-options">
+      <svg class="c-print__icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+           stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+           stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M6 9V3h12v6"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="7" rx="1"/>
+      </svg>
+      <span class="u-visually-hidden">Print or save as PDF</span>
+    </button>
+
+    {#- Label each layout by who it is for, not what it looks like -#}
+    <div class="c-print__options" id="print-options" hidden>
+      <button type="button" class="c-print__option c-print__option--machine"
+              data-layout="single"
+              title="One column — reads correctly in applicant tracking systems">
+        <svg class="c-print__icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <rect x="4.5" y="8.5" width="15" height="11" rx="3"/>
+          <path d="M12 8.5V5.25"/>
+          <circle cx="12" cy="4" r="1.25"/>
+          <path d="M9.5 13.25v1.5M14.5 13.25v1.5"/>
+        </svg>
+        <span class="u-visually-hidden">One column — recommended, reads correctly in applicant tracking systems</span>
+      </button>
+      <button type="button" class="c-print__option c-print__option--human"
+              data-layout="two-column"
+              title="Two columns — for a human reader; scrambles in applicant tracking systems">
+        <svg class="c-print__icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+             stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="8" r="3.5"/>
+          <path d="M5.5 20.5a6.5 6.5 0 0 1 13 0"/>
+        </svg>
+        <span class="u-visually-hidden">Two columns — for a human reader; scrambles in applicant tracking systems</span>
+      </button>
+    </div>
+  </div>
 
   <p class="c-resume__statement">{{ resume.statement }}</p>
 

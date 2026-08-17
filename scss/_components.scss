@@ -647,6 +647,7 @@ body:has(.o-post) .c-masthead {
 
 // Résumé -----------------------------------------------------------------------
 
+
 .c-resume {
   font-family: $font-family-body;
   color: rgba(51,51,51,1);
@@ -710,23 +711,83 @@ body:has(.o-post) .c-masthead {
   white-space: nowrap; // never break an address or number mid-way
 }
 
-.c-resume__print {
-  font-weight: 700;
-  font-size: calc(var(--t-d2) * 1em);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(168,77,30,1);
-  background: transparent;
-  border: 1px solid rgba(51,51,51,0.15);
+// Print control ------------------------------------------------------------------
+// Authored hidden, revealed by js/main.js
+.c-print {
+  position: fixed;
+  right: var(--space-400);
+  bottom: var(--space-400);
+  z-index: 10;
+  font-family: $font-family-body;
+}
+
+.c-print__toggle,
+.c-print__option {
+  display: grid;
+  place-items: center;
+  // Both axes: the generic reset sets a 3rem minimum on every button, so an
+  // option asking for 2.5rem square came out an oval.
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border-radius: 50%;
   cursor: pointer;
-  min-width: 0; // undo the generic reset's 3rem floor; the height stays a target
-  padding: 0 var(--space-300);
-  margin-top: var(--baseline-100);
+  color: rgba(196,102,47,1);
+  background: rgba(255,255,255,1);
+  border: 1px solid rgba(196,102,47,0.35);
 
   &:hover {
-    color: rgba(255,255,255,1);
-    background: rgba(196,102,47,1);
-    border-color: rgba(196,102,47,1);
+    background: rgba(196,102,47,0.08);
+    border-color: rgba(196,102,47,0.6);
+  }
+}
+
+.c-print__toggle {
+  width: 3rem;
+  height: 3rem;
+  box-shadow: 0 2px 8px rgba(51,51,51,0.16);
+}
+
+// Zero-sized anchor on the toggle's centre so it never covers the page
+.c-print__options {
+  display: block;
+  position: absolute;
+  right: 1.5rem; // half the toggle, so this sits on its centre
+  bottom: 1.5rem;
+  width: 0;
+  height: 0;
+
+  // An author `display` beats the `hidden` attribute's UA `display: none`
+  &[hidden] {
+    display: none;
+  }
+}
+
+.c-print__option {
+  position: absolute;
+  right: -1.25rem;
+  bottom: -1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  box-shadow: 0 2px 8px rgba(51,51,51,0.12);
+  transition: transform 0.2s ease, opacity 0.2s ease,
+              background 0.15s ease, border-color 0.15s ease;
+}
+
+// Fan the options out on an arc, either side of the diagonal
+.c-print__option--machine {
+  transform: translate(-1.25rem, -4.6rem); // ~105°
+}
+
+.c-print__option--human {
+  transform: translate(-4.6rem, -1.25rem); // ~165°
+}
+
+// Animate from under the toggle; unsupported engines just show the options
+@starting-style {
+  .c-print__option {
+    transform: translate(0, 0);
+    opacity: 0;
   }
 }
 

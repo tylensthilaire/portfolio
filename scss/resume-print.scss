@@ -194,6 +194,85 @@
     }
   }
 
+  // Two-column layout — OPT-IN ONLY -------------------------------------------------
+  //   rail 48mm | gutter 8mm | points 122mm
+  :root[data-layout="two-column"] {
+    .c-resume__title,
+    .c-resume__meta {
+      float: left;
+      clear: left;
+      width: 48mm;
+    }
+
+    .c-resume__text,
+    .c-resume__bullets {
+      margin-left: 56mm;
+    }
+
+    // Restore the reading measure, or 56mm + 150mm overruns the sheet
+    .c-resume__bullets,
+    .c-resume__text {
+      max-width: var(--measure-b);
+    }
+
+    // Override stacked rhythm to keep points level with the rail
+    .c-resume__meta + .c-resume__text,
+    .c-resume__meta + .c-resume__bullets {
+      margin-top: 0;
+    }
+
+    .c-resume__entry::after {
+      content: '';
+      display: block;
+      clear: both; // the next entry starts below the rail
+    }
+
+    // Override the inline separator; the columns divide instead
+    .c-resume__title + .c-resume__meta::before {
+      content: none;
+    }
+
+    // Uses grid to allow the meta to visually appear before the title
+    .c-resume__entry:not(:has(.c-resume__bullets)) {
+      display: grid;
+      grid-template-columns: 48mm minmax(0, 1fr);
+      column-gap: 8mm;
+      align-items: baseline; // small rail label sits on the title's baseline
+
+      // Override measure to allow use of full page width
+      max-width: none;
+
+      // Same specificity as the rail rules, so these must come after
+      .c-resume__title,
+      .c-resume__meta,
+      .c-resume__text {
+        float: none;
+        width: auto;
+        margin-left: 0;
+      }
+
+      // Span both rows so a wrapping rail label cannot push the description down
+      .c-resume__meta {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+      }
+
+      .c-resume__title {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .c-resume__text {
+        grid-column: 2;
+      }
+
+      // Override to remove unnecessary clearfix
+      &::after {
+        content: none;
+      }
+    }
+  }
+
   .c-resume__text,
   .c-resume__bullets li {
     line-height: 1.4;
