@@ -113,8 +113,24 @@ body:has(.o-post) .c-masthead {
   color: rgba(169,169,169,1);
 }
 
-.c-footer__strapline + .footer__contact {
+.c-footer__strapline + .c-footer__contact {
   margin-top: var(--baseline-050);
+}
+
+// Label/value pairs laid out on one line, wrapping as a whole where needed.
+.c-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.5ch;
+  row-gap: var(--baseline-050);
+
+  dt {
+    color: rgba(196,102,47,1);
+  }
+
+  dd + dt {
+    margin-left: 2ch; // separates each pair from the previous one
+  }
 }
 
 .c-article {
