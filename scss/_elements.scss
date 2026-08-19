@@ -39,26 +39,18 @@ body {
   min-height: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 
 // Sectioning content ----------------------------------------------------------
 
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 // Flow content ----------------------------------------------------------------
 
 main {
   flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: var(--baseline-150);
+  @include content-grid;
 }
 
 @media (min-width:40rem) {

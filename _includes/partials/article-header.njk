@@ -21,7 +21,7 @@
 <header class="c-article-header c-article-header--{{ variant }}
   {%- if variant == "split" %} c-article-header--image-{{ imagePosition or "right" }} c-article-header--{{ theme or "light" }} c-article-header--{{ imageFit or "constrained" }}{% endif %}
   {%- if not image %} c-article-header--no-image{% endif %}">
-  <div class="c-article-header__text{% if variant != "split" %} o-col12{% endif %}">
+  <div class="c-article-header__text">
     {%- if kicker %}<p class="c-article-header__kicker">{{ kicker }}</p>{% endif -%}
     <h1 class="c-article-header__headline">{{ headline }}</h1>
     {%- if standfirst %}<p class="c-article-header__standfirst">{{ standfirst }}</p>{% endif -%}

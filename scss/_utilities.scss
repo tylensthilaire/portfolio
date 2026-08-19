@@ -17,10 +17,6 @@
 
 // Make a semantic wrapper (e.g. <article>) contribute meaning but no box, so
 // its children lay out in the grandparent's context.
-.u-contents {
-  display: contents;
-}
-
 .u-ornament-bullet {
 
   &::before {

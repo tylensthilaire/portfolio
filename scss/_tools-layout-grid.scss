@@ -80,6 +80,29 @@
   }
 }*/
 
+// With-margins layout
+@mixin content-grid {
+  display: grid;
+  grid-template-columns: 1fr var(--container-width) 1fr;
+
+  > * {
+    grid-column: 2;
+    padding-inline: 0.5rem;
+  }
+
+  @media (min-width: 72rem) {
+    > * {
+      padding-inline: 0;
+    }
+  }
+}
+
+// Full-bleed layout
+@mixin bleed {
+  grid-column: 1 / -1;
+  padding-inline: 0;
+}
+
 @function columns($i) {
   @return calc(#{$i} * var(--column-unit));
 }

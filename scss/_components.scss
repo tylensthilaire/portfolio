@@ -9,10 +9,9 @@
 // `order: -1` hoists it above <main> visually in the flex-column body (its
 // siblings default to order 0).
 body:has(.o-post) .c-masthead {
-  display: block;
   order: -1;
-  width: var(--container-width);
   padding-top: var(--baseline-150);
+  @include content-grid;
 }
 
 // The wordmark reuses the hero eyebrow styles (class applied in the markup).
@@ -92,15 +91,13 @@ body:has(.o-post) .c-masthead {
 
 .c-footer {
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   font-weight: 700;
   font-size: calc(var(--t-d1) * 1em);
   font-family: $font-family-body;
   color:rgba(196,102,47,1);
   margin-top: calc(var(--baseline-200) - var(--baseline-100));
   padding-bottom: calc(var(--baseline-200) - var(--baseline-100));
+  @include content-grid;
 }
 
 @media (min-width: 72rem) {
@@ -131,6 +128,12 @@ body:has(.o-post) .c-masthead {
   dd + dt {
     margin-left: 2ch; // separates each pair from the previous one
   }
+}
+
+// Fill the parent's grid, then restate the margins for child elements
+.c-post {
+  @include bleed;
+  @include content-grid;
 }
 
 .c-article {
@@ -438,8 +441,6 @@ body:has(.o-post) .c-masthead {
 // One component (partials/article-header.njk), two layouts via a modifier:
 // `--default` (stacked; an optional image bleeds full-width above the text) and
 // `--split` (50:50 content/image — reversible, light/dark, constrained/bleed).
-// The post <main> is stretched to the viewport (objects layer) so the header can
-// bleed edge-to-edge; the body still sits within .o-col12's measure.
 
 // Shared text elements ---------------------------------------------------------
 .c-article-header__kicker {
@@ -535,17 +536,16 @@ body:has(.o-post) .c-masthead {
 }
 
 // Default variant — stacked, image full-bleed above the headline ---------------
+// Fill the parent's grid, then restate the margins for child elements
 .c-article-header--default {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include bleed;
+  @include content-grid;
 }
 
 .c-article-header--default .c-article-header__media {
   order: -1; // above the text
-  align-self: stretch; // full-bleed
   margin-bottom: var(--baseline-150);
+  @include bleed;
 }
 
 .c-article-header--default .c-article-header__image {
@@ -554,8 +554,9 @@ body:has(.o-post) .c-masthead {
 }
 
 // Split variant — 50:50 content/image ------------------------------------------
+// Take the full width to run both halves to the page edge.
 .c-article-header--split {
-  width: 100%;
+  @include bleed;
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -826,8 +827,6 @@ body:has(.o-post) .c-masthead {
 
 // Resume sections --------------------------------------------------------------
 .c-resume__section {
-  // Override <section> rule to drop flex
-  display: block;
   margin-top: var(--baseline-200);
 }
 
