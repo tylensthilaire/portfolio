@@ -400,7 +400,6 @@ body:has(.o-post) .c-masthead {
 // container leaves slack; the header stays flush to the container's left edge.
 @media (min-width: 72rem) {
   .c-article {
-    position: relative; // positioning context for the artwork credit
     padding-left: var(--column-and-gutter-unit);
 
     // Override the body measure to the copy column.
