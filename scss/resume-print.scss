@@ -4,7 +4,7 @@
 //   --page-margin-x / -y            12mm          (@page reads these directly)
 //   --text-block-w / -h             186 × 273mm   (computed, not asserted)
 //   base type                       9.5pt         (html below)
-//   measure (reading)               56ch, about 75 characters
+//   measure (reading)               56ch          (--measure-b, print value)
 //   measure (single-column points)  150mm, about 92 characters
 //
 // Do not use the layout grid here (_tools-layout-grid.scss): its units resolve
@@ -22,6 +22,8 @@
 
     // Reading measure for the single column
     --measure-points: 150mm;
+
+    --measure-b: 56ch;
   }
 
   // Vertical margins on @page, horizontal on <main> as it looks nicer in
@@ -220,9 +222,11 @@
       width: 48mm;
     }
 
+    // Set the points column width
     .c-resume__text,
     .c-resume__bullets {
       margin-left: 56mm;
+      width: 122mm;
     }
 
     // Restore the reading measure, or 56mm + 150mm overruns the sheet
