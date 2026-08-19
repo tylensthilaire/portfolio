@@ -295,17 +295,15 @@ body:has(.o-post) .c-masthead {
   border-left: 2px solid rgba(196,102,47,1);
 }
 
-// Desktop: float into the right margin beside the reference. `clear: right`
-// makes notes stack below the artwork credit (also a right-float) and below one
-// another rather than colliding. The extra column of negative margin pushes the
-// note clear of the break-out images, which extend one column past the text.
+// Float the note into the aside column beside its reference.
+// Clear right so notes stack below the artwork credit and each other.
 @media (min-width: 72rem) {
   .c-sidenote__toggle:checked ~ .c-sidenote__note {
     float: right;
     clear: right;
-    width: 15rem;
+    width: column-spans(4);
     max-width: none;
-    margin: 0 calc(-17rem - var(--column-and-gutter-unit)) var(--baseline-050) 0;
+    margin: 0 calc(-5 * var(--column-and-gutter-unit)) var(--baseline-050) 0;
     padding-left: 0;
     border-left: 0;
   }
@@ -404,6 +402,9 @@ body:has(.o-post) .c-masthead {
   .c-article {
     position: relative; // positioning context for the artwork credit
     padding-left: var(--column-and-gutter-unit);
+
+    // Override the body measure to the copy column.
+    --measure-b: #{column-spans(6)};
   }
 
   // Inline images ignore the body's one-column offset and sit flush to the
@@ -432,7 +433,7 @@ body:has(.o-post) .c-masthead {
   .c-credit {
     float: right;
     clear: right;
-    width: calc(15rem + var(--column-and-gutter-unit));
+    width: column-spans(4);
     margin: var(--baseline-150) 0 var(--baseline-100) 0;
   }
 }
