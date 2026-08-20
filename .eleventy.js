@@ -91,9 +91,24 @@ module.exports = function(eleventyConfig) {
 
   // `text-wrap: pretty` does not run on a block containing a float, and
   // `initial-letter` is one, so drop-capped paragraphs need this instead
-  const widont = inner =>
-    // Only acts where the paragraph ends in plain text, never inside markup
-    inner.replace(/(\S)[ \t\r\n]+([^\s<>]+)([ \t\r\n]*)$/, "$1&nbsp;$2$3");
+  const widont = inner => {
+    // Ignore a trailing sidenote, bind only body copy
+    const note = inner.lastIndexOf('<span class="c-sidenote">');
+    const held =
+      note !== -1 && /^\s*$/.test(inner.slice(inner.lastIndexOf("</span>") + 7))
+        ? note
+        : inner.length;
+
+    return (
+      inner
+        .slice(0, held)
+        // Bind the last two words (plus any closing tags and punctuation)
+        .replace(
+          /(\S)[ \t\r\n]+([^\s<>]+(?:<\/[^>]+>)*[^\s<>]*)([ \t\r\n]*)$/,
+          "$1&nbsp;$2$3"
+        ) + inner.slice(held)
+    );
+  };
 
   eleventyConfig.addTransform("widont", function (content) {
     if (!(this.page && this.page.outputPath || "").endsWith(".html")) {
