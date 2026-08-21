@@ -43,9 +43,12 @@
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
     <link rel="stylesheet" href="{{ '/css/main.css' | url }}" media="print" onload="this.onload=null;this.removeAttribute('media');">
     <noscript><link rel="stylesheet" href="{{ '/css/main.css' | url }}"></noscript>
-    {%- if templateClass == "o-resume" %}
-    {#- Loaded here only, so its @page rules style the printed résumé alone. #}
-    <link rel="stylesheet" href="{{ '/css/resume-print.css' | url }}" media="print">
+    {%- if stylesheet %}
+    <link rel="stylesheet" href="{{ stylesheet | url }}">
+    {%- endif %}
+    {%- if printStylesheet %}
+    {#- Load print styles only on pages that ask for them via frontmatter #}
+    <link rel="stylesheet" href="{{ printStylesheet | url }}" media="print">
     {%- endif %}
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <!-- Local scripts -->
