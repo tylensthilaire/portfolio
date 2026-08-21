@@ -53,13 +53,18 @@ module.exports = function(eleventyConfig) {
 
   // Compile SCSS to CSS before each build
   eleventyConfig.on("eleventy.before", () => {
+    const sourceDir = path.join(__dirname, "scss");
     const outputDir = path.join(__dirname, "_site", "css");
     fs.mkdirSync(outputDir, { recursive: true });
-    for (const file of ["main", "critical", "resume-print"]) {
-      const result = sass.compile(path.join(__dirname, "scss", `${file}.scss`), {
+    // Find sass entrypoints in scss/ (partials are compiled via entrypoints)
+    const entryPoints = fs.readdirSync(sourceDir)
+      .filter(file => file.endsWith(".scss") && !file.startsWith("_"));
+    for (const file of entryPoints) {
+      const result = sass.compile(path.join(sourceDir, file), {
         style: "compressed"
       });
-      fs.writeFileSync(path.join(outputDir, `${file}.css`), result.css);
+      const name = path.basename(file, ".scss");
+      fs.writeFileSync(path.join(outputDir, `${name}.css`), result.css);
     }
   });
 
