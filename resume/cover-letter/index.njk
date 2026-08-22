@@ -1,0 +1,42 @@
+---
+layout: layouts/base.njk
+templateClass: o-document o-document--letter
+stylesheet: /css/documents.css
+printStylesheet: /css/documents-print.css
+eleventyExcludeFromCollections: true
+title: Cover letter — Tylen St Hilaire
+description: A cover letter from Tylen St Hilaire, a design leader building AI-native product practices.
+---
+{#- Content lives in _data/coverLetter.js. -#}
+
+<div class="c-cover-letter">
+
+  <header class="c-cover-letter__identity">
+    <h1 class="c-cover-letter__wordmark"><a class="c-hero__eyebrow" href="{{ '/' | url }}">{{ coverLetter.name }}</a></h1>
+
+    <dl class="c-cover-letter__contact">
+      {%- for item in coverLetter.contact %}
+      <dt class="c-cover-letter__contact-field">{{ item.field }}</dt>
+      <dd class="c-cover-letter__contact-value">
+        {%- if item.href %}<a href="{{ item.href }}">{{ item.label }}</a>{% else %}{{ item.label }}{% endif -%}
+      </dd>
+      {%- endfor %}
+    </dl>
+  </header>
+
+  <p class="c-cover-letter__headline">{{ coverLetter.headline }}</p>
+
+  <p class="c-cover-letter__salutation">{{ coverLetter.salutation }}</p>
+
+  {%- for paragraph in coverLetter.paragraphs %}
+  <p class="c-cover-letter__body">{{ paragraph }}</p>
+  {%- endfor %}
+
+  <div class="c-cover-letter__signoff">
+    {{ coverLetter.signoff.closing }}<br>
+    <span class="c-cover-letter__name">{{ coverLetter.signoff.name }}</span>
+  </div>
+
+  <p class="c-cover-letter__end-mark" aria-hidden="true">❧</p>
+
+</div>

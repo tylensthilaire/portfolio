@@ -1,0 +1,7 @@
+// Screen styles for the printable documents under /resume/.
+//
+// Emits component rules only. Tokens, resets and element styles arrive with
+// main.css, which loads on the same pages.
+
+@import "tools-typography-presets";
+@import "components-documents";
