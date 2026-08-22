@@ -1,0 +1,94 @@
+---
+layout: layouts/base.njk
+templateClass: o-document o-document--portfolio
+stylesheet: /css/documents.css
+printStylesheet: /css/documents-print.css
+eleventyExcludeFromCollections: true
+title: Selected Work — Tylen St Hilaire
+description: Selected work by Tylen St Hilaire — practice transformation, AI in a regulated domain, and AI-powered retail.
+---
+{#- Content lives in _data/portfolio.js -#}
+
+<div class="c-portfolio">
+
+  <section class="c-portfolio__cover">
+    <div>
+      <span class="c-portfolio__eyebrow c-hero__eyebrow">{{ portfolio.name }}</span>
+    </div>
+    <h1 class="c-portfolio__title">{{ portfolio.title | safe }}</h1>
+    <p class="c-portfolio__lead">{{ portfolio.lead }}</p>
+
+    <dl class="c-portfolio__contact">
+      {%- for item in portfolio.contact %}
+      <dt class="c-portfolio__contact-field">{{ item.field }}</dt>
+      <dd class="c-portfolio__contact-value">
+        {%- if item.href %}<a href="{{ item.href }}">{{ item.label }}</a>{% else %}{{ item.label }}{% endif -%}
+      </dd>
+      {%- endfor %}
+    </dl>
+  </section>
+
+  {%- for case in portfolio.cases %}
+  <section class="c-portfolio__case">
+    <p class="c-portfolio__case-number">{{ case.number }}</p>
+    <h2 class="c-portfolio__case-title">{{ case.title }}</h2>
+    <p class="c-portfolio__case-lead">{{ case.lead }}</p>
+
+    <dl class="c-portfolio__meta">
+      {%- for item in case.meta %}
+      <div class="c-portfolio__meta-group">
+        <dt class="c-portfolio__meta-key">{{ item.field }}</dt>
+        <dd class="c-portfolio__meta-value">{{ item.value }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+
+    {%- if case.nda %}
+    <p class="c-portfolio__nda">{{ case.nda }}</p>
+    {%- endif %}
+
+    {%- for block in case.blocks %}
+    {%- if block.type == "section" %}
+    <h3 class="c-portfolio__h">{{ block.headline | safe }}</h3>
+    {%- for paragraph in block.body %}
+    <p class="c-portfolio__body">{{ paragraph | safe }}</p>
+    {%- endfor %}
+
+    {%- elif block.type == "figure" %}
+    <figure class="c-portfolio__figure">
+      {%- if block.src %}
+      <img class="c-portfolio__image" src="{{ block.src | url }}" alt="{{ block.alt }}">
+      {%- else %}
+      {#- Image placeholder, doesn't show up in print -#}
+      <div class="c-portfolio__placeholder">
+        <span class="c-portfolio__placeholder-tag">Placeholder · {{ block.shot }}</span>
+        <span class="c-portfolio__placeholder-brief">{{ block.desc }}</span>
+      </div>
+      {%- endif %}
+      <figcaption class="c-portfolio__caption">{{ block.caption }}</figcaption>
+    </figure>
+
+    {%- elif block.type == "stats" %}
+    <dl class="c-portfolio__stats">
+      {%- for item in block.items %}
+      <div class="c-portfolio__stat">
+        <dt class="c-portfolio__stat-value">{{ item.value | safe }}</dt>
+        <dd class="c-portfolio__stat-label">{{ item.label }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+
+    {%- elif block.type == "quote" %}
+    <blockquote class="c-portfolio__quote">
+      <p class="c-portfolio__quote-text">{{ block.text }}</p>
+      <cite class="c-portfolio__quote-cite">{{ block.cite }}</cite>
+    </blockquote>
+    {%- endif %}
+    {%- endfor %}
+
+  </section>
+  {%- endfor %}
+
+  <p class="c-portfolio__end-mark" aria-hidden="true">❧</p>
+
+</div>
