@@ -22,10 +22,6 @@ Umami doesn't store your IP address or set cookies. To tell a returning visitor 
 
 Umami keeps this data for six months.
 
-## The visit counter
-
-The number in the footer is every visit since the site began: 1,411 carried over from Google Analytics, plus each visit since October 2026, which the site counts itself. A visit is counted once, when you arrive from somewhere else (a search, a link or a bookmark). Moving between pages, reloading and opting out don't count. The site stores only the running total, nothing about you.
-
 ## Opting out
 
 You can switch counting off in this browser. The setting is saved in your browser's local storage and only works on this site.

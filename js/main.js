@@ -108,22 +108,25 @@ function isNewVisit() {
   }
 }
 
+// Strike the footer cookie through while this browser is opted out.
+function renderOptOutState() {
+  const counter = document.querySelector("[data-visit-counter]");
+  if (counter) counter.classList.toggle("is-opted-out", isOptedOut());
+}
+
 async function initVisitCounter() {
   const counter = document.querySelector("[data-visit-counter]");
   if (!counter) return;
+  renderOptOutState();
   const count = counter.querySelector("[data-visit-count]");
-  const label = counter.querySelector("[data-visit-label]");
   try {
     const response = await fetch("/api/visits", isNewVisit() ? { method: "POST", keepalive: true } : {});
     if (!response.ok) return;
     const { visits } = await response.json();
     if (!Number.isFinite(visits)) return;
-    const formatted = visits.toLocaleString("en-GB");
-    count.textContent = formatted;
-    count.hidden = false;
-    label.textContent = `${formatted} visits, counted without cookies. About this counter and opting out`;
+    count.textContent = `${visits.toLocaleString("en-GB")} visits`;
   } catch (error) {
-    // Leave the icon and its label as they are; the link still works.
+    // Keep the fallback "Privacy" label; the link still works.
   }
 }
 
@@ -140,6 +143,7 @@ function initOptOutToggle() {
       : "This browser is being counted (anonymously, without cookies).";
     toggle.textContent = optedOut ? "Opt back in" : "Opt out";
     toggle.setAttribute("aria-pressed", String(optedOut));
+    renderOptOutState();
   };
 
   toggle.addEventListener("click", () => {

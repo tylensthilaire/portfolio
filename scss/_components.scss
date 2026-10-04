@@ -110,23 +110,26 @@ body:has(.o-post) .c-masthead {
   color: rgba(169,169,169,1);
 }
 
-// Strapline on the left, visit counter on the right.
-.c-footer__meta {
+.c-footer__strapline + .c-footer__row {
+  margin-top: var(--baseline-050);
+}
+
+// Contact details on the left, visit counter on the right.
+.c-footer__row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   column-gap: 2ch;
-}
-
-.c-footer__meta + .c-footer__contact {
-  margin-top: var(--baseline-050);
+  row-gap: var(--baseline-050);
 }
 
 .c-footer__counter {
   display: inline-flex;
+  margin-left: auto; // stays bottom right when it wraps under the contact details
   align-items: center;
   gap: 0.5ch;
+  font-size: calc(1em / var(--text-ratio) / var(--text-ratio)); // two steps down the type scale
   color: rgba(169,169,169,1);
   font-variant-numeric: tabular-nums;
   text-decoration: none;
@@ -141,6 +144,15 @@ body:has(.o-post) .c-masthead {
   flex-shrink: 0;
   width: 1.25em;
   height: 1.25em;
+}
+
+// The cookie is only struck through once this browser has opted out.
+.c-footer__counter-strike {
+  display: none;
+
+  .is-opted-out & {
+    display: inline;
+  }
 }
 
 // Opt-out button on the privacy page.
