@@ -21,6 +21,9 @@
 
   &::before {
     content: '• ';
+    // Empty alt text: the visually-hidden commas already separate items for
+    // assistive tech, so the ornament shouldn't be announced as well.
+    content: '• ' / '';
   }
 }
 
