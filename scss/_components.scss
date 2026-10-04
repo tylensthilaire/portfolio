@@ -110,8 +110,60 @@ body:has(.o-post) .c-masthead {
   color: rgba(169,169,169,1);
 }
 
-.c-footer__strapline + .c-footer__contact {
+// Strapline on the left, visit counter on the right.
+.c-footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  column-gap: 2ch;
+}
+
+.c-footer__meta + .c-footer__contact {
   margin-top: var(--baseline-050);
+}
+
+.c-footer__counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5ch;
+  color: rgba(169,169,169,1);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: rgba(196,102,47,1);
+  }
+}
+
+.c-footer__counter-icon {
+  flex-shrink: 0;
+  width: 1.25em;
+  height: 1.25em;
+}
+
+// Opt-out button on the privacy page.
+.c-privacy__toggle {
+  display: inline-block;
+  justify-self: start; // grid children stretch by default
+  width: fit-content;
+  min-height: auto;
+  margin-top: var(--baseline-050);
+  padding: 0.25em 1em;
+  border: 2px solid rgba(196,102,47,1);
+  border-radius: 0.25em;
+  background: transparent;
+  color: rgba(196,102,47,1);
+  font-family: $font-family-body;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(196,102,47,1);
+    color: #fff;
+  }
 }
 
 // Label/value pairs laid out on one line, wrapping as a whole where needed.

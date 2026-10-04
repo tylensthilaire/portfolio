@@ -37,7 +37,6 @@
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
     <!-- Preconnect hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
     <!-- Styles -->
     <link rel="preload" as="style" href="{{ '/css/critical.css' | url }}">
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
@@ -50,12 +49,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <!-- Local scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
-    <!-- Analytics scripts -->
-    <script defer="defer" src="{{ '/js/gtm.js' | url }}"></script>
-    <!-- contains formerly-inline snippet -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJWWTG7" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
+    <!-- Analytics: Umami, cookie-free; see /privacy/ -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e838da5f-40b5-44f4-8e06-984854b18cfe" data-domains="tylensthilaire.com"></script>
   </head>
   <body>
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
@@ -69,9 +64,24 @@
     <footer class="c-footer">
       <hr class="u-visually-hidden">
       <h2 class="u-visually-hidden">P.S.</h2>
-      <p class="c-footer__strapline">Strategy<span class="u-visually-hidden">,</span>
-        <span class="u-ornament-bullet">Experience</span><span class="u-visually-hidden">,</span>
-        <span class="u-ornament-bullet">Growth</span></p>
+      <div class="c-footer__meta">
+        <p class="c-footer__strapline">Strategy<span class="u-visually-hidden">,</span>
+          <span class="u-ornament-bullet">Experience</span><span class="u-visually-hidden">,</span>
+          <span class="u-ornament-bullet">Growth</span></p>
+        {#- Visit counter: the number is filled in by js/main.js from /api/visits. #}
+        <a class="c-footer__counter" href="{{ '/privacy/' | url }}" data-visit-counter>
+          <svg class="c-footer__counter-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+            <path d="M20.5 12.5a8.5 8.5 0 1 1-9-9 3 3 0 0 0 3.5 3.5 3 3 0 0 0 3 3 2.5 2.5 0 0 0 2.5 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="8.5" cy="10" r="1.2" fill="currentColor"/>
+            <circle cx="12.5" cy="13.5" r="1.2" fill="currentColor"/>
+            <circle cx="8.5" cy="15.5" r="1" fill="currentColor"/>
+            <circle cx="15.5" cy="16.5" r="1" fill="currentColor"/>
+            <line x1="3" y1="21" x2="21" y2="3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span class="c-footer__counter-count" data-visit-count hidden></span>
+          <span class="u-visually-hidden" data-visit-label>No cookies here. About this site's visit counter and opting out</span>
+        </a>
+      </div>
       <dl class="c-footer__contact">
         <dt>Let's talk:</dt>
         <dd><a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a></dd>
