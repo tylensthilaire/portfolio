@@ -67,9 +67,113 @@ function initPrintControl() {
   });
 }
 
+// Analytics (Umami, cookie-free) ------------------------------------------
+
+// Umami skips tracking in any browser where this flag is set.
+const OPT_OUT_KEY = "umami.disabled";
+
+function isOptedOut() {
+  try {
+    return localStorage.getItem(OPT_OUT_KEY) === "1";
+  } catch (error) {
+    return false;
+  }
+}
+
+// Goals that aren't page views: e-mail links and PDF downloads, wherever they appear.
+function initGoalTracking() {
+  document.addEventListener("click", event => {
+    const link = event.target.closest && event.target.closest("a[href]");
+    if (!link || !window.umami) return;
+    const href = link.getAttribute("href");
+    if (href.startsWith("mailto:")) {
+      window.umami.track("email-click");
+    } else if (/\.pdf($|[?#])/i.test(href)) {
+      window.umami.track("pdf-download", { file: href.split("/").pop() });
+    }
+  });
+}
+
+// Footer counter: the site's own all-time visit count, from /api/visits.
+// A visit is counted once, on arrival from outside the site: not for moving
+// between pages, reloads or back/forward, not on previews, and not after opting out.
+function isNewVisit() {
+  if (location.hostname !== "tylensthilaire.com" || isOptedOut()) return false;
+  const navigation = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (navigation && navigation.type !== "navigate") return false;
+  try {
+    return !document.referrer || new URL(document.referrer).host !== location.host;
+  } catch (error) {
+    return true;
+  }
+}
+
+// Strike the footer cookie through while this browser is opted out.
+function renderOptOutState() {
+  const counter = document.querySelector("[data-visit-counter]");
+  if (counter) counter.classList.toggle("is-opted-out", isOptedOut());
+}
+
+async function initVisitCounter() {
+  const counter = document.querySelector("[data-visit-counter]");
+  if (!counter) return;
+  renderOptOutState();
+  const count = counter.querySelector("[data-visit-count]");
+  try {
+    const response = await fetch("/api/visits", isNewVisit() ? { method: "POST", keepalive: true } : {});
+    if (!response.ok) return;
+    const { visits } = await response.json();
+    if (!Number.isFinite(visits)) return;
+    count.textContent = `${visits.toLocaleString("en-GB")} visits`;
+  } catch (error) {
+    // Keep the fallback "Privacy" label; the link still works.
+  }
+}
+
+// Privacy page: a button that switches tracking off (and on) in this browser.
+function initOptOutToggle() {
+  const toggle = document.querySelector("[data-analytics-toggle]");
+  const status = document.querySelector("[data-analytics-status]");
+  if (!toggle || !status) return;
+
+  const render = () => {
+    const optedOut = isOptedOut();
+    status.textContent = optedOut
+      ? "You've opted out: this browser isn't being counted."
+      : "This browser is being counted (anonymously, without cookies).";
+    toggle.textContent = optedOut ? "Opt back in" : "Opt out";
+    toggle.setAttribute("aria-pressed", String(optedOut));
+    renderOptOutState();
+  };
+
+  toggle.addEventListener("click", () => {
+    try {
+      if (isOptedOut()) {
+        localStorage.removeItem(OPT_OUT_KEY);
+      } else {
+        localStorage.setItem(OPT_OUT_KEY, "1");
+      }
+    } catch (error) {
+      status.textContent = "Your browser is blocking storage, so the opt-out can't be saved.";
+      return;
+    }
+    render();
+  });
+
+  toggle.hidden = false;
+  render();
+}
+
+function init() {
+  initPrintControl();
+  initGoalTracking();
+  initVisitCounter();
+  initOptOutToggle();
+}
+
 // Loaded async, so this may run either side of DOMContentLoaded
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initPrintControl);
+  document.addEventListener("DOMContentLoaded", init);
 } else {
-  initPrintControl();
+  init();
 }

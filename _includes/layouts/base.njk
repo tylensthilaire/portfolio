@@ -37,7 +37,6 @@
     <link rel="alternate" href="{{ metadata.jsonfeed.path | url }}" type="application/json" title="{{ metadata.title }}">
     <!-- Preconnect hints -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://www.googletagmanager.com">
     <!-- Styles -->
     <link rel="preload" as="style" href="{{ '/css/critical.css' | url }}">
     <link rel="preload" as="style" href="{{ '/css/main.css' | url }}">
@@ -50,12 +49,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap" rel="stylesheet">
     <!-- Local scripts -->
     <script async="async" src="{{ '/js/main.js' | url }}"></script>
-    <!-- Analytics scripts -->
-    <script defer="defer" src="{{ '/js/gtm.js' | url }}"></script>
-    <!-- contains formerly-inline snippet -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MJWWTG7" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
+    <!-- Analytics: Umami, cookie-free; see /privacy/ -->
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="e838da5f-40b5-44f4-8e06-984854b18cfe" data-domains="tylensthilaire.com"></script>
   </head>
   <body>
     <main id="content" {% if templateClass %} class="{{ templateClass }}" {% endif %}>
@@ -72,14 +67,29 @@
       <p class="c-footer__strapline">Strategy<span class="u-visually-hidden">,</span>
         <span class="u-ornament-bullet">Experience</span><span class="u-visually-hidden">,</span>
         <span class="u-ornament-bullet">Growth</span></p>
-      <dl class="c-footer__contact">
-        <dt>Let's talk:</dt>
-        <dd><a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a></dd>
-        <dt>About me:</dt>
-        <dd><a href="{{ '/resume/' | url }}">Resume</a></dd>
-        <dt>My work:</dt>
-        <dd><a href="/img/TylenStHilaire-Portfolio.pdf">Case Studies</a></dd>
-      </dl>
+      <div class="c-footer__row">
+        <dl class="c-footer__contact">
+          <dt>Let's talk:</dt>
+          <dd><a href="mailto:hello@tylensthilaire.com">hello@tylensthilaire.com</a></dd>
+          <dt>About me:</dt>
+          <dd><a href="{{ '/resume/' | url }}">Resume</a></dd>
+          <dt>My work:</dt>
+          <dd><a href="/img/TylenStHilaire-Portfolio.pdf">Case Studies</a></dd>
+        </dl>
+        {#- Visit counter: js/main.js fills in the number from /api/visits and
+            strikes the cookie through when this browser has opted out. #}
+        <a class="c-footer__counter" href="{{ '/privacy/' | url }}" data-visit-counter>
+          <svg class="c-footer__counter-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false">
+            <path d="M20.5 12.5a8.5 8.5 0 1 1-9-9 3 3 0 0 0 3.5 3.5 3 3 0 0 0 3 3 2.5 2.5 0 0 0 2.5 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="8.5" cy="10" r="1.2" fill="currentColor"/>
+            <circle cx="12.5" cy="13.5" r="1.2" fill="currentColor"/>
+            <circle cx="8.5" cy="15.5" r="1" fill="currentColor"/>
+            <circle cx="15.5" cy="16.5" r="1" fill="currentColor"/>
+            <line class="c-footer__counter-strike" x1="3" y1="21" x2="21" y2="3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span data-visit-count>Privacy</span>
+        </a>
+      </div>
     </footer>
   </body>
 </html>
