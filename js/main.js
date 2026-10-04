@@ -94,14 +94,27 @@ function initGoalTracking() {
   });
 }
 
-// Footer counter: all-time visits from the /api/visits Netlify Function.
+// Footer counter: the site's own all-time visit count, from /api/visits.
+// A visit is counted once, on arrival from outside the site: not for moving
+// between pages, reloads or back/forward, not on previews, and not after opting out.
+function isNewVisit() {
+  if (location.hostname !== "tylensthilaire.com" || isOptedOut()) return false;
+  const navigation = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  if (navigation && navigation.type !== "navigate") return false;
+  try {
+    return !document.referrer || new URL(document.referrer).host !== location.host;
+  } catch (error) {
+    return true;
+  }
+}
+
 async function initVisitCounter() {
   const counter = document.querySelector("[data-visit-counter]");
   if (!counter) return;
   const count = counter.querySelector("[data-visit-count]");
   const label = counter.querySelector("[data-visit-label]");
   try {
-    const response = await fetch("/api/visits");
+    const response = await fetch("/api/visits", isNewVisit() ? { method: "POST", keepalive: true } : {});
     if (!response.ok) return;
     const { visits } = await response.json();
     if (!Number.isFinite(visits)) return;

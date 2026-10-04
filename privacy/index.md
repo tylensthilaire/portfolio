@@ -24,7 +24,7 @@ Umami keeps this data for six months.
 
 ## The visit counter
 
-The number in the footer is the total of visits since I started counting in October 2026. A visit is one stretch of reading; coming back later counts again. Behind it, the site keeps only a running total, nothing about individual visits.
+The number in the footer is every visit since the site began: 1,411 carried over from Google Analytics, plus each visit since October 2026, which the site counts itself. A visit is counted once, when you arrive from somewhere else (a search, a link or a bookmark). Moving between pages, reloading and opting out don't count. The site stores only the running total, nothing about you.
 
 ## Opting out
 
