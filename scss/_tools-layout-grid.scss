@@ -103,6 +103,13 @@
   padding-inline: 0;
 }
 
+// Full-bleed layout from a column in normal flow, rather than a grid track.
+// --column-offset is the column's indent from the container's left edge.
+@mixin flow-bleed {
+  margin-left: calc(50% - 50vw - var(--column-offset, 0px) / 2);
+  margin-right: calc(50% - 50vw + var(--column-offset, 0px) / 2);
+}
+
 @function columns($i) {
   @return calc(#{$i} * var(--column-unit));
 }

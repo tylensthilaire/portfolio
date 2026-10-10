@@ -198,6 +198,7 @@ body:has(.o-post) .c-masthead {
 .c-post {
   @include bleed;
   @include content-grid;
+  overflow-x: clip; // full-bleed components measure 100vw, which includes the scrollbar
 }
 
 .c-article {
@@ -464,7 +465,8 @@ body:has(.o-post) .c-masthead {
 // container leaves slack; the header stays flush to the container's left edge.
 @media (min-width: 72rem) {
   .c-article {
-    padding-left: var(--column-and-gutter-unit);
+    --column-offset: var(--column-and-gutter-unit);
+    padding-left: var(--column-offset);
 
     // Override the body measure to the copy column.
     --measure-b: #{column-spans(6)};

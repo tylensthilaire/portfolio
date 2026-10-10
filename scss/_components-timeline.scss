@@ -1,26 +1,51 @@
 // Timeline ---------------------------------------------------------------------
 // partials/timeline.njk, rendered by the `timeline` shortcode.
 // Progressively enhanced from a list into a scrollable timeline
+
+// Geometry js/timeline.js reads, registered so it resolves to pixels
+@property --timeline-container { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-start { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-end { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-indent { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-step { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-gap { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-pin { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-marker { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-stalk { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-close { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-apart { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-wave { syntax: "<length>"; inherits: true; initial-value: 0px; }
+
 .c-timeline {
   --flow-space: var(--baseline-200);
   --timeline-lane-1: rgba(168,77,30,1); // the AA terracotta used on small labels
   --timeline-lane-2: rgba(14,124,134,1);
   --timeline-crossover: rgba(79,91,213,1);
+  --timeline-line: rgba(169,169,169,1);
   font-family: $font-family-body;
 }
 
 .c-timeline__key--lane-1,
-.c-timeline__event--lane-1 {
+.c-timeline__event--lane-1,
+.c-timeline__mark--lane-1,
+.c-timeline__fill--lane-1,
+.c-timeline__tip--lane-1,
+.c-timeline__end--lane-1 {
   --lane: var(--timeline-lane-1);
 }
 
 .c-timeline__key--lane-2,
-.c-timeline__event--lane-2 {
+.c-timeline__event--lane-2,
+.c-timeline__mark--lane-2,
+.c-timeline__fill--lane-2,
+.c-timeline__tip--lane-2,
+.c-timeline__end--lane-2 {
   --lane: var(--timeline-lane-2);
 }
 
 .c-timeline__key--crossover,
-.c-timeline__event--crossover {
+.c-timeline__event--crossover,
+.c-timeline__knot {
   --lane: var(--timeline-crossover);
 }
 
@@ -35,7 +60,10 @@
 // Labels share the article header's kicker style
 .c-timeline__key,
 .c-timeline__chapter-label,
-.c-timeline__event-label {
+.c-timeline__event-label,
+.c-timeline__hint,
+.c-timeline__now-chapter,
+.c-timeline__nav a {
   font-weight: 700;
   font-size: calc(var(--t-d2) * 1em);
   line-height: var(--baseline-100);
@@ -65,8 +93,12 @@
 }
 
 // Chapters ---------------------------------------------------------------------
+.c-timeline__chapters {
+  counter-reset: chapter;
+}
+
 .c-timeline__chapter {
-  margin-top: var(--baseline-300);
+  counter-increment: chapter;
 }
 
 .c-timeline__chapter-label {
@@ -74,25 +106,11 @@
 }
 
 .c-timeline__chapter-summary {
-  margin-top: var(--baseline-050);
   font-style: italic;
   color: rgba(102,102,102,1);
 }
 
 // Events -----------------------------------------------------------------------
-.c-timeline__events {
-  margin-top: var(--baseline-150);
-}
-
-.c-timeline__event {
-  padding-left: var(--space-300);
-  border-left: 2px solid var(--lane);
-
-  + .c-timeline__event {
-    margin-top: var(--baseline-150);
-  }
-}
-
 .c-timeline__event-label {
   color: var(--lane);
 }
@@ -103,16 +121,10 @@
 
 .c-timeline__event-title {
   font-size: calc(var(--t-u1) * 1em);
-  line-height: var(--baseline-100);
-}
-
-.c-timeline__event-body {
-  margin-top: var(--baseline-050);
 }
 
 // Figures ----------------------------------------------------------------------
 .c-timeline__figure {
-  margin-top: var(--baseline-100);
   color: rgba(51,51,51,1);
 
   svg,
@@ -140,7 +152,6 @@
 }
 
 .c-timeline__caption {
-  margin-top: var(--baseline-050);
   font-size: calc(var(--t-d1) * 1em);
   line-height: var(--baseline-100);
   color: rgba(102,102,102,1);
@@ -150,4 +161,540 @@
   display: block;
   font-weight: 700;
   color: rgba(51,51,51,1);
+}
+
+// List -------------------------------------------------------------------------
+// Without JavaScript, or when printed
+.c-timeline:not(.is-enhanced) {
+  .c-timeline__chapter {
+    margin-top: var(--baseline-300);
+  }
+
+  .c-timeline__chapter-summary {
+    margin-top: var(--baseline-050);
+  }
+
+  .c-timeline__events {
+    margin-top: var(--baseline-150);
+  }
+
+  .c-timeline__event {
+    padding-left: var(--space-300);
+    border-left: 2px solid var(--lane);
+
+    + .c-timeline__event {
+      margin-top: var(--baseline-150);
+    }
+  }
+
+  .c-timeline__event-title {
+    line-height: var(--baseline-100);
+  }
+
+  .c-timeline__event-body,
+  .c-timeline__caption {
+    margin-top: var(--baseline-050);
+  }
+
+  .c-timeline__figure {
+    margin-top: var(--baseline-100);
+  }
+
+  .c-timeline__lines,
+  .c-timeline__reveal,
+  .c-timeline__marks,
+  .c-timeline__tip,
+  .c-timeline__hint,
+  .c-timeline__progress,
+  .c-timeline__now,
+  .c-timeline__nav {
+    display: none;
+  }
+}
+
+// Stage ------------------------------------------------------------------------
+// js/timeline.js holds the stage on screen while the page scroll moves the track
+.c-timeline.is-enhanced {
+  @include flow-bleed;
+  position: relative;
+  --timeline-container: var(--container-width);
+  --timeline-start: calc(var(--container-width) / 2);
+  --timeline-end: calc(var(--container-width) / 2);
+  --timeline-indent: var(--column-offset, 0px);
+  --timeline-card: #{mix-units(1.5, 1)};
+  --timeline-card-wide: var(--timeline-card);
+  --timeline-step: var(--baseline-400);
+  --timeline-gap: var(--baseline-150);
+  --timeline-pin: var(--baseline-200);
+  --timeline-marker: var(--space-200);
+  --timeline-stalk: var(--space-200);
+  --timeline-close: var(--space-100);
+  --timeline-apart: var(--baseline-250);
+  --timeline-wave: calc(10 * var(--baseline-100));
+}
+
+// The lines start and end about a third of the way in from each side
+@media (min-width: 40rem) {
+  .c-timeline.is-enhanced {
+    --timeline-start: var(--column-and-gutter-unit);
+    --timeline-end: #{column-spans(3)};
+    --timeline-card: #{column-spans(2)};
+    --timeline-step: calc(5 * var(--baseline-100));
+    --timeline-gap: var(--baseline-250);
+    --timeline-pin: var(--baseline-300);
+    --timeline-stalk: var(--baseline-100);
+    --timeline-apart: calc(5 * var(--baseline-100));
+    --timeline-wave: calc(12.5 * var(--baseline-100));
+  }
+}
+
+@media (min-width: 60rem) {
+  .c-timeline.is-enhanced {
+    --timeline-start: calc(3 * var(--column-and-gutter-unit));
+    --timeline-end: #{column-spans(5)};
+    --timeline-card: #{column-spans(3)};
+    --timeline-card-wide: #{column-spans(5)};
+  }
+}
+
+@media (min-width: 72rem) {
+  .c-timeline.is-enhanced {
+    --timeline-start: calc(4 * var(--column-and-gutter-unit));
+    --timeline-end: #{column-spans(8)};
+    --timeline-card: #{column-spans(4)};
+    --timeline-card-wide: #{column-spans(6)};
+  }
+}
+
+.is-enhanced .c-timeline__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh; // steady as mobile toolbars come and go
+  overflow: hidden;
+  padding-block: var(--baseline-250); // bands for the year and the chapter links
+  background: rgba(255,255,255,1);
+  transition: none; // the reset eases transforms, which would trail the scroll; inherited by the layers inside
+
+  // Fade the track in and out at the edges
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    width: var(--baseline-200);
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(90deg, rgba(255,255,255,1), rgba(255,255,255,0));
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(270deg, rgba(255,255,255,1), rgba(255,255,255,0));
+  }
+}
+
+@media (min-width: 40rem) {
+  .is-enhanced .c-timeline__stage {
+    padding-block: var(--baseline-300);
+  }
+}
+
+.is-enhanced .c-timeline__track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  will-change: transform;
+  font-size: calc(var(--timeline-scale, 1) * 1rem); // shrinks the cards to fit short screens
+}
+
+.is-enhanced :is(.c-timeline__legend, .c-timeline__chapters, .c-timeline__events) {
+  max-width: none;
+}
+
+.is-enhanced :is(.c-timeline__legend, .c-timeline__hint, .c-timeline__chapter-heading, .c-timeline__chapter-summary, .c-timeline__event) {
+  position: absolute;
+  margin: 0;
+}
+
+// Legend and hint ----------------------------------------------------------------
+// Ordered as the lanes run: above, on and below the line
+.is-enhanced .c-timeline__legend {
+  flex-direction: column;
+  gap: var(--space-100);
+}
+
+.is-enhanced .c-timeline__key--crossover {
+  order: 1;
+}
+
+.is-enhanced .c-timeline__key--lane-2 {
+  order: 2;
+}
+
+.c-timeline__hint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  color: rgba(102,102,102,1);
+
+  &::before {
+    content: '→';
+    font-size: calc(var(--t-u2) * 1em);
+    letter-spacing: 0;
+    animation: timeline-nudge 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes timeline-nudge {
+  50% {
+    transform: translateX(var(--space-100));
+  }
+}
+
+// Chapters and cards ---------------------------------------------------------------
+.is-enhanced :is(.c-timeline__chapter-heading, .c-timeline__chapter-summary, .c-timeline__event) {
+  width: var(--timeline-card);
+}
+
+.is-enhanced .c-timeline__chapter-heading::before {
+  content: counter(chapter, decimal-leading-zero);
+  display: block;
+  font-family: $font-family-display;
+  font-size: calc(var(--t-u7) * 1em);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(102,102,102,1);
+}
+
+.is-enhanced .c-timeline__chapter-label {
+  margin-top: var(--space-100);
+  font-size: calc(var(--t-d2) * 1em);
+  line-height: 1.5;
+}
+
+.is-enhanced .c-timeline__chapter-title {
+  font-size: calc(var(--t-u4) * 1em);
+  line-height: 1.1;
+}
+
+.is-enhanced .c-timeline__chapter-summary {
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.is-enhanced .c-timeline__event {
+  transition: opacity 0.5s ease;
+
+  &:not(.is-seen) {
+    opacity: 0.35;
+  }
+}
+
+.is-enhanced .c-timeline__event-label {
+  line-height: 1.5;
+}
+
+.is-enhanced .c-timeline__event-title {
+  margin-top: var(--space-050);
+  line-height: 1.25;
+}
+
+.is-enhanced .c-timeline__event-body {
+  margin-top: var(--space-100);
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+// Crossovers sit on the line, set apart like the artwork credit
+.is-enhanced .c-timeline__event--crossover {
+  padding: 1em 1.25em;
+  background: rgba(255,255,255,1);
+  border: 1px solid var(--timeline-crossover);
+  box-shadow: 0.375rem 0.375rem 0 rgba(79,91,213,0.12);
+}
+
+// Figures sit beside the text where there's room, and beside their caption where not
+.is-enhanced .c-timeline__figure {
+  display: grid;
+  grid-template-columns: 8em 1fr;
+  gap: var(--space-200);
+  align-items: center;
+  margin-top: var(--space-200);
+
+  svg {
+    max-width: none;
+  }
+}
+
+.is-enhanced .c-timeline__caption {
+  font-size: calc(var(--t-d1) * 1em);
+  line-height: 1.5;
+}
+
+.is-enhanced .c-timeline__figure--hide-on-mobile {
+  display: none;
+}
+
+@media (min-width: 40rem) {
+  .is-enhanced .c-timeline__figure--hide-on-mobile {
+    display: grid;
+  }
+}
+
+@media (min-width: 60rem) {
+  .is-enhanced .c-timeline__event--figure {
+    display: grid;
+    grid-template-columns: 1fr #{column-spans(2)};
+    grid-template-rows: auto auto 1fr;
+    column-gap: var(--gutter-unit);
+    align-items: start;
+    width: var(--timeline-card-wide);
+
+    > :not(.c-timeline__figure) {
+      grid-column: 1;
+    }
+  }
+
+  .is-enhanced .c-timeline__event--figure .c-timeline__figure {
+    display: block;
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    margin-top: 0;
+  }
+
+  .is-enhanced .c-timeline__event--figure .c-timeline__caption {
+    margin-top: var(--space-100);
+  }
+}
+
+// Rails and markers (drawn by js/timeline.js) ---------------------------------------
+// Each moves by transform alone, so none repaints as the timeline scrolls
+.c-timeline__lines,
+.c-timeline__marks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+  pointer-events: none;
+
+  path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
+.c-timeline__lines {
+  will-change: transform;
+}
+
+// A screen-wide window whose right edge is the point the lanes have filled to
+.c-timeline__reveal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.c-timeline__rail {
+  stroke: var(--timeline-line);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 4;
+}
+
+.c-timeline__fill {
+  stroke: var(--lane);
+  stroke-width: 2;
+}
+
+.c-timeline__tick {
+  stroke: rgba(51,51,51,1);
+  stroke-width: 1.5;
+}
+
+.c-timeline__stalk {
+  stroke: var(--timeline-line);
+  stroke-width: 1.2;
+  stroke-dasharray: 2 3;
+  transition: stroke 0.3s;
+}
+
+.c-timeline__dot,
+.c-timeline__knot-half {
+  fill: rgba(255,255,255,1);
+  stroke: var(--timeline-line);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: all 0.3s;
+}
+
+.c-timeline__halo {
+  fill: var(--lane);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.c-timeline__mark.is-past {
+  .c-timeline__stalk {
+    stroke: var(--lane);
+    stroke-dasharray: none;
+  }
+
+  .c-timeline__dot {
+    fill: var(--lane);
+    stroke: var(--lane);
+    transform: scale(0.75);
+  }
+}
+
+.c-timeline__mark.is-current {
+  .c-timeline__dot {
+    stroke: var(--lane);
+    stroke-width: 3.5;
+    transform: scale(1.15);
+  }
+
+  .c-timeline__halo {
+    opacity: 0.16;
+  }
+}
+
+.c-timeline__knot.is-past {
+  .c-timeline__knot-half--lane-1 {
+    fill: var(--timeline-lane-1);
+    stroke: var(--timeline-lane-1);
+  }
+
+  .c-timeline__knot-half--lane-2 {
+    fill: var(--timeline-lane-2);
+    stroke: var(--timeline-lane-2);
+  }
+}
+
+.c-timeline__knot.is-current .c-timeline__halo {
+  opacity: 0.18;
+}
+
+.c-timeline__tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px; // centred on the point
+  border-radius: 50%;
+  background: var(--lane);
+  box-shadow: 0 0 5px var(--lane);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.c-timeline__end {
+  fill: rgba(255,255,255,1);
+  stroke: var(--lane);
+  stroke-width: 2;
+}
+
+.c-timeline__end--finish {
+  fill: var(--lane);
+  stroke: none;
+}
+
+// Year, progress and chapter links -------------------------------------------------
+.c-timeline__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  will-change: transform;
+  background: linear-gradient(90deg, var(--timeline-lane-1), var(--timeline-crossover), var(--timeline-lane-2));
+}
+
+.c-timeline--single .c-timeline__progress {
+  background: var(--timeline-lane-1);
+}
+
+.c-timeline__now {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--space-300) var(--space-400) 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  .is-started & {
+    opacity: 1;
+  }
+}
+
+.c-timeline__now-chapter {
+  color: rgba(102,102,102,1);
+}
+
+.c-timeline__now-year {
+  font-family: $font-family-display;
+  font-size: calc(var(--t-u4) * 1rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: rgba(51,51,51,1);
+}
+
+.c-timeline__nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 var(--space-300);
+  padding-bottom: var(--space-300);
+
+  a {
+    padding: var(--space-100) var(--space-025);
+    color: rgba(102,102,102,1);
+
+    &[aria-current] {
+      color: rgba(51,51,51,1);
+      box-shadow: inset 0 -2px 0 rgba(196,102,47,1);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .is-enhanced .c-timeline__event,
+  .c-timeline__marks * {
+    transition: none;
+  }
+
+  .is-enhanced .c-timeline__event:not(.is-seen) {
+    opacity: 1;
+  }
+
+  .c-timeline__hint::before {
+    animation: none;
+  }
 }

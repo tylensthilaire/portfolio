@@ -97,16 +97,19 @@ figure missing its image or alt text, fails the build.
 
 | Field | Notes |
 |---|---|
-| `lanes` | One or two. The first runs above the line, the second below |
-| `crossover` | Two lanes only; the label for events on the line |
-| `chapters[].rails` | `apart`, `close` or `braid`: how far apart the lanes run in that chapter |
+| `lanes` | One or two. The first runs above the line, the second below; a single lane's events alternate above and below |
+| `crossover` | Two lanes only; the label for events on the line, where the lanes meet |
+| `chapters[].rails` | `apart` or `close`: how far apart the lanes run, eased across the chapter before a change. `braid` runs them close and weaves them across each other after the chapter's heading |
 | `events[]` | In reading order, whichever lane they sit in |
 | `events[].year` | A string, so it can be a range or approximate (`1940s–54`); four-digit years become a `<time>` |
 | `events[].lane` | A lane `id`, or `both` for a crossover |
 | `events[].body` | HTML, e.g. `<em>` for titles of works |
 | `events[].figure.src` | Any image path. SVGs are inlined, so they take the lane's colour from `var(--lane, currentColor)`; shared diagrams live in `img/diagrams/` |
 | `events[].figure.alt` | Required; also the accessible name of an inlined SVG |
-| `events[].figure.hideOnMobile` | Optional; drops the figure where space is tight |
+| `events[].figure.hideOnMobile` | Optional; drops the figure from the scrolling timeline on phones |
 
-Chapter numbers, anchors and labels are generated. Without JavaScript the
-timeline reads as a vertical list of chapters and events.
+Chapter numbers, anchors and labels are generated. Without JavaScript, and when
+printed, the timeline reads as a vertical list of chapters and events.
+`js/timeline.js` lays it out along the lanes in a full-bleed stage that holds
+the screen while the page scroll moves it sideways. Its sizes are the
+`--timeline-*` properties in `scss/_components-timeline.scss`, in grid units.
