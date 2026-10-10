@@ -501,6 +501,34 @@ body:has(.o-post) .c-masthead {
   }
 }
 
+// Article actions --------------------------------------------------------------
+// Displayed as a FAB by default
+.c-article__actions {
+  @include fab;
+  --flow-space: 0; // positioned, so no part of the flow
+}
+
+// Displayed in a rail when there's space
+@media (min-width: 72rem) {
+  .c-article {
+    position: relative; // containing block for the rail
+    isolation: isolate; // keeps the rail's z-index within the article
+  }
+
+  .c-article__actions {
+    position: absolute;
+    // Matches the body's vertical padding, so the rail starts level with the text
+    inset: var(--baseline-150) auto var(--baseline-150) 0;
+    width: var(--column-unit);
+    z-index: -1;
+  }
+
+  .c-article__actions-bar {
+    position: sticky;
+    top: var(--baseline-150);
+  }
+}
+
 // Article header ---------------------------------------------------------------
 // One component (partials/article-header.njk), two layouts via a modifier:
 // `--default` (stacked; an optional image bleeds full-width above the text) and
@@ -795,10 +823,7 @@ body:has(.o-post) .c-masthead {
 // Print control ------------------------------------------------------------------
 // Authored hidden, revealed by js/main.js
 .c-print {
-  position: fixed;
-  right: var(--space-400);
-  bottom: var(--space-400);
-  z-index: 10;
+  @include fab;
   font-family: $font-family-body;
 }
 

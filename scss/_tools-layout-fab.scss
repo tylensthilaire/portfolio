@@ -1,0 +1,7 @@
+// Floating action button: pins a control to the bottom-right of the viewport.
+@mixin fab {
+  position: fixed;
+  right: var(--space-400);
+  bottom: var(--space-400);
+  z-index: 10;
+}

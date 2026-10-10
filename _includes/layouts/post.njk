@@ -8,6 +8,11 @@ templateClass: o-post
   <div class="u-flow c-article">
     {% include "partials/artwork-credit.njk" %}
     {{ content | safe }}
+    {#- Article actions (like, comment, highlight), still to come. Last in the
+        DOM so assistive tech reaches the content first. -#}
+    <div class="c-article__actions">
+      <div class="c-article__actions-bar"></div>
+    </div>
   </div>
 </article>
 
