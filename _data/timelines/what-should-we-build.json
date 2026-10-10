@@ -1,0 +1,578 @@
+{
+  "lanes": [
+    {
+      "id": "product",
+      "name": "Product",
+      "descriptor": "Business"
+    },
+    {
+      "id": "experience",
+      "name": "Experience",
+      "descriptor": "User-centred"
+    }
+  ],
+  "crossover": {
+    "name": "Crossover"
+  },
+  "chapters": [
+    {
+      "title": "Before software",
+      "period": "1911–1969",
+      "summary": "Neither discipline starts in tech. One begins in factories and marketing departments, measuring work and what people buy; the other in wartime cockpits and telephone labs, studying how people cope.",
+      "rails": "apart",
+      "events": [
+        {
+          "year": "1911",
+          "lane": "product",
+          "title": "Scientific management",
+          "body": "Frederick Winslow Taylor's <em>Principles of Scientific Management</em> sets out time study: put a stopwatch on every step, then standardise the fastest. “In the past the man has been first; in the future the system must be first.”"
+        },
+        {
+          "year": "1911",
+          "lane": "experience",
+          "title": "Motion study",
+          "body": "Frank and Lillian Gilbreth develop motion study, filming tasks and breaking them into elemental motions, their “therbligs”, to find the least tiring way. They split from Taylor in 1914 over how workers were treated. The two methods later merge as time-and-motion study."
+        },
+        {
+          "year": "1923",
+          "lane": "product",
+          "title": "Measuring the market",
+          "body": "Arthur C. Nielsen founds his company to measure what sells. Market research becomes an industry, and the business lane's first research question is set: what will people buy?"
+        },
+        {
+          "year": "1931",
+          "lane": "product",
+          "title": "The “Brand Men” memo",
+          "body": "On 13 May 1931 Neil McElroy, a junior advertising manager at Procter & Gamble, argues for one person who owns a brand end to end: the customer, the sales numbers and the coordination behind them. It's product management's founding document."
+        },
+        {
+          "year": "1935",
+          "lane": "product",
+          "title": "The poll",
+          "body": "George Gallup's institute turns opinion sampling into a business tool. Asking a representative sample, rather than trusting instinct, becomes how companies make decisions."
+        },
+        {
+          "year": "1940s–54",
+          "lane": "experience",
+          "title": "Human factors",
+          "body": "Pilot errors in WWII push psychologists into equipment design, and the lesson is that the machine should fit the person, not the other way round. Fitts' law (1954) makes it something you can measure."
+        },
+        {
+          "year": "1941",
+          "lane": "product",
+          "title": "The focused interview",
+          "body": "Robert Merton and Paul Lazarsfeld test audience reactions to wartime radio by interviewing listeners in groups. Their “focused interview” later becomes marketing's focus group: research into what persuades people, not how they use things."
+        },
+        {
+          "year": "1946",
+          "lane": "experience",
+          "title": "Action research",
+          "body": "Kurt Lewin coins “action research”: study a problem by changing it, alongside the people who live with it. Orlando Fals-Borda's 1977 Cartagena conference makes it participatory action research: research with people, not on them."
+        },
+        {
+          "year": "1947",
+          "lane": "experience",
+          "title": "Psychologists at the phone company",
+          "body": "Bell Labs sets up a human factors department, led by its first staff psychologist, John Karlin. Its research into how people dial shapes the touch-tone keypad, launched in 1963."
+        },
+        {
+          "year": "1948",
+          "lane": "product",
+          "title": "The Toyota Production System",
+          "body": "Taiichi Ohno and Eiji Toyoda start building TPS: just-in-time production, where any worker can stop the line when something's wrong. It becomes “lean”, which reaches software decades later as the Lean Startup and Lean UX."
+        },
+        {
+          "year": "1955",
+          "lane": "experience",
+          "title": "Designing for people",
+          "body": "Henry Dreyfuss: “When the point of contact between the product and the people becomes a point of friction, then the industrial designer has failed.” His charts of Joe and Josephine, the average users, put real bodies at the centre of design."
+        },
+        {
+          "year": "1959",
+          "lane": "experience",
+          "title": "Creative engineering",
+          "body": "John E. Arnold's <em>Creative Engineering</em> at Stanford plants the seed of design thinking: engineers should frame problems, not just solve the ones they're given."
+        },
+        {
+          "year": "1963",
+          "lane": "experience",
+          "title": "Design as method",
+          "body": "L. Bruce Archer's <em>Systematic Method for Designers</em> (1963–64) is part of a movement to make design rigorous and repeatable. It's the ancestor of every process diagram that followed."
+        },
+        {
+          "year": "1966",
+          "lane": "experience",
+          "title": "The designed experience",
+          "body": "Introducing EPCOT, Walt Disney calls it “an experimental prototype that is always in the state of becoming”. His parks were designed down to the smallest detail and never finished, which is why he's been called the first UX designer."
+        },
+        {
+          "year": "1969",
+          "lane": "experience",
+          "title": "The sciences of the artificial",
+          "body": "Herbert Simon: “Everyone designs who devises courses of action aimed at changing existing situations into preferred ones.” Design becomes a general way of solving problems."
+        }
+      ]
+    },
+    {
+      "title": "Machines & methods",
+      "period": "1970–1989",
+      "summary": "Software gets big enough to need managing and computers personal enough to need designing. Business discovers strategy; design discovers the user.",
+      "rails": "apart",
+      "events": [
+        {
+          "year": "1970",
+          "lane": "product",
+          "title": "The waterfall that wasn't",
+          "body": "Winston Royce's paper includes the single-pass diagram later called “waterfall”. He warned that this version “is risky and invites failure” and argued for iteration. Most readers only remembered the diagram.",
+          "figure": {
+            "src": "/img/diagrams/royce-figure-4.svg",
+            "alt": "Five stages stepping down from requirements to design, code, test and operations, with dashed arrows looping back from each stage to the one before.",
+            "title": "Royce, Figure 4",
+            "caption": "Dashed: the forgotten iteration.",
+            "hideOnMobile": true
+          }
+        },
+        {
+          "year": "1970s–80s",
+          "lane": "experience",
+          "title": "Participatory design",
+          "body": "Scandinavian researchers work with trade unions so new technology doesn't deskill workers: Kristen Nygaard with Norway's metalworkers, then the UTOPIA project (1981–85) with print workers. It's the direct answer to Taylor: the people doing the work help design the system."
+        },
+        {
+          "year": "1973",
+          "lane": "experience",
+          "title": "Wicked problems & the Alto",
+          "body": "Rittel and Webber name “wicked problems”: problems with no definitive formulation and no stopping rule. The same year, Xerox PARC's Alto shows the graphical interface."
+        },
+        {
+          "year": "1979",
+          "lane": "both",
+          "title": "Jobs visits PARC",
+          "body": "Steve Jobs trades pre-IPO Apple shares for a look inside Xerox PARC and sees the graphical interface. Xerox had the research; Apple had the business will to ship it, first in the Lisa (1983), then the Mac."
+        },
+        {
+          "year": "1980",
+          "lane": "product",
+          "title": "Competitive strategy",
+          "body": "Michael Porter's <em>Competitive Strategy</em> turns strategy into an analytical discipline: five forces, positioning, advantage. Users appear only as “buyers” with bargaining power."
+        },
+        {
+          "year": "1982",
+          "lane": "experience",
+          "title": "HCI becomes a field",
+          "body": "ACM SIGCHI is founded. A year later Card, Moran and Newell's <em>The Psychology of Human-Computer Interaction</em> gives the field a scientific base. Their Keystroke-Level Model is, in effect, time-and-motion study for keyboards."
+        },
+        {
+          "year": "1982",
+          "lane": "experience",
+          "title": "Thinking aloud",
+          "body": "At IBM, Clayton Lewis applies the think-aloud method to interface design: watch someone use the thing and ask them to say what they're thinking. It's still the core of usability testing."
+        },
+        {
+          "year": "1984",
+          "lane": "experience",
+          "title": "The Macintosh",
+          "body": "The GUI reaches the mass market. Apple's <em>Human Interface Guidelines</em> (1987) turn interaction design into a written standard."
+        },
+        {
+          "year": "1984",
+          "lane": "product",
+          "title": "Delighters",
+          "body": "Noriaki Kano's model sorts features into must-haves, performance features and delighters. It's an early way to prioritise by customer satisfaction rather than by specification."
+        },
+        {
+          "year": "1984",
+          "lane": "experience",
+          "title": "Blueprinting services",
+          "body": "Lynn Shostack, a banker, publishes <em>Designing Services That Deliver</em> in HBR and introduces the service blueprint. It's one of the origins of service design."
+        },
+        {
+          "year": "1985",
+          "lane": "experience",
+          "title": "Three principles",
+          "body": "Gould and Lewis set out an early focus on users, empirical measurement and iterative design. It's arguably user-centred design's founding paper."
+        },
+        {
+          "year": "1986",
+          "lane": "product",
+          "title": "The rugby approach",
+          "body": "Takeuchi and Nonaka's HBR paper <em>The New New Product Development Game</em> describes cross-functional teams moving together “passing the ball back and forth”, which they compare to a scrum. The name sticks."
+        },
+        {
+          "year": "1986",
+          "lane": "experience",
+          "title": "User-centred design",
+          "body": "Don Norman and Stephen Draper's <em>User Centered System Design</em> popularises the term. <em>The Psychology of Everyday Things</em> (1988) brings affordances and mental models to a general readership."
+        },
+        {
+          "year": "1986",
+          "lane": "experience",
+          "title": "One number for usability",
+          "body": "John Brooke's System Usability Scale: ten questions, one score, “quick and dirty” by his own description. Created in 1986 and published in 1996, it's still used everywhere."
+        },
+        {
+          "year": "1987",
+          "lane": "experience",
+          "title": "Plans and situated actions",
+          "body": "At Xerox PARC, Lucy Suchman shows how people actually use a photocopier, and how far that is from the designers' plan. Ethnography arrives in design."
+        },
+        {
+          "year": "1989",
+          "lane": "experience",
+          "title": "Discount usability",
+          "body": "Jakob Nielsen argues you don't need a lab: cheap, fast testing beats none. It's later summed up as “test with five users” (2000)."
+        },
+        {
+          "year": "Late 1980s",
+          "lane": "both",
+          "title": "The first PM job was a design job",
+          "body": "On the Mac Excel team, Jabe Blumenthal reworks Microsoft's “program manager” title: no longer a lead coder but the person who designs the UI, writes the spec and speaks for the customer. The modern PM role starts out doing what we'd now call UX."
+        }
+      ]
+    },
+    {
+      "title": "The web makes it commercial",
+      "period": "1990–1999",
+      "summary": "The browser turns usability into revenue and business into “e-business”. The first transformation programmes begin.",
+      "rails": "apart",
+      "events": [
+        {
+          "year": "1990",
+          "lane": "experience",
+          "title": "Ten heuristics",
+          "body": "Nielsen and Molich publish heuristic evaluation, refined into the ten usability heuristics in 1994. Usability becomes something you can audit cheaply, so something you can sell."
+        },
+        {
+          "year": "1990",
+          "lane": "product",
+          "title": "Don't automate, obliterate",
+          "body": "Michael Hammer's HBR article launches business process re-engineering. Consultancies sell whole-company redesigns: the template for every later transformation programme."
+        },
+        {
+          "year": "1991",
+          "lane": "experience",
+          "title": "IDEO",
+          "body": "David Kelley's firm merges with others to form IDEO. The same year, Delft hosts the first design thinking research symposium."
+        },
+        {
+          "year": "1992",
+          "lane": "experience",
+          "title": "Wicked problems in design thinking",
+          "body": "Richard Buchanan connects Rittel's wicked problems to design, arguing it's a liberal art for problems with no right answer, and maps the areas design works in, from symbols and things to services and systems."
+        },
+        {
+          "year": "1993",
+          "lane": "experience",
+          "title": "The UX in UX",
+          "body": "Don Norman joins Apple as User Experience Architect, because “user interface” and “usability” felt too narrow. The term spreads from there."
+        },
+        {
+          "year": "1994",
+          "lane": "product",
+          "title": "DSDM",
+          "body": "A UK consortium publishes the Dynamic Systems Development Method. It's an early lightweight method built around timeboxes, MoSCoW prioritisation and active user involvement, and one of the inputs to Agile."
+        },
+        {
+          "year": "1995",
+          "lane": "product",
+          "title": "Scrum, formalised",
+          "body": "Ken Schwaber and Jeff Sutherland present Scrum at OOPSLA in Austin. Its key role, the product owner, owns the backlog, and it's how many organisations first get a product role. Scrum defines no design role."
+        },
+        {
+          "year": "Mid-1990s",
+          "lane": "product",
+          "title": "Good PM / Bad PM",
+          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”."
+        },
+        {
+          "year": "1998",
+          "lane": "experience",
+          "title": "Contextual design",
+          "body": "Hugh Beyer and Karen Holtzblatt publish <em>Contextual Design</em>: go to where people work, watch, and model what you see. Field research becomes a repeatable method."
+        },
+        {
+          "year": "1999",
+          "lane": "product",
+          "title": "Extreme Programming",
+          "body": "Kent Beck's <em>Extreme Programming Explained</em>: short iterations, an on-site customer, and tests first. The customer is in the room. The designer usually isn't."
+        },
+        {
+          "year": "1999",
+          "lane": "both",
+          "title": "The experience economy",
+          "body": "Pine and Gilmore argue that experiences are an economic offering in their own right, after commodities, goods and services. A business book makes “experience” something boards will pay for."
+        },
+        {
+          "year": "1999",
+          "lane": "experience",
+          "title": "Personas & a standard",
+          "body": "Alan Cooper's <em>The Inmates Are Running the Asylum</em> introduces personas, and ISO 13407 sets out human-centred design processes. UCD now has a method and a standard."
+        }
+      ]
+    },
+    {
+      "title": "Professionalisation",
+      "period": "2000–2009",
+      "summary": "Both lanes become professions, with titles, frameworks and conferences, and both start pitching to the boardroom: one with strategy, the other with experience.",
+      "rails": "close",
+      "events": [
+        {
+          "year": "2000",
+          "lane": "experience",
+          "title": "The elements of UX",
+          "body": "Jesse James Garrett's diagram, from strategy to surface, gives the field a shared map. IA and interaction design become recognised job titles.",
+          "figure": {
+            "src": "/img/diagrams/garrett-five-planes.svg",
+            "alt": "Five stacked planes, from strategy at the bottom through scope, structure and skeleton to surface at the top.",
+            "title": "Garrett's five planes",
+            "caption": "From abstract strategy at the bottom to the concrete surface on top."
+          }
+        },
+        {
+          "year": "2000",
+          "lane": "both",
+          "title": "Test it live",
+          "body": "Google runs its first A/B test, on how many results to show. Experiments at scale measure behaviour directly, but in service of business metrics."
+        },
+        {
+          "year": "2001",
+          "lane": "both",
+          "title": "Seventeen people in Snowbird",
+          "body": "The Agile Manifesto is signed in February 2001. It values “customer collaboration over contract negotiation”, but none of the seventeen signatories are designers. For the next decade UX tries to fit into sprints that weren't designed with it in mind."
+        },
+        {
+          "year": "2001",
+          "lane": "experience",
+          "title": "Service design gets a studio",
+          "body": "Livework opens in London, calling itself the world's first service design company. Design moves from screens to whole services."
+        },
+        {
+          "year": "2001",
+          "lane": "experience",
+          "title": "Four orders of design",
+          "body": "In <em>Design Research and the New Learning</em>, Buchanan names four orders of design: symbols, things, actions and thoughts, or roughly graphic, industrial, interaction and systems design. It's a map of design's scope widening from what people see to the systems they live in.",
+          "figure": {
+            "src": "/img/diagrams/buchanan-four-orders.svg",
+            "alt": "Four nested boxes: symbols inside things, inside actions, inside thoughts.",
+            "title": "Buchanan's four orders",
+            "caption": "Each order builds on the ones inside it, from signs to systems."
+          }
+        },
+        {
+          "year": "2002",
+          "lane": "product",
+          "title": "Google's APM programme",
+          "body": "Marissa Mayer starts the Associate Product Manager programme, recruiting technical graduates straight into product. Marty Cagan founds Silicon Valley Product Group the same year."
+        },
+        {
+          "year": "2003",
+          "lane": "product",
+          "title": "The one number",
+          "body": "Fred Reichheld's HBR article introduces Net Promoter Score. Customer sentiment becomes a single board-level number: the business lane's answer to SUS."
+        },
+        {
+          "year": "2004",
+          "lane": "experience",
+          "title": "The Double Diamond",
+          "body": "The UK Design Council, led by Richard Eisermann, sets out Discover, Define, Develop, Deliver: two diamonds of divergence and convergence.",
+          "figure": {
+            "src": "/img/diagrams/double-diamond.svg",
+            "alt": "Two diamonds side by side, labelled discover, define, develop and deliver.",
+            "title": "Design Council, 2004",
+            "caption": "Diverge, converge, twice: once on the problem, once on the solution."
+          }
+        },
+        {
+          "year": "2004",
+          "lane": "experience",
+          "title": "The d.school",
+          "body": "Stanford's Hasso Plattner Institute of Design opens. Its five modes, empathise, define, ideate, prototype and test, turn design thinking into something you can teach to non-designers, and later sell to executives.",
+          "figure": {
+            "src": "/img/diagrams/dschool-five-modes.svg",
+            "alt": "Five hexagons in sequence, empathise, define, ideate, prototype and test, with a dashed arrow looping from test back to define.",
+            "title": "The d.school's five modes",
+            "caption": "A linear-looking sequence that's meant to loop: test sends you back to define."
+          }
+        },
+        {
+          "year": "2005",
+          "lane": "product",
+          "title": "Get out of the building",
+          "body": "Steve Blank's <em>The Four Steps to the Epiphany</em> sets out customer development, and Clayton Christensen popularises jobs to be done. Product invents its own version of user research, framed around what customers will pay for."
+        },
+        {
+          "year": "2007",
+          "lane": "both",
+          "title": "The iPhone",
+          "body": "Experience becomes the product. After 2007, “it's easy to use” is a competitive strategy, and both disciplines become essential to the business."
+        },
+        {
+          "year": "2008",
+          "lane": "both",
+          "title": "Both lanes reach the boardroom",
+          "body": "Tim Brown's HBR article <em>Design Thinking</em> pitches design to executives, and Cagan's <em>Inspired</em> sets out modern product management. Both argue the same thing from different sides: stop building the wrong thing well."
+        }
+      ]
+    },
+    {
+      "title": "Mainstream & merge",
+      "period": "2010–2019",
+      "summary": "Product becomes the hub role and design a board-level capability. “Digital transformation” becomes the consulting industry's biggest product.",
+      "rails": "close",
+      "events": [
+        {
+          "year": "2010",
+          "lane": "product",
+          "title": "Mind the Product",
+          "body": "Product people in London start meeting up. Within a few years it's a global community, and PM has its own professional infrastructure."
+        },
+        {
+          "year": "2010",
+          "lane": "both",
+          "title": "Strategy on a canvas",
+          "body": "Osterwalder and Pigneur's <em>Business Model Generation</em> puts business strategy on a one-page canvas, filled in with sticky notes. Strategy borrows design's tools."
+        },
+        {
+          "year": "2010",
+          "lane": "both",
+          "title": "The design sprint",
+          "body": "At Google, Jake Knapp develops the five-day design sprint: a design method sized to fit a product team's timeline."
+        },
+        {
+          "year": "2011",
+          "lane": "product",
+          "title": "The Lean Startup",
+          "body": "Eric Ries popularises build–measure–learn and the MVP. Validated learning becomes part of a PM's job, which brings PM into territory researchers already worked in.",
+          "figure": {
+            "src": "/img/diagrams/build-measure-learn.svg",
+            "alt": "A loop of three arrows: build, measure, learn.",
+            "title": "Build–measure–learn",
+            "caption": "The loop that made validated learning part of a PM's job."
+          }
+        },
+        {
+          "year": "2011",
+          "lane": "product",
+          "title": "Software is eating the world",
+          "body": "Marc Andreessen argues every company is becoming a software company. Digital transformation becomes a board agenda and a consulting category."
+        },
+        {
+          "year": "2011",
+          "lane": "both",
+          "title": "Government Digital Service",
+          "body": "GDS launches in the UK, and its design principles (2012) open with “Start with user needs”. Product managers, service designers, user researchers and developers become one team, written into policy."
+        },
+        {
+          "year": "2011",
+          "lane": "product",
+          "title": "Scaling Agile",
+          "body": "SAFe (2011) and Spotify's squads and tribes (2012) take Agile from teams to whole organisations, and each becomes a transformation programme in its own right."
+        },
+        {
+          "year": "2013",
+          "lane": "both",
+          "title": "Lean UX",
+          "body": "Jeff Gothelf and Josh Seiden rework design for the sprint cadence: hypotheses over deliverables, collaboration over handover. Dual-track agile makes discovery and delivery run in parallel.",
+          "figure": {
+            "src": "/img/diagrams/dual-track-agile.svg",
+            "alt": "Two parallel tracks: a wavy discovery line above a straight delivery line, with arrows dropping from discovery into delivery.",
+            "title": "Dual-track agile",
+            "caption": "Discovery feeds delivery continuously rather than in a phase up front."
+          }
+        },
+        {
+          "year": "2013",
+          "lane": "product",
+          "title": "The Mom Test",
+          "body": "Rob Fitzpatrick's guide to customer interviews for founders: ask about their life, not your idea. Interviewing becomes a product skill."
+        },
+        {
+          "year": "2013–15",
+          "lane": "experience",
+          "title": "Consultancies buy design",
+          "body": "Accenture buys Fjord, Capital One buys Adaptive Path and McKinsey buys Lunar. Design becomes part of the digital transformation pitch."
+        },
+        {
+          "year": "2016",
+          "lane": "experience",
+          "title": "Figma",
+          "body": "Design moves into the browser and becomes multiplayer. PMs and engineers can work in the same file."
+        },
+        {
+          "year": "2017",
+          "lane": "product",
+          "title": "The core team",
+          "body": "The second edition of <em>Inspired</em> centres on an empowered product team: product manager, product designer and tech lead, together from discovery onwards."
+        },
+        {
+          "year": "2018",
+          "lane": "product",
+          "title": "Escaping the build trap",
+          "body": "Melissa Perri argues companies measure output, not outcomes, and calls for real product strategy. Product management positions itself as a strategic role, not a delivery one."
+        },
+        {
+          "year": "2018",
+          "lane": "both",
+          "title": "The business value of design",
+          "body": "McKinsey tracks 300 listed companies over five years: those strongest at design see 32% more revenue growth and 56% more shareholder returns. Design makes its case in the business lane's language."
+        },
+        {
+          "year": "2018",
+          "lane": "experience",
+          "title": "ResearchOps",
+          "body": "A global community forms around research operations: recruitment, consent, repositories. User research becomes a function with its own infrastructure."
+        },
+        {
+          "year": "2019",
+          "lane": "product",
+          "title": "Shape Up",
+          "body": "Basecamp publishes <em>Shape Up</em>: six-week cycles, with work shaped by senior people before anyone builds it. A deliberate break from sprints and backlogs."
+        },
+        {
+          "year": "2019",
+          "lane": "experience",
+          "title": "Framework for Innovation",
+          "body": "The Design Council updates the Double Diamond with principles, methods, leadership and engagement around it: the organisation, not just the process."
+        }
+      ]
+    },
+    {
+      "title": "Correction & convergence",
+      "period": "2020–now",
+      "summary": "The boom ends, specialist roles are consolidated, and the question of who decides what to build is open again.",
+      "rails": "braid",
+      "events": [
+        {
+          "year": "2021",
+          "lane": "both",
+          "title": "Continuous discovery",
+          "body": "Teresa Torres's <em>Continuous Discovery Habits</em> has the product trio talking to customers every week. Research and problem framing become part of PM's job."
+        },
+        {
+          "year": "2021",
+          "lane": "experience",
+          "title": "Systemic design",
+          "body": "The Design Council's Systemic Design Framework widens the Double Diamond to whole systems and longer time horizons."
+        },
+        {
+          "year": "2022–24",
+          "lane": "both",
+          "title": "The correction",
+          "body": "Tech layoffs hit dedicated UX research teams particularly hard. Research gets “democratised” across PMs and designers, and many PM functions are consolidated too."
+        },
+        {
+          "year": "2024",
+          "lane": "product",
+          "title": "Transformed",
+          "body": "Marty Cagan's <em>Transformed</em> recasts transformation as the move to a product operating model. A decade after “digital transformation”, product is what organisations transform into."
+        },
+        {
+          "year": "2026",
+          "lane": "product",
+          "title": "The manifesto at 25",
+          "body": "A quarter-century after Snowbird, Agile is the default way most teams work, and it's still argued about."
+        }
+      ]
+    }
+  ]
+}

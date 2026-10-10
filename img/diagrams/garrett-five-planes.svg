@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" style="font-size: 8.5px" viewBox="0 0 160 112">
+  <path d="M22 19L46 6H150L126 19Z" fill="white" stroke="var(--lane, currentColor)" stroke-width="1"/>
+  <text x="86" y="15.5" text-anchor="middle" fill="currentColor" opacity=".75">Surface</text>
+  <path d="M22 39L46 26H150L126 39Z" fill="white" stroke="currentColor" stroke-width="1"/>
+  <text x="86" y="35.5" text-anchor="middle" fill="currentColor" opacity=".75">Skeleton</text>
+  <path d="M22 59L46 46H150L126 59Z" fill="white" stroke="currentColor" stroke-width="1"/>
+  <text x="86" y="55.5" text-anchor="middle" fill="currentColor" opacity=".75">Structure</text>
+  <path d="M22 79L46 66H150L126 79Z" fill="white" stroke="currentColor" stroke-width="1"/>
+  <text x="86" y="75.5" text-anchor="middle" fill="currentColor" opacity=".75">Scope</text>
+  <path d="M22 99L46 86H150L126 99Z" fill="white" stroke="currentColor" stroke-width="1"/>
+  <text x="86" y="95.5" text-anchor="middle" fill="currentColor" opacity=".75">Strategy</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" style="font-size: 8.5px" viewBox="0 0 160 112">
+  <defs>
+    <marker id="dual-track-agile-ad" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L8 4L0 8z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <path d="M6 30C26 18 40 42 60 30S94 18 114 30S140 40 152 30" fill="none" stroke="var(--lane, currentColor)" stroke-width="1.2" marker-end="url(#dual-track-agile-ad)" style="color:var(--lane, currentColor)"/>
+  <path d="M6 80H152" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#dual-track-agile-ad)"/>
+  <path d="M44 38V72" stroke="currentColor" stroke-width=".8" stroke-dasharray="2 2" marker-end="url(#dual-track-agile-ad)"/>
+  <path d="M84 38V72" stroke="currentColor" stroke-width=".8" stroke-dasharray="2 2" marker-end="url(#dual-track-agile-ad)"/>
+  <path d="M124 38V72" stroke="currentColor" stroke-width=".8" stroke-dasharray="2 2" marker-end="url(#dual-track-agile-ad)"/>
+  <text x="6" y="14" fill="currentColor" opacity=".75">Discovery</text>
+  <text x="6" y="98" fill="currentColor" opacity=".75">Delivery</text>
+</svg>

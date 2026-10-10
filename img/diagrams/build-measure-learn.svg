@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" style="font-size: 8.5px" viewBox="0 -3 162 115">
+  <defs>
+    <marker id="build-measure-learn-al" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L8 4L0 8z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <path d="M88.7 19.1A36 36 0 0 1 114.6 63.9" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#build-measure-learn-al)"/>
+  <circle cx="80.0" cy="18.0" r="3" fill="var(--lane, currentColor)"/>
+  <text x="80.0" y="7.0" text-anchor="middle" fill="currentColor" opacity=".75">Build</text>
+  <path d="M105.9 79.0A36 36 0 0 1 54.1 79.0" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#build-measure-learn-al)"/>
+  <circle cx="111.2" cy="72.0" r="3" fill="var(--lane, currentColor)"/>
+  <text x="123.3" y="82.0" text-anchor="start" fill="currentColor" opacity=".75">Measure</text>
+  <path d="M45.4 63.9A36 36 0 0 1 71.3 19.1" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#build-measure-learn-al)"/>
+  <circle cx="48.8" cy="72.0" r="3" fill="var(--lane, currentColor)"/>
+  <text x="36.7" y="82.0" text-anchor="end" fill="currentColor" opacity=".75">Learn</text>
+</svg>

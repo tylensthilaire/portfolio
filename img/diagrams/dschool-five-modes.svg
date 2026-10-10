@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" style="font-size: 9.5px" viewBox="-10 0 170 124">
+  <defs>
+    <marker id="dschool-five-modes-am" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L8 4L0 8z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <defs>
+    <marker id="dschool-five-modes-ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0L8 4L0 8z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <polygon points="18.0,31.0 29.3,37.5 29.3,50.5 18.0,57.0 6.7,50.5 6.7,37.5" fill="none" stroke="var(--lane, currentColor)" stroke-width="1.1"/>
+  <text x="18" y="25" text-anchor="middle" fill="currentColor" opacity=".8">Empathise</text>
+  <path d="M28.6 53.2L35.9 59.5" stroke="currentColor" stroke-width="1" marker-end="url(#dschool-five-modes-am)"/>
+  <polygon points="48.0,57.0 59.3,63.5 59.3,76.5 48.0,83.0 36.7,76.5 36.7,63.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  <text x="48" y="96" text-anchor="middle" fill="currentColor" opacity=".8">Define</text>
+  <path d="M58.6 60.8L65.9 54.5" stroke="currentColor" stroke-width="1" marker-end="url(#dschool-five-modes-am)"/>
+  <polygon points="78.0,31.0 89.3,37.5 89.3,50.5 78.0,57.0 66.7,50.5 66.7,37.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  <text x="78" y="25" text-anchor="middle" fill="currentColor" opacity=".8">Ideate</text>
+  <path d="M88.6 53.2L95.9 59.5" stroke="currentColor" stroke-width="1" marker-end="url(#dschool-five-modes-am)"/>
+  <polygon points="108.0,57.0 119.3,63.5 119.3,76.5 108.0,83.0 96.7,76.5 96.7,63.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  <text x="108" y="96" text-anchor="middle" fill="currentColor" opacity=".8">Prototype</text>
+  <path d="M118.6 60.8L125.9 54.5" stroke="currentColor" stroke-width="1" marker-end="url(#dschool-five-modes-am)"/>
+  <polygon points="138.0,31.0 149.3,37.5 149.3,50.5 138.0,57.0 126.7,50.5 126.7,37.5" fill="none" stroke="currentColor" stroke-width="1.1"/>
+  <text x="138" y="25" text-anchor="middle" fill="currentColor" opacity=".8">Test</text>
+  <path d="M146 56C160 126 84 128 66 80" fill="none" stroke="var(--lane, currentColor)" stroke-width="1.1" stroke-dasharray="2.5 2.5" marker-end="url(#dschool-five-modes-ar)" style="color:var(--lane, currentColor)"/>
+</svg>

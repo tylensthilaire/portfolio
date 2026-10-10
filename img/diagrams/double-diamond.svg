@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" style="font-size: 8.5px" viewBox="0 0 160 112">
+  <path d="M4 50L42 8L80 50L42 92Z" fill="none" stroke="currentColor" stroke-width="1"/>
+  <path d="M80 50L118 8L156 50L118 92Z" fill="none" stroke="var(--lane, currentColor)" stroke-width="1"/>
+  <path d="M42 8V92M118 8V92" stroke="currentColor" stroke-width=".6" stroke-dasharray="2 2" opacity=".5"/>
+  <text x="23" y="106" text-anchor="middle" fill="currentColor" opacity=".75">Discover</text>
+  <text x="61" y="106" text-anchor="middle" fill="currentColor" opacity=".75">Define</text>
+  <text x="99" y="106" text-anchor="middle" fill="currentColor" opacity=".75">Develop</text>
+  <text x="137" y="106" text-anchor="middle" fill="currentColor" opacity=".75">Deliver</text>
+</svg>
