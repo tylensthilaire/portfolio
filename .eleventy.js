@@ -131,6 +131,66 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
+  // Inline an SVG from the project, so it takes the page's colours and fonts.
+  // The alt text becomes its accessible name
+  eleventyConfig.addFilter("inlineSvg", (src, alt) => {
+    const label = String(alt)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+    return fs
+      .readFileSync(path.join(__dirname, src), "utf8")
+      .replace(/<\?xml[^>]*>\s*/, "")
+      .replace("<svg ", `<svg role="img" aria-label="${label}" `)
+      .trim();
+  });
+
+  // Timelines: `{% timeline "key" %}` in an article renders _data/timelines/<key>.json through partials/timeline.njk.
+  // Uses Eleventy's own Nunjucks environment, so the partial has the site's filters and includes
+  let nunjucks;
+  eleventyConfig.amendLibrary("njk", env => {
+    nunjucks = env;
+  });
+
+  eleventyConfig.addShortcode("timeline", key => {
+    const file = path.join(__dirname, "_data", "timelines", `${key}.json`);
+    if (!fs.existsSync(file)) {
+      throw new Error(`Timeline "${key}": no data at ${file}`);
+    }
+    const timeline = JSON.parse(fs.readFileSync(file, "utf8"));
+
+    // Fail the build on data the template can't place
+    const lanes = timeline.lanes.map(lane => lane.id);
+    if (lanes.length < 1 || lanes.length > 2) {
+      throw new Error(`Timeline "${key}": needs one or two lanes`);
+    }
+    for (const chapter of timeline.chapters) {
+      if (!["apart", "close", "braid"].includes(chapter.rails)) {
+        throw new Error(`Timeline "${key}": "${chapter.title}" has unknown rails "${chapter.rails}"`);
+      }
+      for (const event of chapter.events) {
+        const crossover = event.lane === "both" && lanes.length === 2;
+        if (!crossover && !lanes.includes(event.lane)) {
+          throw new Error(`Timeline "${key}": "${event.title}" has unknown lane "${event.lane}"`);
+        }
+        if (event.figure) {
+          if (!event.figure.alt) {
+            throw new Error(`Timeline "${key}": the figure for "${event.title}" needs alt text`);
+          }
+          if (!fs.existsSync(path.join(__dirname, event.figure.src))) {
+            throw new Error(`Timeline "${key}": no image at ${event.figure.src}`);
+          }
+        }
+      }
+    }
+
+    // Markdown ends an HTML block at a blank line, so drop them
+    return nunjucks
+      .render("partials/timeline.njk", { key, timeline })
+      .replace(/\n\s*\n/g, "\n")
+      .trim();
+  });
+
   eleventyConfig.addCollection("tagList", function(collection) {
     let tagSet = new Set();
     collection.getAll().forEach(function(item) {

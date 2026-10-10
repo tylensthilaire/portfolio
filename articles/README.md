@@ -52,3 +52,61 @@ credit:
   year:    2019                                          # regular, follows the work
   medium:  Installation                                  # regular, third line
 ```
+
+## Timeline
+
+A timeline of one or two lanes, in chapters. Place it in the body on a line of
+its own, with the prose before and after it:
+
+```liquid
+{% timeline "what-should-we-build" %}
+```
+
+The name points at `_data/timelines/<name>.json`, rendered through
+`_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, or a
+figure missing its image or alt text, fails the build.
+
+```json
+{
+  "lanes": [
+    { "id": "product", "name": "Product", "descriptor": "Business" },
+    { "id": "experience", "name": "Experience", "descriptor": "User-centred" }
+  ],
+  "crossover": { "name": "Crossover" },
+  "chapters": [
+    {
+      "title": "Before software",
+      "period": "1911–1969",
+      "summary": "Neither discipline starts in tech…",
+      "rails": "apart",
+      "events": [
+        { "year": "1911", "lane": "product", "title": "…", "body": "…" },
+        { "year": "1979", "lane": "both", "title": "…", "body": "…" },
+        {
+          "year": "1970", "lane": "product", "title": "…", "body": "…",
+          "figure": {
+            "src": "/img/diagrams/royce-figure-4.svg", "alt": "…",
+            "title": "…", "caption": "…", "hideOnMobile": true
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+| Field | Notes |
+|---|---|
+| `lanes` | One or two. The first runs above the line, the second below |
+| `crossover` | Two lanes only; the label for events on the line |
+| `chapters[].rails` | `apart`, `close` or `braid`: how far apart the lanes run in that chapter |
+| `events[]` | In reading order, whichever lane they sit in |
+| `events[].year` | A string, so it can be a range or approximate (`1940s–54`); four-digit years become a `<time>` |
+| `events[].lane` | A lane `id`, or `both` for a crossover |
+| `events[].body` | HTML, e.g. `<em>` for titles of works |
+| `events[].figure.src` | Any image path. SVGs are inlined, so they take the lane's colour from `var(--lane, currentColor)`; shared diagrams live in `img/diagrams/` |
+| `events[].figure.alt` | Required; also the accessible name of an inlined SVG |
+| `events[].figure.hideOnMobile` | Optional; drops the figure where space is tight |
+
+Chapter numbers, anchors and labels are generated. Without JavaScript the
+timeline reads as a vertical list of chapters and events.

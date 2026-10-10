@@ -1,0 +1,61 @@
+{#-
+  =============================================================================
+  timeline.njk — a timeline of one or two lanes, in chapters
+  =============================================================================
+  Rendered by the `timeline` shortcode (.eleventy.js) from _data/timelines/<key>.json; schema documented in articles/README.md.
+  Figures take any image; SVGs are inlined so they take the lane's colour.
+
+  Without JavaScript it reads as an ordered list of chapters, each an ordered list of events, in reading order whichever lane they sit in.
+-#}
+{%- set lane1 = timeline.lanes[0] -%}
+{%- set lane2 = timeline.lanes[1] -%}
+<section class="c-timeline" data-timeline>
+  {%- if lane2 %}
+  <ul class="c-timeline__legend">
+    <li class="c-timeline__key c-timeline__key--lane-1">{{ lane1.name }} · {{ lane1.descriptor }}</li>
+    <li class="c-timeline__key c-timeline__key--lane-2">{{ lane2.name }} · {{ lane2.descriptor }}</li>
+    <li class="c-timeline__key c-timeline__key--crossover">{{ timeline.crossover.name }}</li>
+  </ul>
+  {%- endif %}
+  <ol class="c-timeline__chapters">
+    {%- for chapter in timeline.chapters %}
+    <li class="c-timeline__chapter" id="{{ chapter.title | slugify }}" data-rails="{{ chapter.rails }}">
+      <p class="c-timeline__chapter-label">Chapter {{ ("0" + loop.index).slice(-2) }} · {{ chapter.period }}</p>
+      <h2 class="c-timeline__chapter-title">{{ chapter.title }}</h2>
+      <p class="c-timeline__chapter-summary">{{ chapter.summary | safe }}</p>
+      <ol class="c-timeline__events">
+        {%- for event in chapter.events %}
+        {%- if event.lane == lane1.id %}{% set lane = lane1 %}{% set modifier = "lane-1" %}
+        {%- elif lane2 and event.lane == lane2.id %}{% set lane = lane2 %}{% set modifier = "lane-2" %}
+        {%- else %}{% set lane = null %}{% set modifier = "crossover" %}{% endif %}
+        <li class="c-timeline__event c-timeline__event--{{ modifier }}">
+          <p class="c-timeline__event-label">
+            {%- if r/^\d{4}$/.test(event.year) -%}
+            <time class="c-timeline__year" datetime="{{ event.year }}">{{ event.year }}</time>
+            {%- else -%}
+            <span class="c-timeline__year">{{ event.year }}</span>
+            {%- endif %} · {% if lane %}{{ lane.name }} · {{ lane.descriptor }}{% else %}{{ timeline.crossover.name }}{% endif -%}
+          </p>
+          <h3 class="c-timeline__event-title">{{ event.title }}</h3>
+          <p class="c-timeline__event-body">{{ event.body | safe }}</p>
+          {%- if event.figure %}
+          {%- set figure = event.figure %}
+          <figure class="c-timeline__figure{% if figure.hideOnMobile %} c-timeline__figure--hide-on-mobile{% endif %}">
+            {%- if figure.src.endsWith(".svg") %}
+            {{ figure.src | inlineSvg(figure.alt) | safe }}
+            {%- else %}
+            <img class="c-timeline__image" src="{{ figure.src | url }}" alt="{{ figure.alt }}" loading="lazy" decoding="async">
+            {%- endif %}
+            <figcaption class="c-timeline__caption">
+              <b class="c-timeline__caption-title">{{ figure.title }}</b>
+              {{ figure.caption }}
+            </figcaption>
+          </figure>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ol>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
