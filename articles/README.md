@@ -76,7 +76,8 @@ one column and two gutters from them.
 
 The name points at `_data/timelines/<name>.json`, rendered through
 `_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, a
-figure missing its image or alt text, or more than one `---`, fails the build.
+figure missing its image or alt text, an event out of order, or more than one
+`---`, fails the build.
 
 ```json
 {
@@ -112,8 +113,8 @@ figure missing its image or alt text, or more than one `---`, fails the build.
 | `lanes` | One or two. The first runs above the line, the second below; a single lane's events alternate above and below |
 | `crossover` | Two lanes only; the label for events on the line, where the lanes meet |
 | `chapters[].rails` | `apart` or `close`: how far apart the lanes run, eased across the chapter before a change. `braid` runs them close and weaves them across each other after the chapter's heading |
-| `events[]` | In reading order, whichever lane they sit in |
-| `events[].year` | A string, so it can be a range or approximate (`1940s–54`); four-digit years become a `<time>` |
+| `events[]` | In the order they start, whichever lane they sit in, so the year in the top bar never runs backwards. Approximate years pass if they could start in order |
+| `events[].year` | A string, so it can be a range, approximate (`1940s–54`, `Late 1980s`) or `Now`; four-digit years become a `<time>` |
 | `events[].lane` | A lane `id`, or `both` for a crossover |
 | `events[].body` | HTML, e.g. `<em>` for titles of works |
 | `events[].figure.src` | Any image path. SVGs are inlined, so they take the lane's colour from `var(--lane, currentColor)`; shared diagrams live in `img/diagrams/` |

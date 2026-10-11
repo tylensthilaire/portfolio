@@ -165,6 +165,20 @@ module.exports = function(eleventyConfig) {
     if (lanes.length < 1 || lanes.length > 2) {
       throw new Error(`Timeline "${key}": needs one or two lanes`);
     }
+    // The years an event could start in: "1987", "2013–15", "1940s–54", "Late 1980s" or "Now"
+    const starts = year => {
+      if (/^now$/i.test(year)) return [Infinity, Infinity];
+      const match = year.match(/^(?:(early|mid|late)-?\s*)?(\d{4})(s?)/i);
+      if (!match) {
+        throw new Error(`Timeline "${key}": can't read the year "${year}"`);
+      }
+      const [, part, digits, decade] = match;
+      const from = Number(digits);
+      if (!decade) return [from, from];
+      return { early: [from, from + 3], mid: [from + 4, from + 6], late: [from + 7, from + 9] }[part?.toLowerCase()] ?? [from, from + 9];
+    };
+    // Events run in the order they start, so the year in the bar never runs backwards
+    let earliest = -Infinity;
     for (const chapter of timeline.chapters) {
       if (!["apart", "close", "braid"].includes(chapter.rails)) {
         throw new Error(`Timeline "${key}": "${chapter.title}" has unknown rails "${chapter.rails}"`);
@@ -174,6 +188,11 @@ module.exports = function(eleventyConfig) {
         if (!crossover && !lanes.includes(event.lane)) {
           throw new Error(`Timeline "${key}": "${event.title}" has unknown lane "${event.lane}"`);
         }
+        const [from, to] = starts(event.year);
+        if (to < earliest) {
+          throw new Error(`Timeline "${key}": "${event.title}" (${event.year}) starts before an event listed ahead of it`);
+        }
+        earliest = Math.max(earliest, from);
         if (event.figure) {
           if (!event.figure.alt) {
             throw new Error(`Timeline "${key}": the figure for "${event.title}" needs alt text`);
