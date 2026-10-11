@@ -23,13 +23,13 @@
           "year": "1911",
           "lane": "product",
           "title": "Scientific management",
-          "body": "Frederick Winslow Taylor's <em>Principles of Scientific Management</em> sets out time study: put a stopwatch on every step, then standardise the fastest, so the business gets more output from every worker. “In the past the man has been first; in the future the system must be first.”"
+          "body": "Frederick Winslow Taylor's <em>Principles of Scientific Management</em> sets out time study: put a stopwatch on every step, then standardise the fastest, so the business gets more output from every worker. In <em>Shop Management</em> (1903) he had already said where the thinking goes: “All possible brain work should be removed from the shop and centered in the planning or laying-out department.”"
         },
         {
           "year": "1911",
           "lane": "experience",
           "title": "Motion study",
-          "body": "Frank and Lillian Gilbreth develop motion study, filming tasks and breaking them into elemental motions, their “therbligs”, to find the least tiring way. They split from Taylor in 1914 over how workers were treated. The two methods later merge as time-and-motion study."
+          "body": "Frank Gilbreth's <em>Motion Study</em> breaks work into elemental motions, later called “therbligs”, to find the least tiring way. From 1912 he and Lillian consult for factory owners too, studying workers from the outside with a film camera rather than a stopwatch. They split from Taylor in 1914, to give the human side of the work more weight. The two methods later merge as time-and-motion study."
         },
         {
           "year": "1923",
@@ -53,7 +53,7 @@
           "year": "1941",
           "lane": "product",
           "title": "The focused interview",
-          "body": "Robert Merton and Paul Lazarsfeld test audience reactions to wartime radio by interviewing listeners in groups. Their “focused interview” later becomes marketing's focus group: research into what persuades people, not how they use things."
+          "body": "Robert Merton and Paul Lazarsfeld test audience reactions to wartime radio by interviewing listeners in groups, straight after they've heard a broadcast. Their “focused interview” later becomes marketing's focus group: research into what persuades people, not how they use things."
         },
         {
           "year": "1946",
@@ -77,7 +77,7 @@
           "year": "1955",
           "lane": "experience",
           "title": "Designing for people",
-          "body": "Henry Dreyfuss: “When the point of contact between the product and the people becomes a point of friction, then the industrial designer has failed.” He sketches the forerunners of personas, putting people at the centre of design."
+          "body": "Henry Dreyfuss: “When the point of contact between the product and the people becomes a point of friction, then the industrial designer has failed.” His Joe and Josephine, drawn to average body measurements, are forerunners of personas: composite people who stand in for real ones at the centre of design."
         },
         {
           "year": "1963–69",
@@ -113,6 +113,12 @@
           "body": "Scandinavian researchers work with trade unions so new technology doesn't deskill workers: Kristen Nygaard with Norway's metalworkers, then the UTOPIA project (1981–85) with print workers. It's the direct answer to Taylor: the people doing the work help design the system."
         },
         {
+          "year": "1979",
+          "lane": "product",
+          "title": "VisiCalc",
+          "body": "Dan Bricklin, a Harvard MBA student, and Bob Frankston write VisiCalc, the first spreadsheet for a personal computer. Accountants and managers can build their own financial models without asking a programmer. It becomes the killer app that sells the Apple II: a computer people buy to build things for themselves."
+        },
+        {
           "year": "1980",
           "lane": "product",
           "title": "Competitive strategy",
@@ -128,7 +134,7 @@
           "year": "1983",
           "lane": "product",
           "title": "From Crisco to Quicken",
-          "body": "Scott Cook, a former Procter & Gamble brand manager, co-founds Intuit and runs Quicken like a consumer brand: phone interviews, focus groups, and later watching customers use it at home. Brand management has moved into software."
+          "body": "Scott Cook, a former Procter & Gamble brand manager, co-founds Intuit and runs Quicken like a consumer brand: phone interviews, focus groups and, later, staff visiting customers to watch them use it at home. Brand management has moved into software."
         },
         {
           "year": "1984",
@@ -140,7 +146,7 @@
           "year": "1984",
           "lane": "product",
           "title": "Delighters",
-          "body": "Noriaki Kano's model sorts features into must-haves, performance features and delighters. It's an early way to prioritise by customer satisfaction rather than by specification."
+          "body": "Noriaki Kano's model sorts features into must-haves, performance features and delighters. Customers are asked how they'd feel with and without each feature, an early way to prioritise by satisfaction rather than by specification."
         },
         {
           "year": "1985",
@@ -164,7 +170,7 @@
           "year": "1987",
           "lane": "experience",
           "title": "Plans and situated actions",
-          "body": "At Xerox PARC, Lucy Suchman shows how people actually use a photocopier, and how far that is from the designers' plan. Ethnography arrives in design."
+          "body": "At Xerox PARC, Lucy Suchman films people using a photocopier and shows how far what they actually do is from the designers' plan. Ethnography arrives in design, and with it the finding that people improvise rather than follow instructions."
         },
         {
           "year": "Late 1980s",
@@ -176,7 +182,7 @@
           "year": "1989",
           "lane": "experience",
           "title": "Usability Engineering at a Discount",
-          "body": "Jakob Nielsen argues you don't need a lab: cheap, fast testing beats none, and with Rolf Molich he adds heuristic evaluation (1990), later the ten usability heuristics. Usability becomes something you can audit cheaply, so something you can sell. His testing advice is later <em>wrongly</em> remembered as “test with five users” (2000)."
+          "body": "Jakob Nielsen argues you don't need a lab: cheap, fast testing beats none, and with Rolf Molich he adds heuristic evaluation (1990), where experts inspect an interface with no users present, later the ten usability heuristics. Usability becomes something you can audit cheaply, so something you can sell. His testing advice is later <em>wrongly</em> remembered as “test with five users” (2000)."
         }
       ]
     },
@@ -220,7 +226,7 @@
           "year": "Mid-1990s",
           "lane": "product",
           "title": "Good PM / Bad PM",
-          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The description later proves to be problematic at best."
+          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The phrase sticks, and so does the argument over whether a PM has a CEO's authority."
         },
         {
           "year": "1998",
@@ -380,13 +386,19 @@
           "year": "2013",
           "lane": "product",
           "title": "The Mom Test",
-          "body": "Rob Fitzpatrick's guide to customer interviews for founders: ask about their life, not your idea. Interviewing becomes a product skill."
+          "body": "Rob Fitzpatrick's guide to customer interviews for founders: ask about their life, not your idea, because customers are reliable about what they've done and unreliable about what they would do. Interviewing becomes a product skill."
         },
         {
           "year": "2013–15",
           "lane": "experience",
           "title": "Consultancies buy design",
           "body": "Accenture buys Fjord, Capital One buys Adaptive Path and McKinsey buys Lunar. Design becomes part of the digital transformation pitch."
+        },
+        {
+          "year": "2015",
+          "lane": "experience",
+          "title": "When everybody designs",
+          "body": "Ezio Manzini's <em>Design, When Everybody Designs</em> separates “diffuse design”, which everyone does, from “expert design”, done by people trained for it. The expert's job becomes helping everyone else design well. It's Herbert Simon's 1969 line, taken at its word."
         },
         {
           "year": "2017",
@@ -435,8 +447,8 @@
         {
           "year": "Now",
           "lane": "both",
-          "title": "Each other's tools",
-          "body": "Generative AI collapses the distinctions further by giving everyone each other's tools. Product managers prototype working software, designers ship code, and engineers generate interfaces."
+          "title": "Both ways at once",
+          "body": "Generative AI lets people build for themselves: describe a tool, and use it the same day, with no team in between. The same systems let organisations decide for people at a scale no planning office could, ranking, routing and rating them automatically. Both are being built now."
         }
       ]
     }
