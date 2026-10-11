@@ -29,7 +29,7 @@
           "year": "1911",
           "lane": "experience",
           "title": "Motion study",
-          "body": "Frank and Lillian Gilbreth develop motion study, filming tasks and breaking them into elemental motions, their “therbligs”, to find the least tiring way. They split from Taylor in 1914 over how workers were treated. The two methods later merge as time-and-motion study."
+          "body": "Frank Gilbreth's <em>Motion Study</em> breaks work into elemental motions, later called “therbligs”, to find the least tiring way. From 1912 he and Lillian consult for factory owners too, studying workers from the outside with a film camera rather than a stopwatch. They split from Taylor in 1914, to give the human side of the work more weight. The two methods later merge as time-and-motion study."
         },
         {
           "year": "1923",
@@ -122,13 +122,13 @@
           "year": "1982",
           "lane": "experience",
           "title": "HCI becomes a field",
-          "body": "ACM SIGCHI is founded, and the field starts with two kinds of research. Card, Moran and Newell's Keystroke-Level Model (1983) is, in effect, time-and-motion study for keyboards. At IBM, Clayton Lewis has people think aloud while they use an interface, which is still the core of usability testing."
+          "body": "ACM SIGCHI is founded, and the field starts with two kinds of research. Card, Moran and Newell's Keystroke-Level Model (1983) is, in effect, time-and-motion study for keyboards. At IBM, Clayton Lewis has people think aloud while they use an interface. The focus group hears what people say; this watches what they do. It's still the core of usability testing."
         },
         {
           "year": "1983",
           "lane": "product",
           "title": "From Crisco to Quicken",
-          "body": "Scott Cook, a former Procter & Gamble brand manager, co-founds Intuit and runs Quicken like a consumer brand: phone interviews, focus groups, and later watching customers use it at home. Brand management has moved into software."
+          "body": "Scott Cook, a former Procter & Gamble brand manager, co-founds Intuit and runs Quicken like a consumer brand: phone interviews, focus groups, and later watching customers use it at home. The visits watch behaviour, but the question is a brand manager's: will they keep buying? Brand management has moved into software."
         },
         {
           "year": "1984",
@@ -163,6 +163,12 @@
         {
           "year": "1987",
           "lane": "experience",
+          "title": "The guidelines",
+          "body": "Apple publishes its <em>Human Interface Guidelines</em> as a book for developers, setting out the reasoning behind the Mac's interface and how to follow it. The expertise reaches software teams as written guidance, not a seat on the team."
+        },
+        {
+          "year": "1987",
+          "lane": "experience",
           "title": "Plans and situated actions",
           "body": "At Xerox PARC, Lucy Suchman shows how people actually use a photocopier, and how far that is from the designers' plan. Ethnography arrives in design."
         },
@@ -170,7 +176,7 @@
           "year": "Late 1980s",
           "lane": "both",
           "title": "The first PM job was a design job",
-          "body": "On the Mac Excel team, Jabe Blumenthal reworks Microsoft's “program manager” title: no longer a lead coder but the person who designs the UI, writes the spec and speaks for the customer. The modern PM role starts out doing what we'd now call UX."
+          "body": "On the Mac Excel team, Jabe Blumenthal reworks Microsoft's “program manager” title: no longer a lead coder but the person who designs the UI, writes the spec and speaks for the customer. The expertise in how people behave already exists, at Bell Labs, PARC, IBM and in university HCI groups, but it sits in labs, not on product teams. So the PM does the design."
         },
         {
           "year": "1989",
@@ -220,7 +226,7 @@
           "year": "Mid-1990s",
           "lane": "product",
           "title": "Good PM / Bad PM",
-          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The description later proves to be problematic at best."
+          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The phrase sticks, and so does the argument over whether a PM has a CEO's authority."
         },
         {
           "year": "1998",
@@ -312,7 +318,7 @@
           "year": "2008",
           "lane": "both",
           "title": "Both lanes reach the boardroom",
-          "body": "Tim Brown's HBR article <em>Design Thinking</em> pitches design to executives, and Cagan's <em>Inspired</em> sets out modern product management. Both argue the same thing from different sides: stop building the wrong thing well."
+          "body": "Tim Brown's HBR article <em>Design Thinking</em> pitches design to executives as matching people's needs with what's technologically feasible and what a viable business strategy can use, the three tests IDEO teaches as desirability, feasibility and viability. He argues from what people do. Cagan's <em>Inspired</em> sets out modern product management. Both say the same thing from different sides: stop building the wrong thing well."
         }
       ]
     },
@@ -332,7 +338,7 @@
           "year": "2010",
           "lane": "product",
           "title": "Strategy on a canvas",
-          "body": "Osterwalder and Pigneur's <em>Business Model Generation</em> puts business strategy on a one-page canvas, filled in with sticky notes. Strategy borrows design's tools."
+          "body": "Osterwalder and Pigneur's <em>Business Model Generation</em> puts business strategy on a one-page canvas, filled in with sticky notes. Strategy borrows design's tools to answer its own question: will the business model pay?"
         },
         {
           "year": "2010",
@@ -344,7 +350,7 @@
           "year": "2011",
           "lane": "product",
           "title": "The Lean Startup",
-          "body": "Eric Ries popularises build–measure–learn and the MVP. Validated learning becomes part of a PM's job, which brings PM into territory researchers already worked in.",
+          "body": "Eric Ries popularises build–measure–learn and the MVP. Validated learning becomes part of a PM's job, which brings PM into territory researchers already worked in, though the measure is still demand: do customers come back, and do they pay?",
           "figure": {
             "src": "/img/diagrams/build-measure-learn.svg",
             "alt": "A loop of three arrows: build, measure, learn.",
@@ -380,7 +386,7 @@
           "year": "2013",
           "lane": "product",
           "title": "The Mom Test",
-          "body": "Rob Fitzpatrick's guide to customer interviews for founders: ask about their life, not your idea. Interviewing becomes a product skill."
+          "body": "Rob Fitzpatrick's guide to customer interviews for founders: ask about their life, not your idea, and look for commitment, not compliments. Interviewing becomes a product skill, aimed at demand."
         },
         {
           "year": "2013–15",
@@ -392,7 +398,7 @@
           "year": "2017",
           "lane": "both",
           "title": "The core team",
-          "body": "The second edition of <em>Inspired</em> centres on an empowered product team: product manager, product designer and tech lead, together from discovery onwards."
+          "body": "The second edition of <em>Inspired</em> centres on an empowered product team: product manager, product designer and tech lead, together from discovery onwards. Cagan names four risks. The designer owns usability and the engineers feasibility; the PM owns business viability and value: whether customers will buy it or choose to use it."
         },
         {
           "year": "2018",
@@ -435,8 +441,8 @@
         {
           "year": "Now",
           "lane": "both",
-          "title": "Each other's tools",
-          "body": "Generative AI collapses the distinctions further by giving everyone each other's tools. Product managers prototype working software, designers ship code, and engineers generate interfaces."
+          "title": "Anyone can make it",
+          "body": "Generative AI makes the artefact cheap. Product managers generate interfaces, designers model markets, and anyone can produce a convincing prototype in an afternoon. Whose judgement decides whether it's any good is open again."
         }
       ]
     }
