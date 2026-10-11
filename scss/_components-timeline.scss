@@ -207,6 +207,7 @@
   --timeline-bookend: #{mix-units(1, 2)}; // between the bookend paragraphs and the lanes
   --timeline-card: #{mix-units(1.5, 1)};
   --timeline-card-wide: var(--timeline-card);
+  --timeline-chapter: var(--timeline-card-wide);
   --timeline-step: var(--baseline-400);
   --timeline-gap: var(--baseline-150);
   --timeline-pin: var(--baseline-200);
@@ -247,6 +248,7 @@
     --timeline-end: #{column-spans(8)};
     --timeline-card: #{column-spans(4)};
     --timeline-card-wide: #{column-spans(6)};
+    --timeline-chapter: #{column-spans(5)};
   }
 }
 
@@ -337,9 +339,9 @@
   width: var(--timeline-card);
 }
 
-// Chapters take the wide width, heading and summary together
+// Chapters take their own width, heading and summary together
 .is-enhanced :is(.c-timeline__chapter-heading, .c-timeline__chapter-summary) {
-  width: var(--timeline-card-wide);
+  width: var(--timeline-chapter);
 }
 
 .is-enhanced .c-timeline__chapter-heading::before {
