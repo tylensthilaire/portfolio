@@ -1,6 +1,6 @@
 ---
 title: What should we build?
-description: A century of product management and experience design, side by side.
+description: Asked in 2021 who owns discovery, product managers mostly said product and UX practitioners said UX. A century of history explains why both are sure.
 date: 2026-09-26
 kicker: A timeline · Product × Experience
 tags: ["Product", "UX"]
@@ -8,39 +8,56 @@ layout: layouts/post.njk
 header: default
 ---
 
-Product managers and experience designers spend a lot of time arguing about whose job it is to decide what gets built. Both roles exist because someone, at some point, took that question away from the people doing the building.
+In 2021 Nielsen Norman Group asked product managers and UX practitioners which of them should own discovery: the work of finding out what to build.
 
 {% timeline "what-should-we-build" %}
-Product management grew out of brand management, and asks what's worth building for the business. Its evidence is demand: what people buy, what they'll pay and where the market is moving. Market research, the focus group and, much later, customer development are all ways of finding out, and success is counted the way the business already counts it.
+The most common answer from product managers was product. UX practitioners overwhelmingly said UX: nearly three in four of them, against 7% who said product. Both groups agreed that design execution belongs to UX. Discovery was where they parted.
 
-Experience design grew out of psychology, ergonomics and computing, and asks what's worth building for people. Its evidence is behaviour: what people actually do, where they struggle and what they need. Human factors, usability testing and field research are all ways of watching for it, and success is counted in fewer errors, less effort and needs met.
+In a companion survey, both said the other intrudes on their work, and both said the overlap hurts their job satisfaction. Asked why it happens, both put the same reason near the top: the people involved were trying to do the right thing.
 
-Neither kind of evidence is enough on its own. Something people want but can't use won't sell for long, and something easy to use that nobody needs won't sell at all. Read the two lanes side by side, and the last century is each discipline learning that, usually by borrowing the other's methods.
+So how did two disciplines become so sure of different answers? The timeline follows them for about a century, in two lanes. Watch the distance between them.
 
 ---
 
-By the 2010s the borrowing runs both ways. User research comes back as customer discovery, prototypes as MVPs and design thinking as the design sprint. Product managers interview customers every week, and designers are hired to move business metrics.
+The lanes now braid. Product managers run discovery, designers answer for outcomes, and both prototype with the same tools. They are closer than they have ever been.
 
-It isn't an even trade. Scrum named a product owner and no designer, and it took a decade of Lean UX, dual-track and design sprints to get design back into the loop. Product, meanwhile, took on discovery without giving up the backlog.
-
-The lanes still haven't merged, and I don't think they should. Product is still accountable for whether something is worth paying for, and design for whether people can use it and whether it serves them. What's changed is that neither can get away with one kind of evidence any more.
-
-Almost a century after the Brand Men memo, both disciplines are still answering the same question. What's changing is who gets to answer it, and how quickly they can find out whether they were right.
+They still answered the 2021 survey differently. The distance between them closed in three stages, and each stage had its own cause.
 {% endtimeline %}
 
-## Where it goes next
+## Apart
 
-Every role in this timeline was created by separating deciding from building. Taylor moved planning off the shop floor; brand men didn't make soap; program managers stopped writing code; designers handed off specs. Each split made sense while building was the slow, expensive part.
+For most of the century the lanes ran apart because they had nothing in common to work on. Product worked on brands, markets and profit and loss. Nielsen had been counting what sells since 1923, and McElroy's memo of 1931 gave one person a product line to own. Experience worked on cockpits, keypads and photocopiers. The psychologists studying pilot error in the 1940s and dialling at Bell Labs from 1947 had no reason to meet a brand manager. There was no shared object.
 
-Generative AI is collapsing that distance. A designer can prototype in production code, and a product manager can stand up a working concept in an afternoon. When building is cheap, a working prototype stops being the end of the process and becomes the research instrument. Put it in front of a customer and you can find out whether they'd pay for it and whether they can use it in the same session. Demand and behaviour, the two lanes' evidence, start to arrive together.
+They borrowed, but at a distance. Taylor's stopwatch and the Gilbreths' film camera started in the same year, split within three and were merged later as time-and-motion study. Seventy years on, Card, Moran and Newell's Keystroke-Level Model applied the same idea to keyboards. Merton and Lazarsfeld's focused interview became the focus group, and Scott Cook took it from Procter & Gamble to Quicken in 1983, a year after HCI researchers began asking people to think aloud. Both lanes were now talking to people about software, for different reasons and in different rooms.
 
-That moves the scarce skill. It's no longer making the thing, or even deciding what to make, but knowing what would count as being right, and noticing when you're not. That's a research skill before it's a product or design one, and it's the one the correction cut hardest.
+Their evidence differed, and so did their employers. Product answered to the people who sold things, so its evidence was demand: what people buy and what they will pay. Experience answered to the military, laboratories and the phone company, so its evidence was behaviour: errors, effort and where people struggled. Porter's “buyers” in 1980 and Suchman's photocopier users in 1987 were the same people, seen from two places.
 
-The question is getting bigger, too. Each lane grew up serving one party: the business, or the person in front of the screen. Humanity-centred design, regulation and AI's own side effects are adding a third: everyone else affected by what gets built. I expect the next chapter of “what should we build?” to be argued less over whose job it is, and more over whose value counts.
+## Close
 
-None of that makes the two roles one. But the most valuable people will be the ones who can travel along both lanes: framing problems like a designer, owning outcomes like a product manager, making the thing themselves, and knowing which evidence to trust. That's the kind of designer I try to build teams around.
+Software brought the lanes closer by making the product and the interface the same thing. When Microsoft's program manager became the person who designed the UI in the late 1980s, the first modern product role was doing design work, because the screen was the product. Norman coined “user experience” at Apple in 1993, and Scrum was presented at OOPSLA two years later. Both lanes now had a name for their part of the same object. On the web the screen was the shop as well, so usability turned into revenue and both lanes answered for it.
+
+Then came a shared rhythm. Scrum named a product owner in 1995 and defined no design role. Extreme Programming wrote in a “Customer” in 1999, and the product manager took the part. The Agile Manifesto's seventeen signatories in 2001 included no designers. Within six years product had a seat in the process and design didn't.
+
+Much of design's next decade went on fitting that cadence. The design sprint of 2010 sized a design method to a product team's timeline. Lean UX in 2013 traded deliverables for hypotheses so design could keep pace, and dual-track agile ran discovery alongside delivery instead of ahead of it. Product moved the other way in the same years. Blank's customer development in 2005 and the Lean Startup in 2011 had product doing its own research, in territory researchers already worked in. Brown and Cagan made the same case to executives in 2008, from opposite sides, and by 2017 Cagan's core team put the product manager and the designer together from discovery onwards.
+
+None of this needed the lanes to agree. They were close because they now shared a screen, a sprint and a backlog.
+
+## Braided
+
+The braid came with a shared budget. When the 2022–24 correction cut dedicated research teams, the research didn't stop. It was “democratised” across product managers and designers, and product functions were consolidated too. Torres's *Continuous Discovery Habits* had, a year earlier, given the product trio a weekly habit of talking to customers, so the method was ready for whoever was left to use it. With fewer seats, the same work fell to fewer people, from both lanes. Generative AI has carried this on through the tools. Product managers prototype working software and designers ship code, and the tools no longer show which lane anyone is in.
+
+The 2021 survey shows where the braid stands: the strands cross constantly and stay distinct. Product managers most often claimed discovery for product, UX practitioners overwhelmingly claimed it for UX, and both said the other intruded. The product sample was small, 93 people against 279 in UX, and the survey predates the correction. It still describes two groups doing much of the same work and calling it theirs.
+
+The friction has a cost. Both groups said overlap hurt their job satisfaction and how others saw their team, and UX respondents said it hurt the products they worked on. Both put good intentions among the main causes, and two in three product managers chose them.
+
+The friction has also produced most of what the lanes now share. Lean UX, the design sprint and dual-track agile came from design pressing against Scrum's cadence. Continuous discovery and the core team came from product taking on research that designers and researchers already did. Customer development, made because founders had to get out of the building, ended up close to the field research that *Contextual Design* had made repeatable in 1998. Few of those methods came from either lane alone.
+
+Apart, the lanes had nothing to share; close, they shared a screen and a sprint; braided, they share a budget and the tools. The lanes have only ever come together by sharing something, and what they share next is still being decided. A braid holds because its strands keep crossing. Neither has ever had to win.
 
 ## Selected sources
+
+- [NN/g — PM and UX have markedly different views of their job responsibilities](https://www.nngroup.com/articles/pm-ux-different-views-of-responsibilities/)
+- [NN/g — UXers and product managers both say others intrude on their work](https://www.nngroup.com/articles/ux-product-managers-overlap/)
 
 - [Design Council — History of the Double Diamond](https://www.designcouncil.org.uk/our-resources/the-double-diamond/history-of-the-double-diamond/)
 - [Bring the Donuts — The McElroy memo turns ninety](https://www.bringthedonuts.com/essays/product-management-mcelroy-memo-turns-ninety/)
