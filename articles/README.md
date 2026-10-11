@@ -90,8 +90,8 @@ figure missing its image or alt text, an event out of order, or more than one
 ```json
 {
   "lanes": [
-    { "id": "product", "name": "Product", "descriptor": "Business" },
-    { "id": "experience", "name": "Experience", "descriptor": "User-centred" }
+    { "id": "product", "name": "Product management" },
+    { "id": "experience", "name": "Experience design" }
   ],
   "crossover": { "name": "Crossover" },
   "chapters": [

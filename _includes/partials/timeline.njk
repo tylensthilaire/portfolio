@@ -38,7 +38,7 @@
                 <time class="c-timeline__year" datetime="{{ event.year }}">{{ event.year }}</time>
                 {%- else -%}
                 <span class="c-timeline__year">{{ event.year }}</span>
-                {%- endif %} · {% if lane %}{{ lane.name }} · {{ lane.descriptor }}{% else %}{{ timeline.crossover.name }}{% endif -%}
+                {%- endif %} · {% if lane %}{{ lane.name }}{% else %}{{ timeline.crossover.name }}{% endif -%}
               </p>
               <h3 class="c-timeline__event-title">{{ event.title }}</h3>
               <p class="c-timeline__event-body">{{ event.body | safe }}</p>

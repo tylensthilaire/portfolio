@@ -11,26 +11,34 @@ header: default
 Product managers and experience designers spend a lot of time arguing about whose job it is to decide what gets built. Both roles exist because someone, at some point, took that question away from the people doing the building.
 
 {% timeline "what-should-we-build" %}
-Product management grew out of brand management and business, asking what's worth building for the company. Experience design grew out of psychology, ergonomics and HCI, asking what's worth building for people. Each brought its own research tradition: market research on one side, user research on the other.
+Product management grew out of brand management, and asks what's worth building for the business. Its evidence is demand: what people buy, what they'll pay and where the market is moving. Market research, the focus group and, much later, customer development are all ways of finding out, and success is counted the way the business already counts it.
+
+Experience design grew out of psychology, ergonomics and computing, and asks what's worth building for people. Its evidence is behaviour: what people actually do, where they struggle and what they need. Human factors, usability testing and field research are all ways of watching for it, and success is counted in fewer errors, less effort and needs met.
+
+Neither kind of evidence is enough on its own. Something people want but can't use won't sell for long, and something easy to use that nobody needs won't sell at all. Read the two lanes side by side, and the last century is each discipline learning that, usually by borrowing the other's methods.
 
 ---
 
-Read side by side, the two lanes keep borrowing from each other. User research comes back as customer discovery, prototypes as MVPs, design thinking as the design sprint. Almost a century after the Brand Men memo, both disciplines are still answering the same question, just from different ends.
+By the 2010s the borrowing runs both ways. User research comes back as customer discovery, prototypes as MVPs and design thinking as the design sprint. Product managers interview customers every week, and designers are hired to move business metrics.
+
+It isn't an even trade. Scrum named a product owner and no designer, and it took a decade of Lean UX, dual-track and design sprints to get design back into the loop. Product, meanwhile, took on discovery without giving up the backlog.
+
+The lanes still haven't merged, and I don't think they should. Product is still accountable for whether something is worth paying for, and design for whether people can use it and whether it serves them. What's changed is that neither can get away with one kind of evidence any more.
+
+Almost a century after the Brand Men memo, both disciplines are still answering the same question. What's changing is who gets to answer it, and how quickly they can find out whether they were right.
 {% endtimeline %}
 
-## What the parallel shows
+## Where it goes next
 
-1. **Business and user, same question.** Product approached “what should we build?” from value to the business; experience design from value to people. Most of their history is the two meeting in the middle.
-2. **They researched different things.** Market research asked what people would buy; user research asked what they could use and what they needed. By the 2010s, customer development and continuous discovery had the business lane doing user research too.
-3. **Agile shaped the relationship.** Scrum named a product owner and no designer. A decade of Lean UX, dual-track and design sprints was the work of getting design back into the loop.
+Every role in this timeline was created by separating deciding from building. Taylor moved planning off the shop floor; brand men didn't make soap; program managers stopped writing code; designers handed off specs. Each split made sense while building was the slow, expensive part.
 
-## Designers as makers
+Generative AI is collapsing that distance. A designer can prototype in production code, and a product manager can stand up a working concept in an afternoon. When building is cheap, a working prototype stops being the end of the process and becomes the research instrument. Put it in front of a customer and you can find out whether they'd pay for it and whether they can use it in the same session. Demand and behaviour, the two lanes' evidence, start to arrive together.
 
-Every role in this timeline was created by separating deciding from building. Brand men didn't make soap; program managers stopped writing code; designers handed off specs. Each split made sense when building was the slow, expensive part.
+That moves the scarce skill. It's no longer making the thing, or even deciding what to make, but knowing what would count as being right, and noticing when you're not. That's a research skill before it's a product or design one, and it's the one the correction cut hardest.
 
-AI tools are collapsing that distance. A designer can prototype in production code; a PM can stand up a working concept in an afternoon. When building gets cheap, the scarce skill is knowing what's worth building, and that's a research question before it's a product or design one.
+The question is getting bigger, too. Each lane grew up serving one party: the business, or the person in front of the screen. Humanity-centred design, regulation and AI's own side effects are adding a third: everyone else affected by what gets built. I expect the next chapter of “what should we build?” to be argued less over whose job it is, and more over whose value counts.
 
-I don't think that means the lanes simply merge. I think the most valuable people will be the ones who can travel along both: framing problems like a designer, owning outcomes like a product manager, and then making the thing themselves. That's the kind of designer I try to build teams around.
+None of that makes the two roles one. But the most valuable people will be the ones who can travel along both lanes: framing problems like a designer, owning outcomes like a product manager, making the thing themselves, and knowing which evidence to trust. That's the kind of designer I try to build teams around.
 
 ## Selected sources
 
@@ -38,9 +46,6 @@ I don't think that means the lanes simply merge. I think the most valuable peopl
 - [Bring the Donuts — The McElroy memo turns ninety](https://www.bringthedonuts.com/essays/product-management-mcelroy-memo-turns-ninety/)
 - [Joel Spolsky — How to be a program manager](https://www.joelonsoftware.com/2009/03/09/how-to-be-a-program-manager/)
 - [Quirk's — The birth of the focus group](https://www.quirks.com/articles/the-birth-of-the-focus-group)
-- [Livework — Our journey so far](https://liveworkstudio.com/our-journey-so-far/)
-- [McKinsey — The business value of design](https://www.mckinsey.com/capabilities/growth-marketing-and-sales/our-insights/the-business-value-of-design)
-- [Wikipedia — System usability scale](https://en.wikipedia.org/wiki/System_usability_scale)
 - [Manifesto for Agile Software Development](https://agilemanifesto.org/)
 - [Wikipedia — Design thinking](https://en.wikipedia.org/wiki/Design_thinking)
 - [Wikipedia — Scrum (software development)](https://en.wikipedia.org/wiki/Scrum_(software_development))
@@ -49,7 +54,9 @@ I don't think that means the lanes simply merge. I think the most valuable peopl
 - [Wikipedia — Participatory action research](https://en.wikipedia.org/wiki/Participatory_action_research)
 - [Stanford HCI — Participatory design (Bringing Design to Software)](https://hci.stanford.edu/publications/bds/14-p-partic.html)
 - [Wikipedia — Time and motion study](https://en.wikipedia.org/wiki/Time_and_motion_study)
-- [UX Magazine — Walt Disney, the world's first UX designer](https://uxmag.com/articles/walt-disney-the-worlds-first-ux-designer)
+- [Computer History Museum — Scott Cook](https://computerhistory.org/profile/scott-cook/)
 - [Wikipedia — Toyota Production System](https://en.wikipedia.org/wiki/Toyota_Production_System)
+- [UX Magazine — The historical context of UX, UI and product design](https://uxmag.com/articles/the-historical-context-of-ux-ui-and-product-design)
+- [Don Norman — Design for a Better World](https://jnd.org/books/design-for-a-better-world/)
 - [CareerFoundry — The history of UX design](https://careerfoundry.com/en/blog/ux-design/the-fascinating-history-of-ux-design-a-definitive-timeline/)
 - [UX Design Institute — History of UX](https://www.uxdesigninstitute.com/blog/history-of-ux/)
