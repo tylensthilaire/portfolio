@@ -2,19 +2,13 @@
 // partials/timeline.njk, rendered by the `timeline` shortcode.
 // Progressively enhanced from a list into a scrollable timeline
 
-// Geometry js/timeline.js reads, registered so it resolves to pixels
-@property --timeline-container { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-start { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-end { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-bookend { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-step { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-gap { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-pin { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-marker { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-stalk { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-close { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-apart { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-wave { syntax: "<length>"; inherits: true; initial-value: 0px; }
+// Geometry js/timeline.js reads, registered so it resolves to pixels.
+// As TOKENS in the JS.
+$timeline-tokens: container, start, end, bookend, step, gap, pin, marker, stalk, close, apart, wave;
+
+@each $token in $timeline-tokens {
+  @property --timeline-#{$token} { syntax: "<length>"; inherits: true; initial-value: 0px; }
+}
 
 .c-timeline {
   --flow-space: 0; // the stage's band for the year spaces it from the text
@@ -53,26 +47,13 @@
   padding: 0;
 }
 
-// Labels share the article header's kicker style
 .c-timeline__chapter-label,
 .c-timeline__event-label,
 .c-timeline__nav a {
-  font-weight: 700;
-  font-size: calc(var(--t-d2) * 1em);
-  line-height: var(--baseline-100);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  @include kicker;
 }
 
 // Chapters ---------------------------------------------------------------------
-.c-timeline__chapters {
-  counter-reset: chapter;
-}
-
-.c-timeline__chapter {
-  counter-increment: chapter;
-}
-
 .c-timeline__chapter-label {
   color: rgba(102,102,102,1);
 }
@@ -114,7 +95,6 @@
 
   // Not one of the article's breakout images
   img {
-    max-width: 100%;
     margin-left: 0;
   }
 
@@ -263,7 +243,7 @@
   top: 0;
   height: 100vh;
   height: 100svh; // steady as mobile toolbars come and go
-  overflow: hidden;
+  overflow: clip; // not a scroll container, so focus and find-in-page can't scroll the stage out of step
   padding-block: var(--baseline-250) var(--baseline-100); // a band for the chapter links and year, and room below the cards
   background: rgba(255,255,255,1);
 
@@ -341,6 +321,11 @@
 // Chapters and cards ---------------------------------------------------------------
 .is-enhanced .c-timeline__event {
   width: var(--timeline-card);
+  transition: opacity 0.5s ease;
+
+  &:not(.is-seen) {
+    opacity: 0.35;
+  }
 }
 
 // Chapters take their own width, heading and summary together
@@ -349,7 +334,7 @@
 }
 
 .is-enhanced .c-timeline__chapter-heading::before {
-  content: counter(chapter, decimal-leading-zero);
+  content: attr(data-number);
   display: block;
   font-family: $font-family-body;
   font-size: calc(var(--t-u8) * 1em);
@@ -362,7 +347,6 @@
   @include font-mono;
   margin-top: var(--space-100);
   font-weight: 400;
-  font-size: calc(var(--t-d2) * 1em);
   line-height: 1.5;
 }
 
@@ -374,14 +358,6 @@
 .is-enhanced .c-timeline__chapter-summary {
   font-size: calc(var(--t-u1) * 1em);
   line-height: 1.5;
-}
-
-.is-enhanced .c-timeline__event {
-  transition: opacity 0.5s ease;
-
-  &:not(.is-seen) {
-    opacity: 0.35;
-  }
 }
 
 .is-enhanced .c-timeline__event-label {
@@ -425,7 +401,6 @@
 }
 
 .is-enhanced .c-timeline__caption {
-  font-size: calc(var(--t-d1) * 1em);
   line-height: 1.5;
 }
 
@@ -468,12 +443,17 @@
 // Rails and markers (drawn by js/timeline.js) ---------------------------------------
 // Each moves by transform alone, so none repaints as the timeline scrolls
 .c-timeline__lines,
-.c-timeline__marks {
+.c-timeline__marks,
+.c-timeline__reveal {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: visible;
   pointer-events: none;
+}
+
+.c-timeline__lines,
+.c-timeline__marks {
+  overflow: visible;
 
   path {
     fill: none;
@@ -488,13 +468,9 @@
 
 // A screen-wide window whose right edge is the point the lanes have filled to
 .c-timeline__reveal {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  pointer-events: none;
+  overflow: clip;
   will-change: transform;
 }
 
@@ -528,7 +504,8 @@
   stroke-width: 1.5;
   transform-box: fill-box;
   transform-origin: center;
-  transition: all 0.3s;
+  transition-property: fill, stroke, stroke-width, transform;
+  transition-duration: 0.3s;
 }
 
 .c-timeline__halo {
@@ -584,7 +561,7 @@
   left: 0;
   width: 7px;
   height: 7px;
-  margin: -3.5px 0 0 -3.5px; // centred on the point
+  translate: -50% -50%; // centred on the point it's moved to
   border-radius: 50%;
   background: var(--lane);
   box-shadow: 0 0 5px var(--lane);
@@ -730,12 +707,8 @@
   }
 }
 
+// The reset already stops transitions
 @media (prefers-reduced-motion: reduce) {
-  .is-enhanced .c-timeline__event,
-  .c-timeline__marks * {
-    transition: none;
-  }
-
   .is-enhanced .c-timeline__event:not(.is-seen) {
     opacity: 1;
   }

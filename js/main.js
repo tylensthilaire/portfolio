@@ -169,7 +169,6 @@ function initOptOutToggle() {
 // Resolved now: currentScript is only set while this file first runs
 const TIMELINE_SCRIPT = new URL("timeline.js", document.currentScript.src);
 
-// Loaded only on pages that have one
 function initTimelines() {
   if (document.querySelector("[data-timeline]")) import(TIMELINE_SCRIPT);
 }

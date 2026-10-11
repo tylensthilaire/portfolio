@@ -83,9 +83,11 @@ On screens too short to fit one, its paragraphs furthest from the lanes read
 before or after the timeline instead.
 
 The name points at `_data/timelines/<name>.json`, rendered through
-`_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, a
-figure missing its image or alt text, an event out of order, or more than one
-`---`, fails the build.
+`_includes/partials/timeline.njk` by the shortcode in `_11ty/timeline.js`. An
+unknown name, lane or `rails` value, a figure missing its image or alt text, an
+event out of order, or more than one `---`, fails the build. So does a
+duplicate id anywhere on a page, such as a chapter named like one of the
+article's headings.
 
 ```json
 {
@@ -125,7 +127,7 @@ figure missing its image or alt text, an event out of order, or more than one
 | `events[].year` | A string, so it can be a range, approximate (`1940s–54`, `Late 1980s`) or `Now`; four-digit years become a `<time>` |
 | `events[].lane` | A lane `id`, or `both` for a crossover |
 | `events[].body` | HTML, e.g. `<em>` for titles of works |
-| `events[].figure.src` | Any image path. SVGs are inlined, so they take the lane's colour from `var(--lane, currentColor)`; shared diagrams live in `img/diagrams/` |
+| `events[].figure.src` | Any image path. SVGs are inlined, so they take the lane's colour from `var(--lane, currentColor)`; shared diagrams live in `img/diagrams/`. An inlined SVG keeps its own ids, so it can only appear once on a page |
 | `events[].figure.alt` | Required; also the accessible name of an inlined SVG |
 | `events[].figure.hideOnMobile` | Optional; drops the figure from the scrolling timeline on phones |
 

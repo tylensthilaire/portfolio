@@ -145,78 +145,6 @@ module.exports = function(eleventyConfig) {
       .trim();
   });
 
-  // Timelines: `{% timeline "key" %}…{% endtimeline %}` in an article renders _data/timelines/<key>.json through partials/timeline.njk.
-  // The Markdown between the tags bookends it: before a `---` line opens it, after closes it.
-  // Uses Eleventy's own Nunjucks environment, so the partial has the site's filters and includes
-  let nunjucks;
-  eleventyConfig.amendLibrary("njk", env => {
-    nunjucks = env;
-  });
-
-  eleventyConfig.addPairedShortcode("timeline", (content, key) => {
-    const file = path.join(__dirname, "_data", "timelines", `${key}.json`);
-    if (!fs.existsSync(file)) {
-      throw new Error(`Timeline "${key}": no data at ${file}`);
-    }
-    const timeline = JSON.parse(fs.readFileSync(file, "utf8"));
-
-    // Fail the build on data the template can't place
-    const lanes = timeline.lanes.map(lane => lane.id);
-    if (lanes.length < 1 || lanes.length > 2) {
-      throw new Error(`Timeline "${key}": needs one or two lanes`);
-    }
-    // The years an event could start in: "1987", "2013–15", "1940s–54", "Late 1980s" or "Now"
-    const starts = year => {
-      if (/^now$/i.test(year)) return [Infinity, Infinity];
-      const match = year.match(/^(?:(early|mid|late)-?\s*)?(\d{4})(s?)/i);
-      if (!match) {
-        throw new Error(`Timeline "${key}": can't read the year "${year}"`);
-      }
-      const [, part, digits, decade] = match;
-      const from = Number(digits);
-      if (!decade) return [from, from];
-      return { early: [from, from + 3], mid: [from + 4, from + 6], late: [from + 7, from + 9] }[part?.toLowerCase()] ?? [from, from + 9];
-    };
-    // Events run in the order they start, so the year in the bar never runs backwards
-    let earliest = -Infinity;
-    for (const chapter of timeline.chapters) {
-      if (!["apart", "close", "braid"].includes(chapter.rails)) {
-        throw new Error(`Timeline "${key}": "${chapter.title}" has unknown rails "${chapter.rails}"`);
-      }
-      for (const event of chapter.events) {
-        const crossover = event.lane === "both" && lanes.length === 2;
-        if (!crossover && !lanes.includes(event.lane)) {
-          throw new Error(`Timeline "${key}": "${event.title}" has unknown lane "${event.lane}"`);
-        }
-        const [from, to] = starts(event.year);
-        if (to < earliest) {
-          throw new Error(`Timeline "${key}": "${event.title}" (${event.year}) starts before an event listed ahead of it`);
-        }
-        earliest = Math.max(earliest, from);
-        if (event.figure) {
-          if (!event.figure.alt) {
-            throw new Error(`Timeline "${key}": the figure for "${event.title}" needs alt text`);
-          }
-          if (!fs.existsSync(path.join(__dirname, event.figure.src))) {
-            throw new Error(`Timeline "${key}": no image at ${event.figure.src}`);
-          }
-        }
-      }
-    }
-
-    const parts = content.split(/^\s*-{3,}\s*$/m);
-    if (parts.length > 2) {
-      throw new Error(`Timeline "${key}": use one --- line, between the opening and the closing`);
-    }
-    const [opening, closing] = parts.map(part => (part.trim() ? markdownLibrary.render(part.trim()) : ""));
-
-    // Markdown ends an HTML block at a blank line, so drop them
-    return nunjucks
-      .render("partials/timeline.njk", { key, timeline, opening, closing })
-      .replace(/\n\s*\n/g, "\n")
-      .trim();
-  });
-
   eleventyConfig.addCollection("tagList", function(collection) {
     let tagSet = new Set();
     collection.getAll().forEach(function(item) {
@@ -271,6 +199,20 @@ module.exports = function(eleventyConfig) {
   };
 
   eleventyConfig.setLibrary("md", markdownLibrary);
+
+  require("./_11ty/timeline")(eleventyConfig, markdownLibrary);
+
+  // Fail the build on duplicate ids, which break links, labels and SVG references.
+  // Catches a timeline chapter named like one of the article's headings, or a diagram inlined twice.
+  eleventyConfig.addTransform("unique-ids", function (content) {
+    if (!this.page.outputPath?.endsWith(".html")) return content;
+    const seen = new Set();
+    for (const [, id] of content.matchAll(/\sid="([^"]+)"/g)) {
+      if (seen.has(id)) throw new Error(`${this.page.inputPath}: more than one element has id="${id}"`);
+      seen.add(id);
+    }
+    return content;
+  });
 
   return {
     templateFormats: [

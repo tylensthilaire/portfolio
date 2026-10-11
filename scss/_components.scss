@@ -538,12 +538,7 @@ body:has(.o-post) .c-masthead {
 
 // Shared text elements ---------------------------------------------------------
 .c-article-header__kicker {
-  font-family: $font-family-body;
-  font-weight: 700;
-  font-size: calc(var(--t-d2) * 1em);
-  line-height: var(--baseline-100);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  @include kicker;
   // Darker terracotta on small labels to clear WCAG AA (~5.4:1 on white);
   // the large headline keeps the brand terracotta, the dark panel its tint.
   color: rgba(168,77,30,1);
@@ -922,12 +917,7 @@ body:has(.o-post) .c-masthead {
 }
 
 .c-resume__section-title {
-  font-family: $font-family-body;
-  font-weight: 700;
-  font-size: calc(var(--t-d2) * 1em);
-  line-height: var(--baseline-100);
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  @include kicker;
   // Darker terracotta on small labels to clear WCAG AA (~5.4:1 on white).
   color: rgba(168,77,30,1);
   padding-bottom: var(--space-050);

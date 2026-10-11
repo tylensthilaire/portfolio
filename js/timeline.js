@@ -3,7 +3,9 @@
 // Sizes come from the --timeline-* properties in scss/_components-timeline.scss.
 
 const SVG = "http://www.w3.org/2000/svg";
-const TOKENS = ["container", "start", "end", "bookend", "step", "gap", "pin", "marker", "stalk", "close", "apart", "wave"];
+const TOKENS = ["container", "start", "end", "bookend", "step", "gap", "pin", "marker", "stalk", "close", "apart", "wave"]; // as $timeline-tokens in the SCSS
+// Marker sizes, in pixels: fixed, whatever the grid
+const MARKS = { dot: 5, halo: 11, knot: 7, knotHalo: 14, start: 5.5, finish: 4, clearance: 4 };
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 function clamp(value, min, max) {
@@ -15,7 +17,6 @@ function snap(value) {
   return Math.round(value * devicePixelRatio) / devicePixelRatio;
 }
 
-// Eases 0–1 in and out
 function smooth(t) {
   t = clamp(t, 0, 1);
   return t * t * (3 - 2 * t);
@@ -105,6 +106,7 @@ function enhance(section) {
     title: element.querySelector(".c-timeline__chapter-title").textContent,
     rails: element.dataset.rails,
     heading: element.querySelector(".c-timeline__chapter-heading"),
+    number: element.querySelector(".c-timeline__chapter-heading").dataset.number,
     summary: element.querySelector(".c-timeline__chapter-summary"),
     events: [...element.querySelectorAll(".c-timeline__event")].map(event => {
       const lane = event.classList.contains("c-timeline__event--lane-2") ? "lane-2"
@@ -144,17 +146,15 @@ function enhance(section) {
   const bar = html("div", "c-timeline__bar", stage);
   const nav = html("nav", "c-timeline__nav", bar);
   nav.setAttribute("aria-label", "Timeline chapters");
-  const links = chapters.map((chapter, i) => {
+  const links = chapters.map(chapter => {
     const link = html("a", "", nav);
-    const number = String(i + 1).padStart(2, "0");
     link.href = `#${chapter.id}`;
-    link.setAttribute("aria-label", `Chapter ${number}: ${chapter.title}`);
-    html("span", "c-timeline__nav-number", link).textContent = number;
+    link.setAttribute("aria-label", `Chapter ${chapter.number}: ${chapter.title}`);
+    link.append(chapter.number);
     // The name opens out while its chapter is current
     html("span", "c-timeline__nav-title", html("span", "c-timeline__nav-name", link)).textContent = chapter.title;
     return link;
   });
-  // One underline, sliding to the current link
   const underline = html("span", "c-timeline__nav-line", nav);
   underline.setAttribute("aria-hidden", "true");
   const nowYear = html("span", "c-timeline__now", bar);
@@ -163,8 +163,9 @@ function enhance(section) {
   // One layer holding the rest of the stage, to fade as the timeline arrives and leaves.
   // The bookends stay outside it, in reading order either side, so they read as the article's own text.
   // The progress bar stays outside it too, so it sits above the stage's edge fades.
+  // The chapter links come first in it, so they're read and reached before the chapters.
   const scene = html("div", "c-timeline__scene");
-  scene.append(...[...stage.children].filter(child => ![opening, closing, progress].includes(child)));
+  scene.append(bar, ...[...stage.children].filter(child => ![opening, closing, progress, bar].includes(child)));
   stage.insertBefore(scene, closing);
   stage.insertBefore(progress, closing);
 
@@ -329,10 +330,12 @@ function enhance(section) {
       return v;
     }
 
-    // How far a lane sits from the line, before and after the weave and pinches
+    // How far a lane sits from the line, before and after the weave and pinches.
+    // One lane runs on the line; two run above and below it.
     const reach = at => separation(at) * braid(at).reach;
     const offset = at => reach(at) * braid(at).swing * pinch(at);
-    const laneY = (side, at) => side === "above" ? line - offset(at) : line + offset(at);
+    const laneSides = single ? ["line"] : ["above", "below"];
+    const laneY = (side, at) => side === "line" ? line : side === "above" ? line - offset(at) : line + offset(at);
 
     // Place the cards and draw their markers
     marks.replaceChildren();
@@ -355,33 +358,33 @@ function enhance(section) {
       if (item.side === "on") {
         const kx = item.x - tokens.marker;
         const knot = svg("g", { class: "c-timeline__knot" }, marks);
-        svg("circle", { class: "c-timeline__halo", cx: kx, cy: line, r: 14 }, knot);
-        svg("path", { class: "c-timeline__knot-half c-timeline__knot-half--lane-1", d: `M${kx - 7} ${line}A7 7 0 0 1 ${kx + 7} ${line}Z` }, knot);
-        svg("path", { class: "c-timeline__knot-half c-timeline__knot-half--lane-2", d: `M${kx - 7} ${line}A7 7 0 0 0 ${kx + 7} ${line}Z` }, knot);
+        const r = MARKS.knot;
+        svg("circle", { class: "c-timeline__halo", cx: kx, cy: line, r: MARKS.knotHalo }, knot);
+        svg("path", { class: "c-timeline__knot-half c-timeline__knot-half--lane-1", d: `M${kx - r} ${line}A${r} ${r} 0 0 1 ${kx + r} ${line}Z` }, knot);
+        svg("path", { class: "c-timeline__knot-half c-timeline__knot-half--lane-2", d: `M${kx - r} ${line}A${r} ${r} 0 0 0 ${kx + r} ${line}Z` }, knot);
         markers.push({ element: knot, x: kx, year: item.event.year });
       } else {
-        const ly = single ? line : laneY(item.side, mx);
-        const edge = item.side === "above" ? y + h + 4 : y - 4;
+        const ly = laneY(single ? "line" : item.side, mx);
+        const edge = item.side === "above" ? y + h + MARKS.clearance : y - MARKS.clearance;
         const mark = svg("g", { class: `c-timeline__mark c-timeline__mark--${single ? "lane-1" : item.event.lane}` }, marks);
         svg("line", { class: "c-timeline__stalk", x1: mx, x2: mx, y1: ly, y2: edge }, mark);
-        svg("circle", { class: "c-timeline__halo", cx: mx, cy: ly, r: 11 }, mark);
-        svg("circle", { class: "c-timeline__dot", cx: mx, cy: ly, r: 5 }, mark);
+        svg("circle", { class: "c-timeline__halo", cx: mx, cy: ly, r: MARKS.halo }, mark);
+        svg("circle", { class: "c-timeline__dot", cx: mx, cy: ly, r: MARKS.dot }, mark);
         markers.push({ element: mark, x: mx, year: item.event.year });
       }
     }
+    markers.sort((a, b) => a.x - b.x);
 
     // The lanes themselves, sampled finely then reduced to the points that shape them
-    const laneSides = single ? ["line"] : ["above", "below"];
     laneSides.forEach((side, i) => {
-      const yAt = at => side === "line" ? line : laneY(side, at);
       const points = [];
-      for (let at = start; at < finish; at += 2) points.push([at, yAt(at)]);
-      points.push([finish, yAt(finish)]);
+      for (let at = start; at < finish; at += 2) points.push([at, laneY(side, at)]);
+      points.push([finish, laneY(side, finish)]);
       const d = pathData(simplify(points, 0.25));
       bases[i].setAttribute("d", d);
       fills[i].setAttribute("d", d);
-      svg("circle", { class: `c-timeline__end c-timeline__end--${lanes[i]}`, cx: start, cy: yAt(start), r: 5.5 }, marks);
-      svg("circle", { class: `c-timeline__end c-timeline__end--finish c-timeline__end--${lanes[i]}`, cx: finish, cy: yAt(finish), r: 4 }, marks);
+      svg("circle", { class: `c-timeline__end c-timeline__end--${lanes[i]}`, cx: start, cy: laneY(side, start), r: MARKS.start }, marks);
+      svg("circle", { class: `c-timeline__end c-timeline__end--finish c-timeline__end--${lanes[i]}`, cx: finish, cy: laneY(side, finish), r: MARKS.finish }, marks);
     });
 
     // The track runs on past where it stops, so it can come to rest on its mark
@@ -420,8 +423,8 @@ function enhance(section) {
       bookend: tokens.bookend,
       openingRight: opening ? textLeft + opening.offsetWidth : 0,
       markers,
-      laneY: single ? () => line : laneY,
-      sides: single ? ["line"] : ["above", "below"]
+      laneY,
+      laneSides
     };
     section.style.height = `${geometry.held + height}px`;
   }
@@ -459,10 +462,14 @@ function enhance(section) {
   }
 
   let currentChapter = null;
+  let away = null; // which side of the screen the stage was last drawn off, so it's only drawn there once
 
   function update() {
     const g = geometry;
     const top = section.getBoundingClientRect().top;
+    const offScreen = top >= g.height ? 1 : top <= -g.held - g.height ? -1 : 0;
+    if (offScreen && offScreen === away) return;
+    away = offScreen;
     const p = progressAt(top);
     // The lanes and the bookends' nearest paragraphs move together, so the gaps between them never change
     const shift = snap(-push(top));
@@ -481,7 +488,7 @@ function enhance(section) {
     fillLines.style.transform = `translate3d(${g.width - onScreen + shift}px, 0, 0)`;
     tips.forEach((tip, i) => {
       tip.hidden = !running;
-      tip.style.transform = `translate3d(${onScreen}px, ${g.laneY(g.sides[i], head)}px, 0)`;
+      tip.style.transform = `translate3d(${onScreen}px, ${g.laneY(g.laneSides[i], head)}px, 0)`;
     });
 
     for (const part of g.parts) part.element.style.transform = `translate3d(${snap(-push(top + part.delay))}px, 0, 0)`;
@@ -492,29 +499,24 @@ function enhance(section) {
     bar.style.setProperty("--shown", shown);
     bar.classList.toggle("is-hidden", shown === 0);
 
-    let current = null;
-    for (const marker of g.markers) {
-      const past = marker.x < head;
-      marker.element.classList.toggle("is-past", past);
-      if (past) current = marker;
-    }
-    for (const marker of g.markers) marker.element.classList.toggle("is-current", marker === current && running);
-
-    let chapter = null;
-    chapters.forEach((each, i) => {
-      if (each.x < head) chapter = i;
+    const current = g.markers.findLastIndex(marker => marker.x < head);
+    g.markers.forEach((marker, i) => {
+      marker.element.classList.toggle("is-past", i <= current);
+      marker.element.classList.toggle("is-current", i === current && running);
     });
+
+    const chapter = chapters.findLastIndex(each => each.x < head);
     // These only change between events, so skip rewriting them every frame
     section.classList.toggle("is-started", head > g.start);
-    const year = current ? current.year : "";
+    const year = g.markers[current]?.year ?? "";
     if (nowYear.textContent !== year) nowYear.textContent = year;
     if (chapter !== currentChapter) {
       currentChapter = chapter;
       links.forEach((link, i) => {
-        if (i === chapter) link.setAttribute("aria-current", "true");
+        if (i === chapter) link.setAttribute("aria-current", "location");
         else link.removeAttribute("aria-current");
       });
-      moveLine();
+      moveUnderline();
     }
 
     const seen = -shift + g.width * 0.97;
@@ -523,28 +525,28 @@ function enhance(section) {
 
   // The underline slides from where it's drawn to the current link, which may itself be moving as names open and close.
   // It eases over as long as the names take, from their CSS, then follows the link until they've settled.
-  let line = null;
-  let lineFrame = 0;
+  let underlineBox = null;
+  let underlineFrame = 0;
 
-  function moveLine() {
+  function moveUnderline() {
     const link = links[currentChapter];
     underline.classList.toggle("is-shown", Boolean(link));
-    cancelAnimationFrame(lineFrame);
+    cancelAnimationFrame(underlineFrame);
     if (!link) {
-      line = null; // reappears in place, rather than sliding from where it was
+      underlineBox = null; // reappears in place, rather than sliding from where it was
       return;
     }
     const duration = parseFloat(getComputedStyle(link.querySelector(".c-timeline__nav-name")).transitionDuration) * 1000;
-    const from = line;
-    const start = performance.now();
+    const from = underlineBox;
+    const began = performance.now();
     const step = now => {
-      const t = from && duration > 0 ? smooth((now - start) / duration) : 1;
+      const t = from && duration > 0 ? smooth((now - began) / duration) : 1;
       const to = { x: link.offsetLeft, width: link.offsetWidth };
-      line = from ? { x: from.x + (to.x - from.x) * t, width: from.width + (to.width - from.width) * t } : to;
-      underline.style.transform = `translateX(${line.x}px) scaleX(${line.width})`;
-      if (now - start < duration) lineFrame = requestAnimationFrame(step);
+      underlineBox = from ? { x: from.x + (to.x - from.x) * t, width: from.width + (to.width - from.width) * t } : to;
+      underline.style.transform = `translateX(${underlineBox.x}px) scaleX(${underlineBox.width})`;
+      if (now - began < duration) underlineFrame = requestAnimationFrame(step);
     };
-    step(start);
+    step(began);
   }
 
   function relayout() {
@@ -553,9 +555,10 @@ function enhance(section) {
     const p = geometry ? progressAt(top) : 0;
     layout();
     if (wasPinned) scrollTo({ top: section.getBoundingClientRect().top + scrollY + p * geometry.held, behavior: "instant" });
+    away = null; // drawn afresh, wherever it is
     update();
-    line = null; // the links may have moved, so place it afresh
-    moveLine();
+    underlineBox = null; // the links may have moved, so place it afresh
+    moveUnderline();
   }
 
   // Moves along the timeline, never past either end
@@ -566,12 +569,11 @@ function enhance(section) {
 
   function scrollToChapter(id, behavior) {
     const chapter = chapters.find(each => each.id === id);
-    if (!chapter) return false;
+    if (!chapter) return;
     // Just past the chapter's start reaching the middle of the screen, where the lines fill to, so it's the current one.
     // While held, the content has moved half the ease plus the distance scrolled since the hold.
     const distance = clamp(chapter.x + 1 - geometry.width / 2 - geometry.ease / 2 + geometry.hold, 0, geometry.held);
     scrollTo({ top: section.getBoundingClientRect().top + scrollY + distance, behavior });
-    return true;
   }
 
   // Input ---------------------------------------------------------------------
@@ -580,7 +582,8 @@ function enhance(section) {
   section.addEventListener("wheel", event => {
     if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) || !pinned()) return;
     event.preventDefault();
-    scrollAlong(event.deltaX);
+    // Some wheels count in lines or pages, not pixels
+    scrollAlong(event.deltaX * [1, 16, stage.clientWidth][event.deltaMode]);
   }, { passive: false });
 
   let touch = null;
@@ -638,14 +641,20 @@ function enhance(section) {
     const link = event.target.closest("a");
     if (!link) return;
     event.preventDefault();
+    // In the address, so the chapter can be shared and Back returns to the one before
+    if (location.hash !== link.hash) history.pushState(null, "", link.hash);
     scrollToChapter(link.hash.slice(1), reduceMotion.matches ? "instant" : "smooth");
   });
+
+  // Links from elsewhere in the article, Back and Forward, and edited addresses
+  addEventListener("hashchange", () => scrollToChapter(decodeURIComponent(location.hash.slice(1)), "instant"));
 
   // Scroll events fire once a frame, before it's drawn, so updating here keeps the timeline in step with the scroll
   addEventListener("scroll", update, { passive: true });
 
-  // Relayout when the stage changes size, but not as mobile toolbars come and go
-  let size = "";
+  // Relayout when the stage changes size, but not as mobile toolbars come and go.
+  // Starts from the size it's laid out at below, so it doesn't lay out again straight away.
+  let size = `${stage.clientWidth}×${stage.clientHeight}`;
   new ResizeObserver(() => {
     const next = `${stage.clientWidth}×${stage.clientHeight}`;
     if (next === size) return;
@@ -669,8 +678,7 @@ function enhance(section) {
     relayout();
   });
 
-  layout();
-  update();
+  relayout();
   if (location.hash) scrollToChapter(decodeURIComponent(location.hash.slice(1)), "instant");
 }
 

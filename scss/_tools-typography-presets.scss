@@ -18,3 +18,13 @@ $font-family-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Co
   font-family: $font-family-mono;
   letter-spacing: 0.0625em;
 }
+
+// Small spaced capitals, as the article header's kicker
+@mixin kicker {
+  font-family: $font-family-body;
+  font-weight: 700;
+  font-size: calc(var(--t-d2) * 1em);
+  line-height: var(--baseline-100);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
