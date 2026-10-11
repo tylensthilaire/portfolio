@@ -55,16 +55,28 @@ credit:
 
 ## Timeline
 
-A timeline of one or two lanes, in chapters. Place it in the body on a line of
-its own, with the prose before and after it:
+A timeline of one or two lanes, in chapters. Place it in the body between the
+paragraphs it follows and precedes. The Markdown between its tags bookends it:
+before the `---` line opens it, after closes it. Either may be left empty.
 
 ```liquid
 {% timeline "what-should-we-build" %}
+The paragraph the timeline pushes out to the left.
+
+---
+
+The paragraph it pulls in from the right.
+{% endtimeline %}
 ```
 
+The bookends read as the article's own paragraphs. In the scrolling timeline,
+the opening sits on the text column where the next paragraph would be, and the
+closing comes to rest on the same column, at the foot. The lanes start and end
+one column and two gutters from them.
+
 The name points at `_data/timelines/<name>.json`, rendered through
-`_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, or a
-figure missing its image or alt text, fails the build.
+`_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, a
+figure missing its image or alt text, or more than one `---`, fails the build.
 
 ```json
 {

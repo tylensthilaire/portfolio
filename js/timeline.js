@@ -3,11 +3,16 @@
 // Sizes come from the --timeline-* properties in scss/_components-timeline.scss.
 
 const SVG = "http://www.w3.org/2000/svg";
-const TOKENS = ["container", "start", "end", "indent", "step", "gap", "pin", "marker", "stalk", "close", "apart", "wave"];
+const TOKENS = ["container", "start", "end", "bookend", "step", "gap", "pin", "marker", "stalk", "close", "apart", "wave"];
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+// To whole device pixels, so text in moving layers isn't resampled between them
+function snap(value) {
+  return Math.round(value * devicePixelRatio) / devicePixelRatio;
 }
 
 // Eases 0–1 in and out
@@ -79,7 +84,8 @@ function readTokens(section) {
 function enhance(section) {
   const stage = section.querySelector(".c-timeline__stage");
   const track = section.querySelector(".c-timeline__track");
-  const legend = track.querySelector(".c-timeline__legend");
+  const opening = stage.querySelector(".c-timeline__bookend--opening");
+  const closing = stage.querySelector(".c-timeline__bookend--closing");
   const single = section.classList.contains("c-timeline--single");
 
   section.classList.add("is-enhanced");
@@ -114,12 +120,8 @@ function enhance(section) {
   }
 
   // Furniture -----------------------------------------------------------------
-  const hint = html("p", "c-timeline__hint", track);
-  hint.textContent = "Scroll or swipe";
-  hint.setAttribute("aria-hidden", "true");
-
   // Everything that moves each frame is its own layer, moved by transform, so nothing repaints as it scrolls.
-  // In order: the dashed lanes, a window revealing the filled lanes, the track's cards and markers, then the tips.
+  // In order: the dashed lanes, a window revealing the filled lanes, their tips, then the track's cards and markers.
   const lanes = single ? ["lane-1"] : ["lane-1", "lane-2"];
   const lines = svg("svg", { class: "c-timeline__lines", "aria-hidden": "true" });
   const bases = lanes.map(() => svg("path", { class: "c-timeline__rail" }, lines));
@@ -130,25 +132,38 @@ function enhance(section) {
   stage.insertBefore(reveal, track);
   const marks = svg("svg", { class: "c-timeline__marks", "aria-hidden": "true" });
   track.prepend(marks);
-  const tips = lanes.map(lane => html("span", `c-timeline__tip c-timeline__tip--${lane}`, stage));
+  const tips = lanes.map(lane => stage.insertBefore(html("span", `c-timeline__tip c-timeline__tip--${lane}`), track));
 
   const progress = html("div", "c-timeline__progress", stage);
   progress.setAttribute("aria-hidden", "true");
-  const now = html("p", "c-timeline__now", stage);
-  now.setAttribute("aria-hidden", "true");
-  const nowChapter = html("span", "c-timeline__now-chapter", now);
-  const nowYear = html("span", "c-timeline__now-year", now);
 
-  const nav = html("nav", "c-timeline__nav", stage);
+  // The top bar: a link to each chapter, the current one named, then the current year
+  const bar = html("div", "c-timeline__bar", stage);
+  const nav = html("nav", "c-timeline__nav", bar);
   nav.setAttribute("aria-label", "Timeline chapters");
   const links = chapters.map((chapter, i) => {
     const link = html("a", "", nav);
     const number = String(i + 1).padStart(2, "0");
     link.href = `#${chapter.id}`;
-    link.textContent = number;
     link.setAttribute("aria-label", `Chapter ${number}: ${chapter.title}`);
+    html("span", "c-timeline__nav-number", link).textContent = number;
+    // The name opens out while its chapter is current
+    html("span", "c-timeline__nav-title", html("span", "c-timeline__nav-name", link)).textContent = chapter.title;
     return link;
   });
+  // One underline, sliding to the current link
+  const underline = html("span", "c-timeline__nav-line", nav);
+  underline.setAttribute("aria-hidden", "true");
+  const nowYear = html("span", "c-timeline__now", bar);
+  nowYear.setAttribute("aria-hidden", "true");
+
+  // One layer holding the rest of the stage, to fade as the timeline arrives and leaves.
+  // The bookends stay outside it, in reading order either side, so they read as the article's own text.
+  // The progress bar stays outside it too, so it sits above the stage's edge fades.
+  const scene = html("div", "c-timeline__scene");
+  scene.append(...[...stage.children].filter(child => ![opening, closing, progress].includes(child)));
+  stage.insertBefore(scene, closing);
+  stage.insertBefore(progress, closing);
 
   // Layout --------------------------------------------------------------------
   let geometry = null;
@@ -162,11 +177,29 @@ function enhance(section) {
     const bottom = height - parseFloat(padding.paddingBottom);
     const close = single ? 0 : tokens.close;
 
-    // Where the lines start and end on screen
+    // Where the lines start, and where the track comes to rest, on screen
     const left = (width - tokens.container) / 2;
     let start = left + tokens.start;
     let end = left + tokens.end;
     if (end < start) start = end = (start + end) / 2;
+
+    // The bookends sit on the article's text column, at its measure
+    const column = section.parentElement;
+    const columnStyle = getComputedStyle(column);
+    const columnBox = column.getBoundingClientRect();
+    const textLeft = snap(columnBox.left + parseFloat(columnStyle.paddingLeft) - stage.getBoundingClientRect().left);
+    const textWidth = columnBox.width - parseFloat(columnStyle.paddingLeft) - parseFloat(columnStyle.paddingRight);
+    for (const bookend of [opening, closing]) {
+      if (bookend) bookend.style.maxWidth = `${textWidth}px`;
+    }
+    if (opening) {
+      opening.style.left = `${textLeft}px`;
+      // The lanes start a fixed gap after it
+      start = Math.round(textLeft + opening.offsetWidth + tokens.bookend);
+    }
+    // How far into the stage the opening reaches below the top band, and how tall the closing is
+    const openingReach = opening ? opening.offsetTop + opening.offsetHeight - top : 0;
+    const closingHeight = closing ? closing.offsetHeight : 0;
 
     // Shrink the cards until both sides fit between the bands
     const sides = [
@@ -186,6 +219,9 @@ function enhance(section) {
         tallest[item.side] = Math.max(tallest[item.side], h);
         if (item.apart && item.side !== "on") tallest[`${item.side}Apart`] = Math.max(tallest[`${item.side}Apart`], h);
       }
+      tallest.above = Math.max(tallest.above, openingReach);
+      tallest.aboveApart = Math.max(tallest.aboveApart, openingReach);
+      tallest.below = Math.max(tallest.below, closingHeight);
       const fits = tallest.above + tallest.below + 2 * (tokens.stalk + close) <= bottom - top && tallest.on <= bottom - top;
       if (fits || scale < 0.82) break;
       scale *= 0.95;
@@ -196,12 +232,12 @@ function enhance(section) {
     const high = bottom - close - tokens.stalk - tallest.below;
     const line = low <= high ? (low + high) / 2 : low;
     const apart = single ? 0 : Math.max(close, Math.min(
-      tokens.apart,
+      tokens.apart / 2, // the token is the distance between the lanes
       line - tokens.stalk - tallest.aboveApart - top,
       bottom - line - tokens.stalk - tallest.belowApart
     ));
 
-    // Pack the cards along the track, each side independently
+    // Pack the cards along the track, each side independently, on whole pixels so their text stays sharp
     const placed = [];
     const pins = [];
     let x = start + tokens.gap;
@@ -209,7 +245,7 @@ function enhance(section) {
     let below = x;
     let last = x - tokens.step;
     for (const chapter of chapters) {
-      const cx = Math.max(above, below, last + tokens.step);
+      const cx = Math.round(Math.max(above, below, last + tokens.step));
       chapter.x = cx;
       placed.push({ element: chapter.heading, side: "above", x: cx, chapter });
       placed.push({ element: chapter.summary, side: "below", x: cx });
@@ -219,13 +255,13 @@ function enhance(section) {
         const w = event.element.offsetWidth;
         let ex;
         if (event.side === "above") {
-          ex = Math.max(above, last + tokens.step);
+          ex = Math.round(Math.max(above, last + tokens.step));
           above = ex + w + tokens.gap;
         } else if (event.side === "below") {
-          ex = Math.max(below, last + tokens.step);
+          ex = Math.round(Math.max(below, last + tokens.step));
           below = ex + w + tokens.gap;
         } else {
-          ex = Math.max(above, below, last + tokens.step) + tokens.pin;
+          ex = Math.round(Math.max(above, below, last + tokens.step) + tokens.pin);
           above = below = ex + w + tokens.pin + tokens.gap;
           pins.push({ from: ex - tokens.marker, to: ex + w });
         }
@@ -234,7 +270,17 @@ function enhance(section) {
         placed.push({ element: event.element, side: event.side, x: ex, event });
       }
     }
-    const finish = Math.max(above, below);
+    const finish = Math.round(Math.max(above, below));
+
+    // The closing comes in a fixed gap after the lanes end, at the foot of the stage, and comes to rest on the text column.
+    // The track stops when it does.
+    let stop = finish;
+    if (closing) {
+      stop = finish + Math.round(tokens.bookend);
+      end = textLeft;
+      closing.style.left = `${stop}px`;
+      closing.style.top = `${Math.round(height - closingHeight)}px`;
+    }
 
     // Lane separation: eased across each chapter towards the next one's
     const stops = chapters.map(chapter => ({ x: chapter.x, gap: chapter.rails === "apart" ? apart : close }));
@@ -285,9 +331,9 @@ function enhance(section) {
     for (const item of placed) {
       const h = item.element.offsetHeight;
       const mx = item.x + tokens.marker;
-      const y = item.side === "above" ? line - reach(mx) - tokens.stalk - h
+      const y = Math.round(item.side === "above" ? line - reach(mx) - tokens.stalk - h
         : item.side === "below" ? line + reach(mx) + tokens.stalk
-        : line - h / 2;
+        : line - h / 2);
       item.element.style.left = `${item.x}px`;
       item.element.style.top = `${y}px`;
 
@@ -329,32 +375,25 @@ function enhance(section) {
       svg("circle", { class: `c-timeline__end c-timeline__end--finish c-timeline__end--${lanes[i]}`, cx: finish, cy: yAt(finish), r: 4 }, marks);
     });
 
-    // Legend and hint in the space before the lines start, level with the line
-    const indent = left + tokens.indent;
-    let below0 = line;
-    if (legend) {
-      legend.style.left = `${indent}px`;
-      legend.style.maxWidth = `${Math.max(start - indent - tokens.gap, 0)}px`;
-      legend.style.top = `${line - legend.offsetHeight / 2}px`;
-      below0 = line + legend.offsetHeight / 2;
-    }
-    hint.style.left = `${indent}px`;
-    hint.style.top = `${legend ? below0 + tokens.stalk : line - hint.offsetHeight / 2}px`;
-
-    // The track runs on past the end so it can finish on its mark
-    const trackWidth = finish + (width - end);
+    // The track runs on past where it stops, so it can come to rest on its mark
+    const trackWidth = stop + (width - end);
     track.style.width = `${trackWidth}px`;
     for (const layer of [lines, fillLines, marks]) {
       layer.setAttribute("width", trackWidth);
       layer.setAttribute("height", height);
     }
 
+    // The push eases in and out over half a screen at either end, moving the content half that again in all
+    const ease = height / 2;
     geometry = {
       width,
+      height,
+      ease,
       start,
-      end,
       finish,
-      travel: Math.max(0, finish - end), // brings the finish to its mark
+      travel: Math.max(0, stop - end - ease), // brings the stop to its mark
+      bookend: tokens.bookend,
+      openingRight: opening ? textLeft + opening.offsetWidth : 0,
       markers,
       laneY: single ? () => line : laneY,
       sides: single ? ["line"] : ["above", "below"]
@@ -372,15 +411,42 @@ function enhance(section) {
     return top <= 1 && top >= -geometry.travel - 1;
   }
 
+  // How far the stage is from being held, in screen heights: 0 while held, up to 1 arriving and -1 leaving
+  function outside(top) {
+    const g = geometry;
+    if (reduceMotion.matches) return 0;
+    if (top > 0) return Math.min(top / g.height, 1);
+    if (top < -g.travel) return -Math.min((-g.travel - top) / g.height, 1);
+    return 0;
+  }
+
+  // How far the content has moved left: a pixel per pixel scrolled while held.
+  // It starts from rest once the stage is halfway up the screen, reaching that speed as it's held, and slows to rest over as far after.
+  function push(top) {
+    const { travel, ease } = geometry;
+    const y = -top;
+    if (y <= -ease) return 0;
+    if (y < 0) return (y + ease) ** 2 / (2 * ease);
+    if (y <= travel) return ease / 2 + y;
+    if (y < travel + ease) return ease + travel - (travel + ease - y) ** 2 / (2 * ease);
+    return ease + travel;
+  }
+
+  let currentChapter = null;
+
   function update() {
     const g = geometry;
-    const p = progressAt(section.getBoundingClientRect().top);
-    const shift = -p * g.travel;
+    const top = section.getBoundingClientRect().top;
+    const p = progressAt(top);
+    // Everything moves together, so the gaps to the bookends never change
+    const shift = snap(-push(top));
+    // Fades in slowly across the whole arrival, fully in as it's held, and out the same way
+    scene.style.opacity = progress.style.opacity = smooth(1 - Math.abs(outside(top))) ** 2;
     progress.style.transform = `scaleX(${p})`;
 
-    // The point the lines have filled to, moving on screen from where they start to where they end
-    const onScreen = g.start + p * (g.end - g.start);
-    const head = onScreen - shift;
+    // The point the lines have filled to stays mid-screen, as the lines pass under it
+    const head = clamp(g.width / 2 - shift, g.start, g.finish);
+    const onScreen = snap(head + shift);
     const running = head > g.start && head < g.finish;
 
     // The window's right edge sits on the head; its contents move back by as much, so they keep pace with the track
@@ -391,6 +457,16 @@ function enhance(section) {
       tip.hidden = !running;
       tip.style.transform = `translate3d(${onScreen}px, ${g.laneY(g.sides[i], head)}px, 0)`;
     });
+
+    for (const bookend of [opening, closing]) {
+      if (bookend) bookend.style.transform = `translate3d(${shift}px, 0, 0)`;
+    }
+
+    // The bar fades in once the opening has gone off the left, and out once the tips have reached the end of the lanes
+    let shown = clamp(1 + (g.finish + shift - g.width / 2) / g.bookend, 0, 1);
+    if (opening) shown = Math.min(shown, clamp(-(g.openingRight + shift) / g.bookend, 0, 1));
+    bar.style.setProperty("--shown", shown);
+    bar.classList.toggle("is-hidden", shown === 0);
 
     let current = null;
     for (const marker of g.markers) {
@@ -404,21 +480,47 @@ function enhance(section) {
     chapters.forEach((each, i) => {
       if (each.x < head) chapter = i;
     });
-    // Text only changes between events, so skip rewriting it every frame
+    // These only change between events, so skip rewriting them every frame
     section.classList.toggle("is-started", head > g.start);
     const year = current ? current.year : "";
     if (nowYear.textContent !== year) nowYear.textContent = year;
-    const title = chapter === null ? "" : chapters[chapter].title;
-    if (nowChapter.textContent !== title) {
-      nowChapter.textContent = title;
+    if (chapter !== currentChapter) {
+      currentChapter = chapter;
       links.forEach((link, i) => {
         if (i === chapter) link.setAttribute("aria-current", "true");
         else link.removeAttribute("aria-current");
       });
+      moveLine();
     }
 
-    const seen = p * g.travel + g.width * 0.97;
+    const seen = -shift + g.width * 0.97;
     for (const event of events) if (event.x < seen) event.element.classList.add("is-seen");
+  }
+
+  // The underline slides from where it's drawn to the current link, which may itself be moving as names open and close.
+  // It eases over as long as the names take, from their CSS, then follows the link until they've settled.
+  let line = null;
+  let lineFrame = 0;
+
+  function moveLine() {
+    const link = links[currentChapter];
+    underline.classList.toggle("is-shown", Boolean(link));
+    cancelAnimationFrame(lineFrame);
+    if (!link) {
+      line = null; // reappears in place, rather than sliding from where it was
+      return;
+    }
+    const duration = parseFloat(getComputedStyle(link.querySelector(".c-timeline__nav-name")).transitionDuration) * 1000;
+    const from = line;
+    const start = performance.now();
+    const step = now => {
+      const t = from && duration > 0 ? smooth((now - start) / duration) : 1;
+      const to = { x: link.offsetLeft, width: link.offsetWidth };
+      line = from ? { x: from.x + (to.x - from.x) * t, width: from.width + (to.width - from.width) * t } : to;
+      underline.style.transform = `translateX(${line.x}px) scaleX(${line.width})`;
+      if (now - start < duration) lineFrame = requestAnimationFrame(step);
+    };
+    step(start);
   }
 
   function relayout() {
@@ -428,6 +530,8 @@ function enhance(section) {
     layout();
     if (wasPinned) scrollTo({ top: section.getBoundingClientRect().top + scrollY + p * geometry.travel, behavior: "instant" });
     update();
+    line = null; // the links may have moved, so place it afresh
+    moveLine();
   }
 
   // Moves along the timeline, never past either end
@@ -439,9 +543,10 @@ function enhance(section) {
   function scrollToChapter(id, behavior) {
     const chapter = chapters.find(each => each.id === id);
     if (!chapter) return false;
-    const tokens = readTokens(section);
-    const p = clamp((chapter.x - tokens.gap - geometry.start) / (geometry.finish - geometry.start), 0, 1);
-    scrollTo({ top: section.getBoundingClientRect().top + scrollY + p * geometry.travel, behavior });
+    // Just past the chapter's start reaching the middle of the screen, where the lines fill to, so it's the current one.
+    // While held, the content has moved half the ease plus the distance scrolled.
+    const distance = clamp(chapter.x + 1 - geometry.width / 2 - geometry.ease / 2, 0, geometry.travel);
+    scrollTo({ top: section.getBoundingClientRect().top + scrollY + distance, behavior });
     return true;
   }
 
@@ -530,6 +635,10 @@ function enhance(section) {
     section.classList.remove("is-enhanced");
     section.style.height = "";
     track.style.transform = "";
+    scene.style.opacity = "";
+    for (const bookend of [opening, closing]) {
+      if (bookend) bookend.style.transform = "";
+    }
   });
   addEventListener("afterprint", () => {
     section.classList.add("is-enhanced");

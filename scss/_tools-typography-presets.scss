@@ -12,3 +12,9 @@ $font-family-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo', 'Co
   color: rgba(196,102,47,1);
   margin-right: 0.5rem;
 }
+
+// Monospace, opened up slightly
+@mixin font-mono {
+  font-family: $font-family-mono;
+  letter-spacing: 0.0625em;
+}

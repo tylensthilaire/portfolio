@@ -6,7 +6,7 @@
 @property --timeline-container { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --timeline-start { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --timeline-end { syntax: "<length>"; inherits: true; initial-value: 0px; }
-@property --timeline-indent { syntax: "<length>"; inherits: true; initial-value: 0px; }
+@property --timeline-bookend { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --timeline-step { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --timeline-gap { syntax: "<length>"; inherits: true; initial-value: 0px; }
 @property --timeline-pin { syntax: "<length>"; inherits: true; initial-value: 0px; }
@@ -17,7 +17,7 @@
 @property --timeline-wave { syntax: "<length>"; inherits: true; initial-value: 0px; }
 
 .c-timeline {
-  --flow-space: var(--baseline-200);
+  --flow-space: 0; // the stage's band for the year spaces it from the text
   --timeline-lane-1: rgba(168,77,30,1); // the AA terracotta used on small labels
   --timeline-lane-2: rgba(14,124,134,1);
   --timeline-crossover: rgba(79,91,213,1);
@@ -25,7 +25,6 @@
   font-family: $font-family-body;
 }
 
-.c-timeline__key--lane-1,
 .c-timeline__event--lane-1,
 .c-timeline__mark--lane-1,
 .c-timeline__fill--lane-1,
@@ -34,7 +33,6 @@
   --lane: var(--timeline-lane-1);
 }
 
-.c-timeline__key--lane-2,
 .c-timeline__event--lane-2,
 .c-timeline__mark--lane-2,
 .c-timeline__fill--lane-2,
@@ -43,13 +41,11 @@
   --lane: var(--timeline-lane-2);
 }
 
-.c-timeline__key--crossover,
 .c-timeline__event--crossover,
 .c-timeline__knot {
   --lane: var(--timeline-crossover);
 }
 
-.c-timeline__legend,
 .c-timeline__chapters,
 .c-timeline__events {
   list-style: none;
@@ -58,38 +54,14 @@
 }
 
 // Labels share the article header's kicker style
-.c-timeline__key,
 .c-timeline__chapter-label,
 .c-timeline__event-label,
-.c-timeline__hint,
-.c-timeline__now-chapter,
 .c-timeline__nav a {
   font-weight: 700;
   font-size: calc(var(--t-d2) * 1em);
   line-height: var(--baseline-100);
   letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-// Legend -----------------------------------------------------------------------
-.c-timeline__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--space-300);
-}
-
-.c-timeline__key {
-  color: var(--lane);
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 0.75em;
-    height: 0.75em;
-    margin-right: 0.5ch;
-    border-radius: 50%;
-    background: var(--lane);
-  }
 }
 
 // Chapters ---------------------------------------------------------------------
@@ -147,7 +119,7 @@
   }
 
   text {
-    font-family: $font-family-mono;
+    @include font-mono;
   }
 }
 
@@ -163,9 +135,23 @@
   color: rgba(51,51,51,1);
 }
 
+// Bookends ---------------------------------------------------------------------
+// The article's own paragraphs either side of the timeline, from between the shortcode's tags
+.c-timeline__bookend {
+  --flow-space: 1em; // between its paragraphs, as in the article
+}
+
 // List -------------------------------------------------------------------------
 // Without JavaScript, or when printed
 .c-timeline:not(.is-enhanced) {
+  .c-timeline__bookend--opening {
+    margin-top: 1em; // as the article's paragraphs are spaced
+  }
+
+  .c-timeline__bookend--closing {
+    margin-top: var(--baseline-150);
+  }
+
   .c-timeline__chapter {
     margin-top: var(--baseline-300);
   }
@@ -204,10 +190,8 @@
   .c-timeline__reveal,
   .c-timeline__marks,
   .c-timeline__tip,
-  .c-timeline__hint,
   .c-timeline__progress,
-  .c-timeline__now,
-  .c-timeline__nav {
+  .c-timeline__bar {
     display: none;
   }
 }
@@ -220,7 +204,7 @@
   --timeline-container: var(--container-width);
   --timeline-start: calc(var(--container-width) / 2);
   --timeline-end: calc(var(--container-width) / 2);
-  --timeline-indent: var(--column-offset, 0px);
+  --timeline-bookend: #{mix-units(1, 2)}; // between the bookend paragraphs and the lanes
   --timeline-card: #{mix-units(1.5, 1)};
   --timeline-card-wide: var(--timeline-card);
   --timeline-step: var(--baseline-400);
@@ -229,7 +213,7 @@
   --timeline-marker: var(--space-200);
   --timeline-stalk: var(--space-200);
   --timeline-close: var(--space-100);
-  --timeline-apart: var(--baseline-250);
+  --timeline-apart: calc(2 * var(--baseline-250)); // between the lanes, at most
   --timeline-wave: calc(10 * var(--baseline-100));
 }
 
@@ -243,7 +227,7 @@
     --timeline-gap: var(--baseline-250);
     --timeline-pin: var(--baseline-300);
     --timeline-stalk: var(--baseline-100);
-    --timeline-apart: calc(5 * var(--baseline-100));
+    --timeline-apart: calc(20 * var(--base-unit));
     --timeline-wave: calc(12.5 * var(--baseline-100));
   }
 }
@@ -266,15 +250,20 @@
   }
 }
 
+// The reset eases transforms and opacity, which would trail the scroll, and outlast the switch to a list for print.
+// Inherited by the layers inside.
+.c-timeline__stage {
+  transition: none;
+}
+
 .is-enhanced .c-timeline__stage {
   position: sticky;
   top: 0;
   height: 100vh;
   height: 100svh; // steady as mobile toolbars come and go
   overflow: hidden;
-  padding-block: var(--baseline-250); // bands for the year and the chapter links
+  padding-block: var(--baseline-250) var(--baseline-100); // a band for the chapter links and year, and room below the cards
   background: rgba(255,255,255,1);
-  transition: none; // the reset eases transforms, which would trail the scroll; inherited by the layers inside
 
   // Fade the track in and out at the edges
   &::before,
@@ -301,8 +290,28 @@
 
 @media (min-width: 40rem) {
   .is-enhanced .c-timeline__stage {
-    padding-block: var(--baseline-300);
+    padding-top: var(--baseline-300);
   }
+}
+
+// Fades as one, so the layers inside don't show through each other
+.is-enhanced .c-timeline__scene {
+  position: absolute;
+  inset: 0;
+  will-change: opacity;
+}
+
+// Positioned by js/timeline.js on the article's text column
+.is-enhanced .c-timeline__bookend {
+  position: absolute;
+  left: 0;
+  width: var(--measure-b);
+  will-change: transform;
+}
+
+// Where the article's next paragraph would be
+.is-enhanced .c-timeline__bookend--opening {
+  top: 1em;
 }
 
 .is-enhanced .c-timeline__track {
@@ -314,78 +323,50 @@
   font-size: calc(var(--timeline-scale, 1) * 1rem); // shrinks the cards to fit short screens
 }
 
-.is-enhanced :is(.c-timeline__legend, .c-timeline__chapters, .c-timeline__events) {
+.is-enhanced :is(.c-timeline__chapters, .c-timeline__events) {
   max-width: none;
 }
 
-.is-enhanced :is(.c-timeline__legend, .c-timeline__hint, .c-timeline__chapter-heading, .c-timeline__chapter-summary, .c-timeline__event) {
+.is-enhanced :is(.c-timeline__chapter-heading, .c-timeline__chapter-summary, .c-timeline__event) {
   position: absolute;
   margin: 0;
 }
 
-// Legend and hint ----------------------------------------------------------------
-// Ordered as the lanes run: above, on and below the line
-.is-enhanced .c-timeline__legend {
-  flex-direction: column;
-  gap: var(--space-100);
-}
-
-.is-enhanced .c-timeline__key--crossover {
-  order: 1;
-}
-
-.is-enhanced .c-timeline__key--lane-2 {
-  order: 2;
-}
-
-.c-timeline__hint {
-  display: flex;
-  align-items: center;
-  gap: var(--space-200);
-  color: rgba(102,102,102,1);
-
-  &::before {
-    content: '→';
-    font-size: calc(var(--t-u2) * 1em);
-    letter-spacing: 0;
-    animation: timeline-nudge 1.8s ease-in-out infinite;
-  }
-}
-
-@keyframes timeline-nudge {
-  50% {
-    transform: translateX(var(--space-100));
-  }
-}
-
 // Chapters and cards ---------------------------------------------------------------
-.is-enhanced :is(.c-timeline__chapter-heading, .c-timeline__chapter-summary, .c-timeline__event) {
+.is-enhanced .c-timeline__event {
   width: var(--timeline-card);
+}
+
+// Chapters take the wide width, heading and summary together
+.is-enhanced :is(.c-timeline__chapter-heading, .c-timeline__chapter-summary) {
+  width: var(--timeline-card-wide);
 }
 
 .is-enhanced .c-timeline__chapter-heading::before {
   content: counter(chapter, decimal-leading-zero);
   display: block;
-  font-family: $font-family-display;
-  font-size: calc(var(--t-u7) * 1em);
+  font-family: $font-family-body;
+  font-size: calc(var(--t-u8) * 1em);
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px rgba(102,102,102,1);
 }
 
 .is-enhanced .c-timeline__chapter-label {
+  @include font-mono;
   margin-top: var(--space-100);
+  font-weight: 400;
   font-size: calc(var(--t-d2) * 1em);
   line-height: 1.5;
 }
 
 .is-enhanced .c-timeline__chapter-title {
-  font-size: calc(var(--t-u4) * 1em);
+  font-size: calc(var(--t-u5) * 1em);
   line-height: 1.1;
 }
 
 .is-enhanced .c-timeline__chapter-summary {
-  font-size: 1em;
+  font-size: calc(var(--t-u1) * 1em);
   line-height: 1.5;
 }
 
@@ -398,17 +379,21 @@
 }
 
 .is-enhanced .c-timeline__event-label {
+  @include font-mono;
+  font-weight: 400;
   line-height: 1.5;
 }
 
 .is-enhanced .c-timeline__event-title {
   margin-top: var(--space-050);
+  font-family: $font-family-body;
+  font-weight: 700;
   line-height: 1.25;
 }
 
 .is-enhanced .c-timeline__event-body {
   margin-top: var(--space-100);
-  font-size: 1em;
+  font-size: calc(var(--t-00) * 1em);
   line-height: 1.5;
 }
 
@@ -619,7 +604,7 @@
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 2px;
+  height: var(--space-050);
   transform-origin: 0 50%;
   transform: scaleX(0);
   will-change: transform;
@@ -630,7 +615,8 @@
   background: var(--timeline-lane-1);
 }
 
-.c-timeline__now {
+// Chapter links top left and the year top right, on the container's edges
+.c-timeline__bar {
   position: absolute;
   top: 0;
   left: 0;
@@ -639,8 +625,82 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: var(--space-300) var(--space-400) 0;
+  gap: var(--space-200);
+  padding: var(--space-300) max(var(--space-200), (100% - var(--container-width)) / 2) 0;
+  pointer-events: none; // only its links take clicks
+  opacity: var(--shown, 1); // set by js/timeline.js, clear of the bookends
+}
+
+// Shown while a link has keyboard focus, even while hidden
+.c-timeline__bar:focus-within {
+  opacity: 1;
+}
+
+.c-timeline__bar.is-hidden .c-timeline__nav {
   pointer-events: none;
+}
+
+.c-timeline__nav {
+  position: relative; // for the underline
+  display: flex;
+  align-items: baseline;
+  gap: 0 var(--space-200);
+  pointer-events: auto;
+
+  a {
+    display: inline-flex;
+    align-items: baseline;
+    padding: var(--space-100) var(--space-025);
+    color: rgba(102,102,102,1);
+    transition: color 0.3s ease-in-out;
+
+    &[aria-current] {
+      color: rgba(51,51,51,1);
+    }
+  }
+}
+
+// The current chapter is named where there's room.
+// Its width animates between none and its own as a one-column grid, so the numbers either side ease along.
+.c-timeline__nav-name {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 0fr); // a zero minimum, so it closes past the title's padding
+  overflow: hidden;
+  opacity: 0;
+  transition: grid-template-columns 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.c-timeline__nav-title {
+  white-space: nowrap;
+  padding-left: 1ch;
+}
+
+// Placed and scaled to the current link by js/timeline.js
+.c-timeline__nav-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 2px;
+  background: rgba(196,102,47,1);
+  transform-origin: 0 50%;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+
+  &.is-shown {
+    opacity: 1;
+  }
+}
+
+.c-timeline__now {
+  min-width: 4ch; // a year's width, so the links don't shift as it appears
+  font-family: $font-family-body;
+  font-size: calc(var(--t-u4) * 1rem);
+  line-height: 1;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: rgba(51,51,51,1);
   opacity: 0;
   transition: opacity 0.3s;
 
@@ -649,38 +709,18 @@
   }
 }
 
-.c-timeline__now-chapter {
-  color: rgba(102,102,102,1);
-}
+@media (min-width: 40rem) {
+  .c-timeline__bar {
+    gap: var(--space-300);
+  }
 
-.c-timeline__now-year {
-  font-family: $font-family-display;
-  font-size: calc(var(--t-u4) * 1rem);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  color: rgba(51,51,51,1);
-}
+  .c-timeline__nav {
+    gap: 0 var(--space-300);
+  }
 
-.c-timeline__nav {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 var(--space-300);
-  padding-bottom: var(--space-300);
-
-  a {
-    padding: var(--space-100) var(--space-025);
-    color: rgba(102,102,102,1);
-
-    &[aria-current] {
-      color: rgba(51,51,51,1);
-      box-shadow: inset 0 -2px 0 rgba(196,102,47,1);
-    }
+  .c-timeline__nav [aria-current] .c-timeline__nav-name {
+    grid-template-columns: minmax(0, 1fr);
+    opacity: 1;
   }
 }
 
@@ -692,9 +732,5 @@
 
   .is-enhanced .c-timeline__event:not(.is-seen) {
     opacity: 1;
-  }
-
-  .c-timeline__hint::before {
-    animation: none;
   }
 }

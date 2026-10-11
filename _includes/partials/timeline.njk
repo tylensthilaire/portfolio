@@ -6,20 +6,19 @@
   Figures take any image; SVGs are inlined so they take the lane's colour.
 
   Without JavaScript it reads as an ordered list of chapters, each an ordered list of events, in reading order whichever lane they sit in.
-  js/timeline.js lays the list out along the lanes, in a stage that scrolls sideways.
+  The opening and closing paragraphs, from between the shortcode's tags, come before and after it.
+  js/timeline.js lays the list out along the lanes, in a stage that scrolls sideways, pushing the opening out and pulling the closing in.
 -#}
 {%- set lane1 = timeline.lanes[0] -%}
 {%- set lane2 = timeline.lanes[1] -%}
 <section class="c-timeline{% if not lane2 %} c-timeline--single{% endif %}" data-timeline>
   <div class="c-timeline__stage">
+    {%- if opening %}
+    <div class="c-timeline__bookend c-timeline__bookend--opening u-flow">
+      {{ opening | safe }}
+    </div>
+    {%- endif %}
     <div class="c-timeline__track">
-      {%- if lane2 %}
-      <ul class="c-timeline__legend">
-        <li class="c-timeline__key c-timeline__key--lane-1">{{ lane1.name }} · {{ lane1.descriptor }}</li>
-        <li class="c-timeline__key c-timeline__key--lane-2">{{ lane2.name }} · {{ lane2.descriptor }}</li>
-        <li class="c-timeline__key c-timeline__key--crossover">{{ timeline.crossover.name }}</li>
-      </ul>
-      {%- endif %}
       <ol class="c-timeline__chapters">
         {%- for chapter in timeline.chapters %}
         <li class="c-timeline__chapter" id="{{ chapter.title | slugify }}" data-rails="{{ chapter.rails }}">
@@ -64,5 +63,10 @@
         {%- endfor %}
       </ol>
     </div>
+    {%- if closing %}
+    <div class="c-timeline__bookend c-timeline__bookend--closing u-flow">
+      {{ closing | safe }}
+    </div>
+    {%- endif %}
   </div>
 </section>

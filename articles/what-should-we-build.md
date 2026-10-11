@@ -10,9 +10,13 @@ header: default
 
 Product managers and experience designers spend a lot of time arguing about whose job it is to decide what gets built. Both roles exist because someone, at some point, took that question away from the people doing the building.
 
+{% timeline "what-should-we-build" %}
 Product management grew out of brand management and business, asking what's worth building for the company. Experience design grew out of psychology, ergonomics and HCI, asking what's worth building for people. Each brought its own research tradition: market research on one side, user research on the other.
 
-{% timeline "what-should-we-build" %}
+---
+
+Read side by side, the two lanes keep borrowing from each other. User research comes back as customer discovery, prototypes as MVPs, design thinking as the design sprint. Almost a century after the Brand Men memo, both disciplines are still answering the same question, just from different ends.
+{% endtimeline %}
 
 ## What the parallel shows
 

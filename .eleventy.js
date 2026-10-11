@@ -145,14 +145,15 @@ module.exports = function(eleventyConfig) {
       .trim();
   });
 
-  // Timelines: `{% timeline "key" %}` in an article renders _data/timelines/<key>.json through partials/timeline.njk.
+  // Timelines: `{% timeline "key" %}…{% endtimeline %}` in an article renders _data/timelines/<key>.json through partials/timeline.njk.
+  // The Markdown between the tags bookends it: before a `---` line opens it, after closes it.
   // Uses Eleventy's own Nunjucks environment, so the partial has the site's filters and includes
   let nunjucks;
   eleventyConfig.amendLibrary("njk", env => {
     nunjucks = env;
   });
 
-  eleventyConfig.addShortcode("timeline", key => {
+  eleventyConfig.addPairedShortcode("timeline", (content, key) => {
     const file = path.join(__dirname, "_data", "timelines", `${key}.json`);
     if (!fs.existsSync(file)) {
       throw new Error(`Timeline "${key}": no data at ${file}`);
@@ -184,9 +185,15 @@ module.exports = function(eleventyConfig) {
       }
     }
 
+    const parts = content.split(/^\s*-{3,}\s*$/m);
+    if (parts.length > 2) {
+      throw new Error(`Timeline "${key}": use one --- line, between the opening and the closing`);
+    }
+    const [opening, closing] = parts.map(part => (part.trim() ? markdownLibrary.render(part.trim()) : ""));
+
     // Markdown ends an HTML block at a blank line, so drop them
     return nunjucks
-      .render("partials/timeline.njk", { key, timeline })
+      .render("partials/timeline.njk", { key, timeline, opening, closing })
       .replace(/\n\s*\n/g, "\n")
       .trim();
   });
