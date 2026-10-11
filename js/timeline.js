@@ -87,6 +87,9 @@ function enhance(section) {
   const opening = stage.querySelector(".c-timeline__bookend--opening");
   const closing = stage.querySelector(".c-timeline__bookend--closing");
   const single = section.classList.contains("c-timeline--single");
+  // The bookends' paragraphs, put back before each layout
+  const openingParts = opening ? [...opening.children] : [];
+  const closingParts = closing ? [...closing.children] : [];
 
   section.classList.add("is-enhanced");
   if (TOKENS.some(name => Number.isNaN(readTokens(section)[name]))) {
@@ -192,13 +195,22 @@ function enhance(section) {
     for (const bookend of [opening, closing]) {
       if (bookend) bookend.style.maxWidth = `${textWidth}px`;
     }
+    // The bookends sit beside the lanes, so they only need to fit on screen.
+    // Paragraphs that don't fit read before or after the stage instead, furthest from the lanes first.
+    if (opening) {
+      opening.append(...openingParts);
+      while (opening.children.length > 1 && opening.offsetTop + opening.offsetHeight > bottom) section.before(opening.firstElementChild);
+    }
+    if (closing) {
+      closing.append(...closingParts);
+      while (closing.children.length > 1 && closing.offsetHeight > height - top) section.after(closing.lastElementChild);
+    }
+    for (const part of [...openingParts, ...closingParts]) part.style.transform = "";
     if (opening) {
       opening.style.left = `${textLeft}px`;
       // The lanes start a fixed gap after it
       start = Math.round(textLeft + opening.offsetWidth + tokens.bookend);
     }
-    // How far into the stage the opening reaches below the top band, and how tall the closing is
-    const openingReach = opening ? opening.offsetTop + opening.offsetHeight - top : 0;
     const closingHeight = closing ? closing.offsetHeight : 0;
 
     // Shrink the cards until both sides fit between the bands
@@ -219,9 +231,6 @@ function enhance(section) {
         tallest[item.side] = Math.max(tallest[item.side], h);
         if (item.apart && item.side !== "on") tallest[`${item.side}Apart`] = Math.max(tallest[`${item.side}Apart`], h);
       }
-      tallest.above = Math.max(tallest.above, openingReach);
-      tallest.aboveApart = Math.max(tallest.aboveApart, openingReach);
-      tallest.below = Math.max(tallest.below, closingHeight);
       const fits = tallest.above + tallest.below + 2 * (tokens.stalk + close) <= bottom - top && tallest.on <= bottom - top;
       if (fits || scale < 0.82) break;
       scale *= 0.95;
@@ -385,30 +394,46 @@ function enhance(section) {
 
     // The push eases in and out over half a screen at either end, moving the content half that again in all
     const ease = height / 2;
+    const travel = Math.max(0, stop - end - ease); // brings the stop to its mark
+    // The bookends only move while the stage is held, so never while the article's other text is on screen.
+    // The opening's paragraphs leave top first, each once the page has scrolled as far as its distance from the first, and the lanes set off with the last.
+    // The closing's arrive the same way, the first with the lanes, and the last settles as the stage lets go.
+    // The paragraphs nearest the lanes move with them, so the others only ever pull away.
+    const leaving = [...(opening?.children ?? [])];
+    const arriving = [...(closing?.children ?? [])];
+    const hold = leaving.length ? ease + leaving.at(-1).offsetTop - leaving[0].offsetTop : 0;
+    const settle = arriving.length ? ease + arriving.at(-1).offsetTop - arriving[0].offsetTop : 0;
+    const parts = [
+      ...leaving.map(part => ({ element: part, delay: part.offsetTop - leaving.at(-1).offsetTop })),
+      ...arriving.map(part => ({ element: part, delay: part.offsetTop - arriving[0].offsetTop }))
+    ];
     geometry = {
       width,
       height,
       ease,
       start,
       finish,
-      travel: Math.max(0, stop - end - ease), // brings the stop to its mark
+      travel,
+      hold,
+      held: hold + travel + settle, // how far the page scrolls while the stage is held
+      parts,
       bookend: tokens.bookend,
       openingRight: opening ? textLeft + opening.offsetWidth : 0,
       markers,
       laneY: single ? () => line : laneY,
       sides: single ? ["line"] : ["above", "below"]
     };
-    section.style.height = `${geometry.travel + height}px`;
+    section.style.height = `${geometry.held + height}px`;
   }
 
   // Scroll --------------------------------------------------------------------
   function progressAt(top) {
-    return geometry.travel > 0 ? clamp(-top / geometry.travel, 0, 1) : 0;
+    return geometry.held > 0 ? clamp(-top / geometry.held, 0, 1) : 0;
   }
 
   function pinned() {
     const top = section.getBoundingClientRect().top;
-    return top <= 1 && top >= -geometry.travel - 1;
+    return top <= 1 && top >= -geometry.held - 1;
   }
 
   // How far the stage is from being held, in screen heights: 0 while held, up to 1 arriving and -1 leaving
@@ -416,15 +441,16 @@ function enhance(section) {
     const g = geometry;
     if (reduceMotion.matches) return 0;
     if (top > 0) return Math.min(top / g.height, 1);
-    if (top < -g.travel) return -Math.min((-g.travel - top) / g.height, 1);
+    if (top < -g.held) return -Math.min((-g.held - top) / g.height, 1);
     return 0;
   }
 
   // How far the content has moved left: a pixel per pixel scrolled while held.
   // It starts from rest once the stage is halfway up the screen, reaching that speed as it's held, and slows to rest over as far after.
+  // With bookends, it starts and comes to rest while held instead.
   function push(top) {
-    const { travel, ease } = geometry;
-    const y = -top;
+    const { travel, ease, hold } = geometry;
+    const y = -top - hold;
     if (y <= -ease) return 0;
     if (y < 0) return (y + ease) ** 2 / (2 * ease);
     if (y <= travel) return ease / 2 + y;
@@ -438,7 +464,7 @@ function enhance(section) {
     const g = geometry;
     const top = section.getBoundingClientRect().top;
     const p = progressAt(top);
-    // Everything moves together, so the gaps to the bookends never change
+    // The lanes and the bookends' nearest paragraphs move together, so the gaps between them never change
     const shift = snap(-push(top));
     // Fades in slowly across the whole arrival, fully in as it's held, and out the same way
     scene.style.opacity = progress.style.opacity = smooth(1 - Math.abs(outside(top))) ** 2;
@@ -458,9 +484,7 @@ function enhance(section) {
       tip.style.transform = `translate3d(${onScreen}px, ${g.laneY(g.sides[i], head)}px, 0)`;
     });
 
-    for (const bookend of [opening, closing]) {
-      if (bookend) bookend.style.transform = `translate3d(${shift}px, 0, 0)`;
-    }
+    for (const part of g.parts) part.element.style.transform = `translate3d(${snap(-push(top + part.delay))}px, 0, 0)`;
 
     // The bar fades in once the opening has gone off the left, and out once the tips have reached the end of the lanes
     let shown = clamp(1 + (g.finish + shift - g.width / 2) / g.bookend, 0, 1);
@@ -528,7 +552,7 @@ function enhance(section) {
     const wasPinned = geometry && pinned();
     const p = geometry ? progressAt(top) : 0;
     layout();
-    if (wasPinned) scrollTo({ top: section.getBoundingClientRect().top + scrollY + p * geometry.travel, behavior: "instant" });
+    if (wasPinned) scrollTo({ top: section.getBoundingClientRect().top + scrollY + p * geometry.held, behavior: "instant" });
     update();
     line = null; // the links may have moved, so place it afresh
     moveLine();
@@ -537,15 +561,15 @@ function enhance(section) {
   // Moves along the timeline, never past either end
   function scrollAlong(delta, behavior = "instant") {
     const top = section.getBoundingClientRect().top + scrollY;
-    scrollTo({ top: clamp(scrollY + delta, top, top + geometry.travel), behavior });
+    scrollTo({ top: clamp(scrollY + delta, top, top + geometry.held), behavior });
   }
 
   function scrollToChapter(id, behavior) {
     const chapter = chapters.find(each => each.id === id);
     if (!chapter) return false;
     // Just past the chapter's start reaching the middle of the screen, where the lines fill to, so it's the current one.
-    // While held, the content has moved half the ease plus the distance scrolled.
-    const distance = clamp(chapter.x + 1 - geometry.width / 2 - geometry.ease / 2, 0, geometry.travel);
+    // While held, the content has moved half the ease plus the distance scrolled since the hold.
+    const distance = clamp(chapter.x + 1 - geometry.width / 2 - geometry.ease / 2 + geometry.hold, 0, geometry.held);
     scrollTo({ top: section.getBoundingClientRect().top + scrollY + distance, behavior });
     return true;
   }
@@ -632,13 +656,13 @@ function enhance(section) {
 
   // Printed as a list
   addEventListener("beforeprint", () => {
+    opening?.append(...openingParts);
+    closing?.append(...closingParts);
     section.classList.remove("is-enhanced");
     section.style.height = "";
     track.style.transform = "";
     scene.style.opacity = "";
-    for (const bookend of [opening, closing]) {
-      if (bookend) bookend.style.transform = "";
-    }
+    for (const part of [...openingParts, ...closingParts]) part.style.transform = "";
   });
   addEventListener("afterprint", () => {
     section.classList.add("is-enhanced");

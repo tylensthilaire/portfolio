@@ -74,6 +74,14 @@ the opening sits on the text column where the next paragraph would be, and the
 closing comes to rest on the same column, at the foot. The lanes start and end
 one column and two gutters from them.
 
+Either bookend can run to several paragraphs, since it sits beside the lanes
+rather than above or below them. They only move while the timeline holds the
+screen, so never while the article's other text is in view. The opening's
+paragraphs leave one after another, top first, and the lanes set off with the
+last. The closing's arrive the same way, and settle before the page moves on.
+On screens too short to fit one, its paragraphs furthest from the lanes read
+before or after the timeline instead.
+
 The name points at `_data/timelines/<name>.json`, rendered through
 `_includes/partials/timeline.njk`. An unknown name, lane or `rails` value, a
 figure missing its image or alt text, an event out of order, or more than one

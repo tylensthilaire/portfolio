@@ -308,6 +308,10 @@
   position: absolute;
   left: 0;
   width: var(--measure-b);
+}
+
+// Its paragraphs move separately, staggered
+.is-enhanced .c-timeline__bookend > * {
   will-change: transform;
 }
 
