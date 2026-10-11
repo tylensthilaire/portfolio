@@ -29,7 +29,7 @@
           "year": "1911",
           "lane": "experience",
           "title": "Motion study",
-          "body": "Frank and Lillian Gilbreth develop motion study, filming tasks and breaking them into elemental motions, their “therbligs”, to find the least tiring way. They split from Taylor in 1914 over how workers were treated. The two methods later merge as time-and-motion study."
+          "body": "Frank Gilbreth's <em>Motion Study</em> breaks work into elemental motions, later called “therbligs”, to find the least tiring way. From 1912 he and Lillian consult for factory owners too, studying workers from the outside with a film camera rather than a stopwatch. They split from Taylor in 1914, to give the human side of the work more weight. The two methods later merge as time-and-motion study."
         },
         {
           "year": "1923",
@@ -220,7 +220,7 @@
           "year": "Mid-1990s",
           "lane": "product",
           "title": "Good PM / Bad PM",
-          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The description later proves to be problematic at best."
+          "body": "At Netscape, Ben Horowitz's memo becomes one of the first widely shared descriptions of the job: “the CEO of the product”. The phrase sticks, and so does the argument over whether a PM has a CEO's authority."
         },
         {
           "year": "1998",
@@ -413,6 +413,12 @@
           "lane": "both",
           "title": "Continuous discovery",
           "body": "Teresa Torres's <em>Continuous Discovery Habits</em> has the product trio talking to customers every week. Research and problem framing become part of PM's job."
+        },
+        {
+          "year": "2021",
+          "lane": "both",
+          "title": "Both claim discovery",
+          "body": "Nielsen Norman Group surveys 372 UX and product professionals. Asked who owns discovery, product managers most often say product and UX practitioners overwhelmingly say UX. Both say the other intrudes on their work."
         },
         {
           "year": "2021–23",
